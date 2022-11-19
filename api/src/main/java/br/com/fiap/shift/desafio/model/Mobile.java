@@ -8,4 +8,13 @@ public class Mobile extends Equipamento {
     public Mobile(Long id, Cliente cliente, String numeroDeSerie) {
         super(id, cliente, numeroDeSerie, TipoEquipamento.MOBILE);
     }
+
+
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("Mobile{");
+        sb.append(super.toString());
+        sb.append('}');
+        return sb.toString();
+    }
 }

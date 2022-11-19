@@ -28,6 +28,51 @@ public class Equipamento {
         COMPUTADOR, MOBILE, VIDEO_GAME
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public Equipamento setId(Long id) {
+        this.id = id;
+        return this;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public Equipamento setCliente(Cliente cliente) {
+        this.cliente = cliente;
+        return this;
+    }
+
+    public String getNumeroDeSerie() {
+        return numeroDeSerie;
+    }
+
+    public Equipamento setNumeroDeSerie(String numeroDeSerie) {
+        this.numeroDeSerie = numeroDeSerie;
+        return this;
+    }
+
+    public TipoEquipamento getTipo() {
+        return tipo;
+    }
+
+    public Equipamento setTipo(TipoEquipamento tipo) {
+        this.tipo = tipo;
+        return this;
+    }
 
 
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("Equipamento{");
+        sb.append("id=").append(id);
+        sb.append(", cliente=").append(cliente);
+        sb.append(", numeroDeSerie='").append(numeroDeSerie).append('\'');
+        sb.append(", tipo=").append(tipo);
+        sb.append('}');
+        return sb.toString();
+    }
 }

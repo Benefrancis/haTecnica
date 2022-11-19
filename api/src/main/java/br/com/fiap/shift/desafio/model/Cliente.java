@@ -26,6 +26,24 @@ public abstract class Cliente implements Autenticavel {
     }
 
 
+    public Long getId() {
+        return id;
+    }
+
+    public Cliente setId(Long id) {
+        this.id = id;
+        return this;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public Cliente setNome(String nome) {
+        this.nome = nome;
+        return this;
+    }
+
     @Override
     public String toString() {
         final StringBuffer sb = new StringBuffer("Cliente{");

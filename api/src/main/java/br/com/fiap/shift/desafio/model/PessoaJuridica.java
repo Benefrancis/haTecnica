@@ -29,7 +29,7 @@ public class PessoaJuridica extends Cliente {
     public String toString() {
         final StringBuffer sb = new StringBuffer("PessoaJuridica{");
         sb.append("razaoSocial='").append(razaoSocial).append('\'');
-        sb.append("Cliente=").append(super.toString());
+        sb.append(super.toString());
         sb.append('}');
         return sb.toString();
     }

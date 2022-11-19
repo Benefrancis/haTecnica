@@ -8,4 +8,13 @@ public class VideoGame extends Equipamento {
     public VideoGame(Long id, Cliente cliente, String numeroDeSerie) {
         super(id, cliente, numeroDeSerie, TipoEquipamento.VIDEO_GAME);
     }
+
+
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("VideoGame{");
+        sb.append(super.toString());
+        sb.append('}');
+        return sb.toString();
+    }
 }

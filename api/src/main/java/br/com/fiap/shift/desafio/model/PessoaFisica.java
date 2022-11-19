@@ -28,7 +28,7 @@ public class PessoaFisica extends Cliente {
     public String toString() {
         final StringBuffer sb = new StringBuffer("PessoaFisica{");
         sb.append("nascimento=").append(nascimento);
-        sb.append("Cliente=").append(super.toString());
+        sb.append(super.toString());
         sb.append('}');
         return sb.toString();
     }
