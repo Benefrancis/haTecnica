@@ -16,7 +16,6 @@ public final class ClienteCollectionRepository {
 
 
     private ClienteCollectionRepository() {
-
     }
 
     static {

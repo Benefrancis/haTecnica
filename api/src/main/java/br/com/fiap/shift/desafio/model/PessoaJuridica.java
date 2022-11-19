@@ -23,6 +23,7 @@ public class PessoaJuridica extends Cliente {
         return this;
     }
 
+
     @Override
     public String toString() {
         final StringBuffer sb = new StringBuffer("PessoaJuridica{");

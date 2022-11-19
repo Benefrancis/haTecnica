@@ -11,6 +11,7 @@ public class Limpeza extends Servico {
         super(id, TipoServico.LIMPEZA, descricao, dataAutorizacao, dataInicio, dataConclusao, equipamento, valor);
     }
 
+
     @Override
     public String toString() {
         final StringBuffer sb = new StringBuffer("Limpeza{");

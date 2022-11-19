@@ -40,9 +40,9 @@ public class Documento {
 
         @Override
         public String toString() {
-            final StringBuffer sb = new StringBuffer("TipoDocumento{");
-            sb.append("valor=").append(valor);
-            sb.append(", nome='").append(nome).append('\'');
+            final StringBuffer sb = new StringBuffer(" {");
+            sb.append("valor: ").append(valor);
+            sb.append(", nome : '").append(nome).append('\'');
             sb.append('}');
             return sb.toString();
         }
@@ -115,6 +115,7 @@ public class Documento {
         this.tipo = tipo;
         return this;
     }
+
 
     @Override
     public String toString() {

@@ -61,6 +61,7 @@ public class Endereco implements Serializable {
         return this;
     }
 
+
     @Override
     public String toString() {
         final StringBuffer sb = new StringBuffer("Endereco{");

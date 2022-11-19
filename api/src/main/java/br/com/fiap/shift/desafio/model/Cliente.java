@@ -47,13 +47,6 @@ public abstract class Cliente implements Autenticavel {
         return this;
     }
 
-    @Override
-    public String toString() {
-        final StringBuffer sb = new StringBuffer("Cliente{");
-        sb.append("tipo=").append(tipo);
-        sb.append('}');
-        return sb.toString();
-    }
 
     public enum TipoCliente {
         PF(1, "Pessoa Física"), PJ(2, "Pessoa Jurídica");
@@ -74,6 +67,7 @@ public abstract class Cliente implements Autenticavel {
             return nome;
         }
 
+
         @Override
         public String toString() {
             final StringBuffer sb = new StringBuffer("TipoCliente{");
@@ -82,5 +76,15 @@ public abstract class Cliente implements Autenticavel {
             sb.append('}');
             return sb.toString();
         }
+    }
+
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("Cliente{");
+        sb.append("id=").append(id);
+        sb.append(", tipo=").append(tipo);
+        sb.append(", nome='").append(nome).append('\'');
+        sb.append('}');
+        return sb.toString();
     }
 }

@@ -39,15 +39,16 @@ public class Servico {
             return nome;
         }
 
-		@Override
-		public String toString() {
-			final StringBuffer sb = new StringBuffer("TipoServico{");
-			sb.append("valor=").append(valor);
-			sb.append(", nome='").append(nome).append('\'');
-			sb.append('}');
-			return sb.toString();
-		}
-	}
+
+        @Override
+        public String toString() {
+            final StringBuffer sb = new StringBuffer("TipoServico{");
+            sb.append("valor=").append(valor);
+            sb.append(", nome='").append(nome).append('\'');
+            sb.append('}');
+            return sb.toString();
+        }
+    }
 
 
     public Servico(TipoServico tipo, Equipamento equipamento, double valor) {

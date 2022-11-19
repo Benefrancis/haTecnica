@@ -11,6 +11,7 @@ public class Orcamento extends Servico {
         super(id, TipoServico.ORCAMENTO, descricao, dataAutorizacao, dataInicio, dataConclusao, equipamento, valor);
     }
 
+
     @Override
     public String toString() {
         final StringBuffer sb = new StringBuffer("Orcamento{");
