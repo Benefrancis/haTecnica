@@ -7,7 +7,7 @@ public class Limpeza extends Servico {
         super(TipoServico.LIMPEZA, equipamento, valor);
     }
 
-    public Limpeza(Long id, String descricao, LocalDateTime dataAutorizacao, LocalDateTime dataInicio, LocalDateTime dataConclusao, Equipamento equipamento, double valor) {
+    public Limpeza(Long id,  Equipamento equipamento, double valor, String descricao, LocalDateTime dataAutorizacao, LocalDateTime dataInicio, LocalDateTime dataConclusao) {
         super(id, TipoServico.LIMPEZA, descricao, dataAutorizacao, dataInicio, dataConclusao, equipamento, valor);
     }
 

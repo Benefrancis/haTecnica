@@ -24,7 +24,7 @@ public class Equipamento {
         this.tipo = tipo;
     }
 
-    enum TipoEquipamento {
+    public enum TipoEquipamento {
         COMPUTADOR(1, "Computador"), MOBILE(2, "Mobile"), VIDEO_GAME(3, "Vídeo game");
 
         private final int valor;

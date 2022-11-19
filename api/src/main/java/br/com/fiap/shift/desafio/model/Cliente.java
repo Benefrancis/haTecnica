@@ -8,9 +8,15 @@ public abstract class Cliente implements Autenticavel {
 
     private String nome;
 
-
-    public Cliente(TipoCliente tipo) {
+    public Cliente(Long id, TipoCliente tipo, String nome) {
+        this.id = id;
         this.tipo = tipo;
+        this.nome = nome;
+    }
+
+    public Cliente(TipoCliente pf, String nome) {
+        this.tipo = tipo;
+        this.nome = nome;
     }
 
     public TipoCliente getTipo() {
@@ -49,7 +55,7 @@ public abstract class Cliente implements Autenticavel {
         return sb.toString();
     }
 
-     enum  TipoCliente {
+    public enum TipoCliente {
         PF(1, "Pessoa Física"), PJ(2, "Pessoa Jurídica");
 
         private final int valor;

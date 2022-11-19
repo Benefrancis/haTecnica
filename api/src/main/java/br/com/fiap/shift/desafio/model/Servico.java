@@ -20,7 +20,7 @@ public class Servico {
 
     private double valor;
 
-    enum TipoServico {
+    public enum TipoServico {
         ORCAMENTO(1, "Orçamento"), LIMPEZA(2, "Limpeza"), SUBSTITUICAO_DE_PECA(3, "Substituição de Peça");
 
         private final int valor;

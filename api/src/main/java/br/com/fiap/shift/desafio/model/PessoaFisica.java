@@ -5,14 +5,18 @@ import java.time.LocalDate;
 public class PessoaFisica extends Cliente {
     private LocalDate nascimento;
 
-    public PessoaFisica() {
-        super(TipoCliente.PF);
-    }
 
-    public PessoaFisica(LocalDate nascimento) {
-        super(TipoCliente.PF);
+    public PessoaFisica(Long id, String nome, LocalDate nascimento) {
+        super(id, TipoCliente.PF, nome);
         this.nascimento = nascimento;
     }
+
+
+    public PessoaFisica(String nome, LocalDate nascimento) {
+        super(TipoCliente.PF, nome);
+        this.nascimento = nascimento;
+    }
+
 
     public LocalDate getNascimento() {
         return nascimento;

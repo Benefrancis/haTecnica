@@ -1,17 +1,16 @@
 package br.com.fiap.shift.desafio.model;
 
-import java.time.LocalDate;
-
 public class PessoaJuridica extends Cliente {
 
     private String razaoSocial;
 
-    public PessoaJuridica() {
-        super(TipoCliente.PJ);
+    public PessoaJuridica(Long id, String nome, String razaoSocial) {
+        super(id, TipoCliente.PJ, nome);
+        this.razaoSocial = razaoSocial;
     }
 
-    public PessoaJuridica(String razaoSocial) {
-        super(TipoCliente.PJ);
+    public PessoaJuridica(String nome, String razaoSocial) {
+        super(TipoCliente.PJ, nome);
         this.razaoSocial = razaoSocial;
     }
 
@@ -23,7 +22,6 @@ public class PessoaJuridica extends Cliente {
         this.razaoSocial = razaoSocial;
         return this;
     }
-
 
     @Override
     public String toString() {

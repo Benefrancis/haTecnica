@@ -11,7 +11,7 @@ public class SubstitucaoDePeca extends Servico {
         this.nomePecaSubstituida = nomePecaSubstituida;
     }
 
-    public SubstitucaoDePeca(Long id, String descricao, LocalDateTime dataAutorizacao, LocalDateTime dataInicio, LocalDateTime dataConclusao, Equipamento equipamento, double valor, String nomePecaSubstituida) {
+    public SubstitucaoDePeca(Long id, Equipamento equipamento, double valor, String descricao, LocalDateTime dataAutorizacao, LocalDateTime dataInicio, LocalDateTime dataConclusao, String nomePecaSubstituida) {
         super(id, TipoServico.SUBSTITUICAO_DE_PECA, descricao, dataAutorizacao, dataInicio, dataConclusao, equipamento, valor);
         this.nomePecaSubstituida = nomePecaSubstituida;
     }
