@@ -22,7 +22,7 @@ public final class ServicoCollectionRepository {
         Equipamento e2 = EquipamentoCollectionRepository.findById(2L).orElse(null);
 
         Servico s1 = new Limpeza(1L, e1, 159.90, "Realizamos alimpeza das peças", LocalDateTime.now().minusHours(5), LocalDateTime.now().minusHours(4), LocalDateTime.now());
-        Servico s2 = new SubstitucaoDePeca(1L, e1, 159.90, "Realizamos a troca da tela do celular", LocalDateTime.now().minusHours(5), LocalDateTime.now().minusHours(4), LocalDateTime.now(), "Tela do Mobile");
+        Servico s2 = new SubstitucaoDePeca(1L, e2, 159.90, "Realizamos a troca da tela do celular", LocalDateTime.now().minusHours(5), LocalDateTime.now().minusHours(4), LocalDateTime.now(), "Tela do Mobile");
 
         servicos.add(s1);
         servicos.add(s2);
