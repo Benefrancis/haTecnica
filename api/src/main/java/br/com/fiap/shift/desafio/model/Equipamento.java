@@ -25,8 +25,34 @@ public class Equipamento {
     }
 
     enum TipoEquipamento {
-        COMPUTADOR, MOBILE, VIDEO_GAME
+        COMPUTADOR(1, "Computador"), MOBILE(2, "Mobile"), VIDEO_GAME(3, "Vídeo game");
+
+        private final int valor;
+        private final String nome;
+
+        TipoEquipamento(int i, String nome) {
+            valor = i;
+            this.nome = nome;
+        }
+
+        public int getValor() {
+            return valor;
+        }
+
+        public String getNome() {
+            return nome;
+        }
+
+        @Override
+        public String toString() {
+            final StringBuffer sb = new StringBuffer("TipoEquipamento{");
+            sb.append("valor=").append(valor);
+            sb.append(", nome='").append(nome).append('\'');
+            sb.append('}');
+            return sb.toString();
+        }
     }
+
 
     public Long getId() {
         return id;

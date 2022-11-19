@@ -19,7 +19,33 @@ public class Documento {
 
 
     enum TipoDocumento {
-        RG, CPF, CNPJ
+
+        RG(1, "RG"), CPF(2, "CPF"), CNPJ(3, "CNPJ");
+
+        private final int valor;
+        private final String nome;
+
+        TipoDocumento(int i, String nome) {
+            valor = i;
+            this.nome = nome;
+        }
+
+        public int getValor() {
+            return valor;
+        }
+
+        public String getNome() {
+            return nome;
+        }
+
+        @Override
+        public String toString() {
+            final StringBuffer sb = new StringBuffer("TipoDocumento{");
+            sb.append("valor=").append(valor);
+            sb.append(", nome='").append(nome).append('\'');
+            sb.append('}');
+            return sb.toString();
+        }
     }
 
     public Documento(Long id, Cliente cliente, String numero, LocalDate emissao, LocalDate validade, TipoDocumento tipo) {
