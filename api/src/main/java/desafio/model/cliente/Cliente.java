@@ -1,20 +1,32 @@
 package desafio.model.cliente;
 
+import jakarta.persistence.*;
+
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "tipo")
 public abstract class Cliente implements Autenticavel {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_CLIENTE")
+    @SequenceGenerator(name = "SEQ_CLIENTE", sequenceName = "SEQ_CLIENTE", allocationSize = 1, initialValue = 1)
+    @Column(name = "ID_CLIENTE")
     private Long id;
 
+    @Enumerated(EnumType.ORDINAL)
+    @Column(insertable = false, updatable = false)
     private TipoCliente tipo;
 
     private String nome;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "ID_ENDERECO", referencedColumnName = "ID_ENDERECO",  foreignKey = @ForeignKey(name = "FK_ENDERECO_CLIENTE", value = ConstraintMode.CONSTRAINT) )
     private Endereco endereco;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "ID_TELEFONE", referencedColumnName = "ID_TELEFONE",  foreignKey = @ForeignKey(name = "FK_TELEFONE_CLIENTE", value = ConstraintMode.CONSTRAINT) )
     private Telefone telefone;
 
-
-    public Cliente() {
-    }
 
     public Cliente(TipoCliente tipo, String nome) {
         this.tipo = tipo;
@@ -33,6 +45,14 @@ public abstract class Cliente implements Autenticavel {
         this.nome = nome;
         this.endereco = endereco;
         this.telefone = telefone;
+    }
+
+    public Cliente(TipoCliente tipo) {
+        this.tipo = tipo;
+    }
+
+    public Cliente() {
+
     }
 
 

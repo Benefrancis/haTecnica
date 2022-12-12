@@ -1,6 +1,15 @@
 package desafio.model.cliente;
 
+import jakarta.persistence.*;
+
+@Entity
 public class Endereco {
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_ENDERECO")
+    @SequenceGenerator(name = "SEQ_ENDERECO", sequenceName = "SEQ_ENDERECO", allocationSize = 1, initialValue = 1)
+    @Column(name = "ID_ENDERECO")
+    private Long id;
+
 
     private String logradouro;
 
@@ -10,8 +19,13 @@ public class Endereco {
 
     private String bairro;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "ID_CEP", referencedColumnName = "ID_CEP",foreignKey = @ForeignKey(name = "FK_CEP_ENDERECO", value = ConstraintMode.CONSTRAINT) )
     private CEP cep;
 
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "ID_CIDADE", referencedColumnName = "ID_CIDADE", foreignKey = @ForeignKey(name = "FK_CIDADE_ENDERECO", value = ConstraintMode.CONSTRAINT) )
     private Cidade cidade;
 
 
@@ -88,17 +102,48 @@ public class Endereco {
     }
 }
 
+
+@Entity
 class CEP implements Validavel<String> {
 
-    private final String codigoDeEnderecamentoPostal;
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_CEP")
+    @SequenceGenerator(name = "SEQ_CEP", sequenceName = "SEQ_CEP", allocationSize = 1, initialValue = 1)
+    @Column(name = "ID_CEP")
+    private Long id;
+
+
+    private String cep;
 
     public CEP(String cep) {
 
         if (validar(cep)) {
-            this.codigoDeEnderecamentoPostal = cep;
+            this.cep = cep;
         } else {
             throw new RuntimeException("O CEP " + cep + " é inválido!");
         }
+    }
+
+    public CEP() {
+
+    }
+
+
+    public Long getId() {
+        return id;
+    }
+
+    public CEP setId(Long id) {
+        if (validar(cep)) {
+            this.cep = cep;
+        } else {
+            throw new RuntimeException("O CEP " + cep + " é inválido!");
+        }
+        return this;
+    }
+
+    public String getCep() {
+        return cep;
     }
 
     @Override
@@ -108,8 +153,9 @@ class CEP implements Validavel<String> {
 
     @Override
     public String toString() {
-        return codigoDeEnderecamentoPostal;
+        return cep;
     }
+
 }
 
 

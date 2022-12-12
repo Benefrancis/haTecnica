@@ -1,23 +1,42 @@
 package desafio.model.servico;
 
 import desafio.model.equipamento.Equipamento;
+import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 
-public class Servico {
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name="tipo")
+public abstract class Servico {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_SERVICO")
+    @SequenceGenerator(name = "SEQ_SERVICO", sequenceName = "SEQ_SERVICO", allocationSize = 1, initialValue = 1)
+    @Column(name = "ID_SERVICO")
     private Long id;
 
+    @Enumerated(EnumType.ORDINAL)
+    @Column(insertable=false, updatable=false)
     private TipoServico tipo;
 
     private String descricao;
 
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "DT_AUTORIZACAO")
     private LocalDateTime dataAutorizacao;
 
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "DT_INICIO")
     private LocalDateTime dataInicio;
 
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "DT_CONCLUSAO")
     private LocalDateTime dataConclusao;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "ID_EQUIPAMENTO", referencedColumnName = "ID_EQUIPAMENTO", foreignKey = @ForeignKey(name = "FK_EQUIPAMENTO_SERVICO", value = ConstraintMode.CONSTRAINT) )
     private Equipamento equipamento;
 
     private double valor;
@@ -38,6 +57,16 @@ public class Servico {
         this.dataConclusao = dataConclusao;
         this.equipamento = equipamento;
         this.valor = valor;
+    }
+
+
+
+    public Servico() {
+
+    }
+
+    public Servico(TipoServico limpeza) {
+        this.tipo = limpeza;
     }
 
     public Long getId() {

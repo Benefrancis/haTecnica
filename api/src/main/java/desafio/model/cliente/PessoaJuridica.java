@@ -1,10 +1,19 @@
 package desafio.model.cliente;
 
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
+
 import java.util.StringJoiner;
 
+@Entity
+@DiscriminatorValue("2")
 public class PessoaJuridica extends Cliente {
 
     private String razaoSocial;
+
+    public PessoaJuridica() {
+        super(TipoCliente.PJ);
+    }
 
     public PessoaJuridica(Long id, String nome, String razaoSocial) {
         super(id, TipoCliente.PJ, nome);
@@ -24,7 +33,6 @@ public class PessoaJuridica extends Cliente {
         this.razaoSocial = razaoSocial;
         return this;
     }
-
 
     @Override
     public String toString() {

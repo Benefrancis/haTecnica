@@ -1,7 +1,14 @@
 package desafio.model.cliente;
 
+import jakarta.persistence.*;
+
+@Entity
 public class Telefone {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_TELEFONE")
+    @SequenceGenerator(name = "SEQ_TELEFONE", sequenceName = "SEQ_TELEFONE", allocationSize = 1, initialValue = 1)
+    @Column(name = "ID_TELEFONE")
     private Long id;
 
     private String ddi;

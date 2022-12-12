@@ -1,19 +1,34 @@
 package desafio.model.cliente;
 
+import jakarta.persistence.*;
+
 import java.time.LocalDate;
 
+@Entity
 public class Documento {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_DOCUMENTO")
+    @SequenceGenerator(name = "SEQ_DOCUMENTO", sequenceName = "SEQ_DOCUMENTO", allocationSize = 1, initialValue = 1)
+    @Column(name = "ID_DOCUMENTO")
     private Long id;
 
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "ID_CLIENTE", referencedColumnName = "ID_CLIENTE", foreignKey = @ForeignKey(name = "FK_CLIENTE_DOCUMENTO", value = ConstraintMode.CONSTRAINT) )
     private Cliente cliente;
 
     private String numero;
 
+    @Temporal(TemporalType.DATE)
+    @Column(name = "DT_EMISSAO")
     private LocalDate emissao;
 
+    @Temporal(TemporalType.DATE)
+    @Column(name = "DT_VALIDADE")
     private LocalDate validade;
 
+    @Enumerated(EnumType.ORDINAL)
     private TipoDocumento tipo;
 
 
@@ -28,6 +43,10 @@ public class Documento {
 
     public Documento(Cliente cliente) {
         this.cliente = cliente;
+    }
+
+    public Documento() {
+
     }
 
     public Long getId() {
