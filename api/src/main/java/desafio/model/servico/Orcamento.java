@@ -1,4 +1,6 @@
-package br.com.fiap.shift.desafio.model;
+package desafio.model.servico;
+
+import desafio.model.equipamento.Equipamento;
 
 import java.time.LocalDateTime;
 
@@ -14,9 +16,8 @@ public class Orcamento extends Servico {
 
     @Override
     public String toString() {
-        final StringBuffer sb = new StringBuffer("Orcamento{");
-        sb.append(super.toString());
-        sb.append('}');
-        return sb.toString();
+        String sb = "Orcamento{" + super.toString() +
+                '}';
+        return sb;
     }
 }

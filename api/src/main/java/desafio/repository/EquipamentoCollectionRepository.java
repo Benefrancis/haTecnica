@@ -1,9 +1,9 @@
-package br.com.fiap.shift.desafio.repository;
+package desafio.repository;
 
-import br.com.fiap.shift.desafio.model.Cliente;
-import br.com.fiap.shift.desafio.model.Computador;
-import br.com.fiap.shift.desafio.model.Equipamento;
-import br.com.fiap.shift.desafio.model.Mobile;
+import desafio.model.cliente.Cliente;
+import desafio.model.equipamento.Computador;
+import desafio.model.equipamento.Equipamento;
+import desafio.model.equipamento.Mobile;
 
 import java.util.List;
 import java.util.Optional;

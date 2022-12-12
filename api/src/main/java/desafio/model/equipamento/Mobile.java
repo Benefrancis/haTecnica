@@ -1,4 +1,6 @@
-package br.com.fiap.shift.desafio.model;
+package desafio.model.equipamento;
+
+import desafio.model.cliente.Cliente;
 
 public class Mobile extends Equipamento {
     public Mobile(Cliente cliente) {
@@ -12,9 +14,8 @@ public class Mobile extends Equipamento {
 
     @Override
     public String toString() {
-        final StringBuffer sb = new StringBuffer("Mobile{");
-        sb.append(super.toString());
-        sb.append('}');
-        return sb.toString();
+        String sb = "Mobile{" + super.toString() +
+                '}';
+        return sb;
     }
 }

@@ -1,4 +1,6 @@
-package br.com.fiap.shift.desafio.model;
+package desafio.model.servico;
+
+import desafio.model.equipamento.Equipamento;
 
 import java.time.LocalDateTime;
 
@@ -20,42 +22,12 @@ public class Servico {
 
     private double valor;
 
-    public enum TipoServico {
-        ORCAMENTO(1, "Orçamento"), LIMPEZA(2, "Limpeza"), SUBSTITUICAO_DE_PECA(3, "Substituição de Peça");
-
-        private final int valor;
-        private final String nome;
-
-        TipoServico(int i, String nome) {
-            valor = i;
-            this.nome = nome;
-        }
-
-        public int getValor() {
-            return valor;
-        }
-
-        public String getNome() {
-            return nome;
-        }
-
-
-        @Override
-        public String toString() {
-            final StringBuffer sb = new StringBuffer("TipoServico{");
-            sb.append("valor=").append(valor);
-            sb.append(", nome='").append(nome).append('\'');
-            sb.append('}');
-            return sb.toString();
-        }
-    }
-
-
     public Servico(TipoServico tipo, Equipamento equipamento, double valor) {
         this.tipo = tipo;
         this.equipamento = equipamento;
         this.valor = valor;
     }
+
 
     public Servico(Long id, TipoServico tipo, String descricao, LocalDateTime dataAutorizacao, LocalDateTime dataInicio, LocalDateTime dataConclusao, Equipamento equipamento, double valor) {
         this.id = id;
@@ -140,19 +112,47 @@ public class Servico {
         return this;
     }
 
-
     @Override
     public String toString() {
-        final StringBuffer sb = new StringBuffer("Servico{");
-        sb.append("id=").append(id);
-        sb.append(", tipo=").append(tipo);
-        sb.append(", descricao='").append(descricao).append('\'');
-        sb.append(", dataAutorizacao=").append(dataAutorizacao);
-        sb.append(", dataInicio=").append(dataInicio);
-        sb.append(", dataConclusao=").append(dataConclusao);
-        sb.append(", equipamento=").append(equipamento);
-        sb.append(", valor=").append(valor);
-        sb.append('}');
-        return sb.toString();
+        String sb = "Servico{" + "id=" + id +
+                ", tipo=" + tipo +
+                ", descricao='" + descricao + '\'' +
+                ", dataAutorizacao=" + dataAutorizacao +
+                ", dataInicio=" + dataInicio +
+                ", dataConclusao=" + dataConclusao +
+                ", equipamento=" + equipamento +
+                ", valor=" + valor +
+                '}';
+        return sb;
+    }
+
+
+    public enum TipoServico {
+        ORCAMENTO(1, "Orçamento"), LIMPEZA(2, "Limpeza"), SUBSTITUICAO_DE_PECA(3, "Substituição de Peça");
+
+        private final int valor;
+        private final String nome;
+
+        TipoServico(int i, String nome) {
+            valor = i;
+            this.nome = nome;
+        }
+
+        public int getValor() {
+            return valor;
+        }
+
+        public String getNome() {
+            return nome;
+        }
+
+
+        @Override
+        public String toString() {
+            String sb = "TipoServico{" + "valor=" + valor +
+                    ", nome='" + nome + '\'' +
+                    '}';
+            return sb;
+        }
     }
 }

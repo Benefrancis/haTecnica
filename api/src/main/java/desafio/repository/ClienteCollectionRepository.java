@@ -1,8 +1,10 @@
-package br.com.fiap.shift.desafio.repository;
+package desafio.repository;
 
-import br.com.fiap.shift.desafio.model.Cliente;
-import br.com.fiap.shift.desafio.model.PessoaFisica;
-import br.com.fiap.shift.desafio.model.PessoaJuridica;
+import desafio.model.cliente.Cliente;
+import desafio.model.cliente.PessoaFisica;
+import desafio.model.cliente.PessoaJuridica;
+import desafio.model.cliente.Telefone;
+
 
 import java.time.LocalDate;
 import java.util.List;
@@ -22,7 +24,21 @@ public final class ClienteCollectionRepository {
         clientes = new Vector<>();
 
         Cliente c1 = new PessoaFisica(1L, "Benefrancis do Nascimento", LocalDate.of(1977, 3, 8));
+
+
+        Telefone tel = new Telefone();
+
+        tel.setDdi("55").setDdd("11").setNumero("982816536").setId(1L);
+
+        c1.setTelefone(tel);
+
+
         Cliente c2 = new PessoaJuridica(2L, "FIAP", "Faculdade de Informática e Administração Paulista");
+
+        Telefone tel2 = new Telefone();
+
+        tel2.setDdi("55").setDdd("11").setNumero("58917418").setId(2L);
+        c2.setTelefone(tel2);
 
         clientes.add(c1);
         clientes.add(c2);

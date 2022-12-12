@@ -1,4 +1,4 @@
-package br.com.fiap.shift.desafio.model;
+package desafio.model.cliente;
 
 import java.time.LocalDate;
 
@@ -10,43 +10,12 @@ public class Documento {
 
     private String numero;
 
-
     private LocalDate emissao;
 
     private LocalDate validade;
 
     private TipoDocumento tipo;
 
-
-    enum TipoDocumento {
-
-        RG(1, "RG"), CPF(2, "CPF"), CNPJ(3, "CNPJ");
-
-        private final int valor;
-        private final String nome;
-
-        TipoDocumento(int i, String nome) {
-            valor = i;
-            this.nome = nome;
-        }
-
-        public int getValor() {
-            return valor;
-        }
-
-        public String getNome() {
-            return nome;
-        }
-
-        @Override
-        public String toString() {
-            final StringBuffer sb = new StringBuffer(" {");
-            sb.append("valor: ").append(valor);
-            sb.append(", nome : '").append(nome).append('\'');
-            sb.append('}');
-            return sb.toString();
-        }
-    }
 
     public Documento(Long id, Cliente cliente, String numero, LocalDate emissao, LocalDate validade, TipoDocumento tipo) {
         this.id = id;
@@ -60,7 +29,6 @@ public class Documento {
     public Documento(Cliente cliente) {
         this.cliente = cliente;
     }
-
 
     public Long getId() {
         return id;
@@ -116,17 +84,45 @@ public class Documento {
         return this;
     }
 
-
     @Override
     public String toString() {
-        final StringBuffer sb = new StringBuffer("Documento{");
-        sb.append("id=").append(id);
-        sb.append(", cliente=").append(cliente);
-        sb.append(", numero='").append(numero).append('\'');
-        sb.append(", emissao=").append(emissao);
-        sb.append(", validade=").append(validade);
-        sb.append(", tipo=").append(tipo);
-        sb.append('}');
-        return sb.toString();
+        String sb = "Documento{" + "id=" + id +
+                ", cliente=" + cliente +
+                ", numero='" + numero + '\'' +
+                ", emissao=" + emissao +
+                ", validade=" + validade +
+                ", tipo=" + tipo +
+                '}';
+        return sb;
+    }
+
+
+    enum TipoDocumento {
+
+        RG(1, "RG"), CPF(2, "CPF"), CNPJ(3, "CNPJ");
+
+        private final int valor;
+        private final String nome;
+
+        TipoDocumento(int i, String nome) {
+            valor = i;
+            this.nome = nome;
+        }
+
+        public int getValor() {
+            return valor;
+        }
+
+        public String getNome() {
+            return nome;
+        }
+
+        @Override
+        public String toString() {
+            String sb = " {" + "valor: " + valor +
+                    ", nome : '" + nome + '\'' +
+                    '}';
+            return sb;
+        }
     }
 }

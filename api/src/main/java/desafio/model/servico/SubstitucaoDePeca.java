@@ -1,4 +1,6 @@
-package br.com.fiap.shift.desafio.model;
+package desafio.model.servico;
+
+import desafio.model.equipamento.Equipamento;
 
 import java.time.LocalDateTime;
 
@@ -28,10 +30,9 @@ public class SubstitucaoDePeca extends Servico {
 
     @Override
     public String toString() {
-        final StringBuffer sb = new StringBuffer("SubstitucaoDePeca{");
-        sb.append("nomePecaSubstituida='").append(nomePecaSubstituida).append('\'');
-        sb.append(super.toString());
-        sb.append('}');
-        return sb.toString();
+        String sb = "SubstitucaoDePeca{" + "nomePecaSubstituida='" + nomePecaSubstituida + '\'' +
+                super.toString() +
+                '}';
+        return sb;
     }
 }

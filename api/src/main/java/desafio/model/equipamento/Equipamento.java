@@ -1,4 +1,6 @@
-package br.com.fiap.shift.desafio.model;
+package desafio.model.equipamento;
+
+import desafio.model.cliente.Cliente;
 
 public class Equipamento {
 
@@ -23,36 +25,6 @@ public class Equipamento {
         this.numeroDeSerie = numeroDeSerie;
         this.tipo = tipo;
     }
-
-    public enum TipoEquipamento {
-        COMPUTADOR(1, "Computador"), MOBILE(2, "Mobile"), VIDEO_GAME(3, "Vídeo game");
-
-        private final int valor;
-        private final String nome;
-
-        TipoEquipamento(int i, String nome) {
-            valor = i;
-            this.nome = nome;
-        }
-
-        public int getValor() {
-            return valor;
-        }
-
-        public String getNome() {
-            return nome;
-        }
-
-        @Override
-        public String toString() {
-            final StringBuffer sb = new StringBuffer(" {");
-            sb.append("valor: ").append(valor);
-            sb.append(", nome: '").append(nome).append('\'');
-            sb.append('}');
-            return sb.toString();
-        }
-    }
-
 
     public Long getId() {
         return id;
@@ -90,15 +62,42 @@ public class Equipamento {
         return this;
     }
 
-
     @Override
     public String toString() {
-        final StringBuffer sb = new StringBuffer("Equipamento{");
-        sb.append("id=").append(id);
-        sb.append(", cliente=").append(cliente);
-        sb.append(", numeroDeSerie='").append(numeroDeSerie).append('\'');
-        sb.append(", tipo=").append(tipo);
-        sb.append('}');
-        return sb.toString();
+        String sb = "Equipamento{" + "id=" + id +
+                ", cliente=" + cliente +
+                ", numeroDeSerie='" + numeroDeSerie + '\'' +
+                ", tipo=" + tipo +
+                '}';
+        return sb;
+    }
+
+
+    public enum TipoEquipamento {
+        COMPUTADOR(1, "Computador"), MOBILE(2, "Mobile"), VIDEO_GAME(3, "Vídeo game");
+
+        private final int valor;
+        private final String nome;
+
+        TipoEquipamento(int i, String nome) {
+            valor = i;
+            this.nome = nome;
+        }
+
+        public int getValor() {
+            return valor;
+        }
+
+        public String getNome() {
+            return nome;
+        }
+
+        @Override
+        public String toString() {
+            String sb = " {" + "valor: " + valor +
+                    ", nome: '" + nome + '\'' +
+                    '}';
+            return sb;
+        }
     }
 }

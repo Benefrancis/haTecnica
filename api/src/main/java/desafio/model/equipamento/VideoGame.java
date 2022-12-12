@@ -1,4 +1,6 @@
-package br.com.fiap.shift.desafio.model;
+package desafio.model.equipamento;
+
+import desafio.model.cliente.Cliente;
 
 public class VideoGame extends Equipamento {
     public VideoGame(Cliente cliente) {
@@ -12,9 +14,8 @@ public class VideoGame extends Equipamento {
 
     @Override
     public String toString() {
-        final StringBuffer sb = new StringBuffer("VideoGame{");
-        sb.append(super.toString());
-        sb.append('}');
-        return sb.toString();
+        String sb = "VideoGame{" + super.toString() +
+                '}';
+        return sb;
     }
 }

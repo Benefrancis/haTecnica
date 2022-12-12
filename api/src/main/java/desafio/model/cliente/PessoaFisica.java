@@ -1,6 +1,7 @@
-package br.com.fiap.shift.desafio.model;
+package desafio.model.cliente;
 
 import java.time.LocalDate;
+import java.util.StringJoiner;
 
 public class PessoaFisica extends Cliente {
     private LocalDate nascimento;
@@ -30,10 +31,9 @@ public class PessoaFisica extends Cliente {
 
     @Override
     public String toString() {
-        final StringBuffer sb = new StringBuffer("PessoaFisica{");
-        sb.append("nascimento=").append(nascimento);
-        sb.append(super.toString());
-        sb.append('}');
-        return sb.toString();
+        return new StringJoiner(", ", PessoaFisica.class.getSimpleName() + "[", "]")
+                .add("nascimento=" + nascimento)
+                .add(super.toString())
+                .toString();
     }
 }

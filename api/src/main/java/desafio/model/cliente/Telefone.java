@@ -1,10 +1,8 @@
-package br.com.fiap.shift.desafio.model;
+package desafio.model.cliente;
 
 public class Telefone {
 
     private Long id;
-
-    private Cliente cliente;
 
     private String ddi;
 
@@ -13,17 +11,14 @@ public class Telefone {
     private String numero;
 
 
-    public Telefone(Long id, Cliente cliente, String ddi, String ddd, String numero) {
+    public Telefone() {
+    }
+
+    public Telefone(Long id, String ddi, String ddd, String numero) {
         this.id = id;
-        this.cliente = cliente;
         this.ddi = ddi;
         this.ddd = ddd;
         this.numero = numero;
-    }
-
-
-    public Telefone(Cliente cliente) {
-        this.cliente = cliente;
     }
 
     public Long getId() {
@@ -35,14 +30,6 @@ public class Telefone {
         return this;
     }
 
-    public Cliente getCliente() {
-        return cliente;
-    }
-
-    public Telefone setCliente(Cliente cliente) {
-        this.cliente = cliente;
-        return this;
-    }
 
     public String getDdi() {
         return ddi;
@@ -76,7 +63,6 @@ public class Telefone {
     public String toString() {
         final StringBuffer sb = new StringBuffer("Telefone{");
         sb.append("id=").append(id);
-        sb.append(", cliente=").append(cliente);
         sb.append(", ddi='").append(ddi).append('\'');
         sb.append(", ddd='").append(ddd).append('\'');
         sb.append(", numero='").append(numero).append('\'');

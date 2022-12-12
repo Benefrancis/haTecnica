@@ -1,6 +1,10 @@
-package br.com.fiap.shift.desafio.repository;
+package desafio.repository;
 
-import br.com.fiap.shift.desafio.model.*;
+import desafio.model.cliente.Cliente;
+import desafio.model.equipamento.Equipamento;
+import desafio.model.servico.Limpeza;
+import desafio.model.servico.Servico;
+import desafio.model.servico.SubstitucaoDePeca;
 
 import java.time.LocalDateTime;
 import java.util.List;

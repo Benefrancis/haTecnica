@@ -1,4 +1,6 @@
-package br.com.fiap.shift.desafio.model;
+package desafio.model.cliente;
+
+import java.util.StringJoiner;
 
 public class PessoaJuridica extends Cliente {
 
@@ -26,10 +28,9 @@ public class PessoaJuridica extends Cliente {
 
     @Override
     public String toString() {
-        final StringBuffer sb = new StringBuffer("PessoaJuridica{");
-        sb.append("razaoSocial='").append(razaoSocial).append('\'');
-        sb.append(super.toString());
-        sb.append('}');
-        return sb.toString();
+        return new StringJoiner(", ", PessoaJuridica.class.getSimpleName() + "[", "]")
+                .add("razaoSocial='" + razaoSocial + "'")
+                .add(super.toString())
+                .toString();
     }
 }

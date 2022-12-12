@@ -1,4 +1,6 @@
-package br.com.fiap.shift.desafio.model;
+package desafio.model.servico;
+
+import desafio.model.equipamento.Equipamento;
 
 import java.time.LocalDateTime;
 
@@ -7,16 +9,15 @@ public class Limpeza extends Servico {
         super(TipoServico.LIMPEZA, equipamento, valor);
     }
 
-    public Limpeza(Long id,  Equipamento equipamento, double valor, String descricao, LocalDateTime dataAutorizacao, LocalDateTime dataInicio, LocalDateTime dataConclusao) {
+    public Limpeza(Long id, Equipamento equipamento, double valor, String descricao, LocalDateTime dataAutorizacao, LocalDateTime dataInicio, LocalDateTime dataConclusao) {
         super(id, TipoServico.LIMPEZA, descricao, dataAutorizacao, dataInicio, dataConclusao, equipamento, valor);
     }
 
 
     @Override
     public String toString() {
-        final StringBuffer sb = new StringBuffer("Limpeza{");
-        sb.append(super.toString());
-        sb.append('}');
-        return sb.toString();
+        String sb = "Limpeza{" + super.toString() +
+                '}';
+        return sb;
     }
 }
