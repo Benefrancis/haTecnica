@@ -1,5 +1,6 @@
 package desafio.model.cliente;
 
+import desafio.model.cliente.dto.PutTelefone;
 import jakarta.persistence.*;
 
 @Entity
@@ -19,6 +20,13 @@ public class Telefone {
 
 
     public Telefone() {
+    }
+
+    public Telefone(PutTelefone dados) {
+        this.id = dados.id();
+        this.ddi = dados.ddi();
+        this.ddd = dados.ddd();
+        this.numero = dados.numero();
     }
 
     public Telefone(Long id, String ddi, String ddd, String numero) {
@@ -65,6 +73,18 @@ public class Telefone {
         return this;
     }
 
+    public void atualizarInformacoes(PutTelefone dados) {
+        if (!dados.ddi().equals(null)) {
+            this.ddi = dados.ddi();
+        }
+        if (!dados.ddd().equals(null)) {
+            this.ddd = dados.ddd();
+        }
+
+        if (!dados.numero().equals(null)) {
+            this.numero = dados.numero();
+        }
+    }
 
     @Override
     public String toString() {

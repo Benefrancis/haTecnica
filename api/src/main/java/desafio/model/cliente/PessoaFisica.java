@@ -1,5 +1,6 @@
 package desafio.model.cliente;
 
+import desafio.model.cliente.dto.PutPessoaFisica;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 
@@ -12,17 +13,22 @@ public class PessoaFisica extends Cliente {
     private LocalDate nascimento;
 
     public PessoaFisica(Long id, String nome, LocalDate nascimento) {
-        super(id, TipoCliente.PF, nome);
+        super(id, new TipoCliente(1l, "PessoaFísica", "PF"), nome);
         this.nascimento = nascimento;
     }
 
+    public PessoaFisica(PutPessoaFisica dados) {
+        super(dados.id(), new TipoCliente(dados.tipo()), dados.nome(), new Endereco(dados.endereco()), new Telefone(dados.telefone()));
+        this.nascimento = dados.nascimento();
+    }
+
     public PessoaFisica(String nome, LocalDate nascimento) {
-        super(TipoCliente.PF, nome);
+        super(new TipoCliente(1l, "PessoaFísica", "PF"), nome);
         this.nascimento = nascimento;
     }
 
     public PessoaFisica() {
-        super(TipoCliente.PF);
+        super(new TipoCliente(1l, "PessoaFísica", "PF"));
     }
 
     public LocalDate getNascimento() {
@@ -34,11 +40,33 @@ public class PessoaFisica extends Cliente {
         return this;
     }
 
+
+    public void atualizarInformacoes(PutPessoaFisica dados) {
+
+        if (dados.nome() != null) {
+            super.setNome(dados.nome());
+        }
+
+        if (dados.tipo() != null) {
+            super.getTipo().atualizarInformacoes(dados.tipo());
+        }
+
+        if (dados.telefone() != null) {
+            super.getTelefone().atualizarInformacoes(dados.telefone());
+        }
+        if (dados.endereco() != null) {
+            super.getEndereco().atualizarInformacoes(dados.endereco());
+        }
+
+    }
+
+
     @Override
     public String toString() {
-        return new StringJoiner(", ", PessoaFisica.class.getSimpleName() + "[", "]")
-                .add("nascimento=" + nascimento)
-                .add(super.toString())
-                .toString();
+        final StringBuilder sb = new StringBuilder("PessoaFisica{");
+        sb.append("nascimento=").append(nascimento);
+        sb.append(super.toString());
+        sb.append('}');
+        return sb.toString();
     }
 }

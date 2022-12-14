@@ -15,7 +15,7 @@ public class Documento {
 
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "ID_CLIENTE", referencedColumnName = "ID_CLIENTE", foreignKey = @ForeignKey(name = "FK_CLIENTE_DOCUMENTO", value = ConstraintMode.CONSTRAINT) )
+    @JoinColumn(name = "ID_CLIENTE", referencedColumnName = "ID_CLIENTE", foreignKey = @ForeignKey(name = "FK_CLIENTE_DOCUMENTO", value = ConstraintMode.CONSTRAINT))
     private Cliente cliente;
 
     private String numero;

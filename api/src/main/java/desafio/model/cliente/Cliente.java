@@ -1,5 +1,6 @@
 package desafio.model.cliente;
 
+import desafio.model.cliente.dto.PostCliente;
 import jakarta.persistence.*;
 
 @Entity
@@ -13,20 +14,20 @@ public abstract class Cliente implements Autenticavel {
     @Column(name = "ID_CLIENTE")
     private Long id;
 
-    @Enumerated(EnumType.ORDINAL)
-    @Column(insertable = false, updatable = false)
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "ID_TIPO_CLIENTE", referencedColumnName = "ID_TIPO_CLIENTE", foreignKey = @ForeignKey(name = "FK_TP_CLIENTE", value = ConstraintMode.CONSTRAINT))
     private TipoCliente tipo;
 
     private String nome;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "ID_ENDERECO", referencedColumnName = "ID_ENDERECO",  foreignKey = @ForeignKey(name = "FK_ENDERECO_CLIENTE", value = ConstraintMode.CONSTRAINT) )
+    @JoinColumn(name = "ID_ENDERECO", referencedColumnName = "ID_ENDERECO", foreignKey = @ForeignKey(name = "FK_ENDERECO_CLIENTE", value = ConstraintMode.CONSTRAINT))
     private Endereco endereco;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "ID_TELEFONE", referencedColumnName = "ID_TELEFONE",  foreignKey = @ForeignKey(name = "FK_TELEFONE_CLIENTE", value = ConstraintMode.CONSTRAINT) )
+    @JoinColumn(name = "ID_TELEFONE", referencedColumnName = "ID_TELEFONE", foreignKey = @ForeignKey(name = "FK_TELEFONE_CLIENTE", value = ConstraintMode.CONSTRAINT))
     private Telefone telefone;
-
 
     public Cliente(TipoCliente tipo, String nome) {
         this.tipo = tipo;
@@ -52,9 +53,14 @@ public abstract class Cliente implements Autenticavel {
     }
 
     public Cliente() {
-
     }
 
+    protected Cliente(PostCliente dados) {
+        this.nome = dados.nome();
+        this.tipo = new TipoCliente(dados.tipo());
+        this.telefone = new Telefone(dados.telefone());
+        this.endereco = new Endereco(dados.endereco());
+    }
 
     public Long getId() {
         return id;
@@ -101,35 +107,6 @@ public abstract class Cliente implements Autenticavel {
         return this;
     }
 
-
-    public enum TipoCliente {
-        PF(1, "Pessoa Física"), PJ(2, "Pessoa Jurídica");
-
-        private final int valor;
-        private final String nome;
-
-        TipoCliente(int i, String nome) {
-            valor = i;
-            this.nome = nome;
-        }
-
-        public int getValor() {
-            return valor;
-        }
-
-        public String getNome() {
-            return nome;
-        }
-
-        @Override
-        public String toString() {
-            final StringBuffer sb = new StringBuffer("TipoCliente{");
-            sb.append("valor=").append(valor);
-            sb.append(", nome='").append(nome).append('\'');
-            sb.append('}');
-            return sb.toString();
-        }
-    }
 
     @Override
     public String toString() {

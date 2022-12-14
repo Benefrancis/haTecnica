@@ -1,6 +1,9 @@
 package desafio.model.cliente;
 
+import desafio.model.cliente.dto.PutEndereco;
 import jakarta.persistence.*;
+
+import java.util.StringJoiner;
 
 @Entity
 public class Endereco {
@@ -20,12 +23,12 @@ public class Endereco {
     private String bairro;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "ID_CEP", referencedColumnName = "ID_CEP",foreignKey = @ForeignKey(name = "FK_CEP_ENDERECO", value = ConstraintMode.CONSTRAINT) )
+    @JoinColumn(name = "ID_CEP", referencedColumnName = "ID_CEP", foreignKey = @ForeignKey(name = "FK_CEP_ENDERECO", value = ConstraintMode.CONSTRAINT))
     private CEP cep;
 
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "ID_CIDADE", referencedColumnName = "ID_CIDADE", foreignKey = @ForeignKey(name = "FK_CIDADE_ENDERECO", value = ConstraintMode.CONSTRAINT) )
+    @JoinColumn(name = "ID_CIDADE", referencedColumnName = "ID_CIDADE", foreignKey = @ForeignKey(name = "FK_CIDADE_ENDERECO", value = ConstraintMode.CONSTRAINT))
     private Cidade cidade;
 
 
@@ -36,6 +39,15 @@ public class Endereco {
         this.cep = cep;
     }
 
+    public Endereco(PutEndereco dados) {
+        this.id = dados.id();
+        this.bairro = dados.bairro();
+        this.cep = new CEP(dados.cep());
+        this.cidade = new Cidade(dados.cidade());
+        this.numero = dados.numero();
+        this.complemento = dados.complemento();
+        this.logradouro = dados.logradouro();
+    }
 
     public Endereco(String logradouro, String numero, String complemento, String bairro, CEP cep, Cidade cidade) {
         this.logradouro = logradouro;
@@ -100,62 +112,50 @@ public class Endereco {
         this.cidade = cidade;
         return this;
     }
-}
+
+    public void atualizarInformacoes(PutEndereco dados) {
+
+        this.id = dados.id();
+
+        if (!dados.numero().equals(null)) {
+            this.numero = dados.numero();
+        }
+
+        if (!dados.cep().equals(null)) {
+            this.cep.atualizarInformacoes(dados.cep());
+        }
+
+        if (!dados.bairro().equals(null)) {
+            this.bairro = dados.bairro();
+        }
+
+        if (!dados.complemento().equals(null)) {
+            this.complemento = dados.complemento();
+        }
+
+        if (!dados.cidade().equals(null)) {
+            this.cidade.atualizarInformacoes(dados.cidade());
+        }
 
 
-@Entity
-class CEP implements Validavel<String> {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_CEP")
-    @SequenceGenerator(name = "SEQ_CEP", sequenceName = "SEQ_CEP", allocationSize = 1, initialValue = 1)
-    @Column(name = "ID_CEP")
-    private Long id;
-
-
-    private String cep;
-
-    public CEP(String cep) {
-
-        if (validar(cep)) {
-            this.cep = cep;
-        } else {
-            throw new RuntimeException("O CEP " + cep + " é inválido!");
+        if (!dados.logradouro().equals(null)) {
+            this.logradouro = dados.logradouro();
         }
     }
 
-    public CEP() {
-
-    }
-
-
-    public Long getId() {
-        return id;
-    }
-
-    public CEP setId(Long id) {
-        if (validar(cep)) {
-            this.cep = cep;
-        } else {
-            throw new RuntimeException("O CEP " + cep + " é inválido!");
-        }
-        return this;
-    }
-
-    public String getCep() {
-        return cep;
-    }
-
-    @Override
-    public boolean validar(String t) {
-        return t.matches("[0-9]{5}-[0-9]{3}");
-    }
 
     @Override
     public String toString() {
-        return cep;
+        return new StringJoiner(", ", Endereco.class.getSimpleName() + "[", "]")
+                .add("id=" + id)
+                .add("logradouro='" + logradouro + "'")
+                .add("numero='" + numero + "'")
+                .add("complemento='" + complemento + "'")
+                .add("bairro='" + bairro + "'")
+                .add("cep=" + cep)
+                .add("cidade=" + cidade)
+                .toString();
     }
-
 }
 
 
