@@ -1,4 +1,4 @@
-package desafio.controller;
+package desafio.domain.cliente.controller;
 
 import desafio.domain.cliente.PessoaJuridica;
 import desafio.domain.cliente.dto.ListPessoaJuridica;
