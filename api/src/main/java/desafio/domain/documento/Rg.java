@@ -5,10 +5,10 @@ import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 
 @Entity
-@DiscriminatorValue("1")
+@DiscriminatorValue("RG")
 public class Rg extends Documento {
 
-    public Rg() {
-        super();
+    public Rg()  {
+        super(new TipoDocumento(1l,"RG"));
     }
 }

@@ -4,11 +4,11 @@ import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 
 @Entity
-@DiscriminatorValue("3")
+@DiscriminatorValue("CNPJ")
 public class Cnpj extends Documento {
 
 
     public Cnpj() {
-        super();
+        super(new TipoDocumento(3l,"CNPJ"));
     }
 }

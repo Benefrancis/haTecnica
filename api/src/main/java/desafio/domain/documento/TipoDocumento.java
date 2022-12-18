@@ -13,7 +13,7 @@ public class TipoDocumento {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_HT_TIPO_DOCUMENTO")
     @SequenceGenerator(name = "SEQ_HT_TIPO_DOCUMENTO", sequenceName = "SEQ_HT_TIPO_DOCUMENTO", allocationSize = 1, initialValue = 1)
     @Column(name = "ID_TIPO_DOCUMENTO")
-    private Integer id;
+    private Long id;
 
     @Column(name = "nome", nullable = false)
     private String nome;
@@ -22,17 +22,17 @@ public class TipoDocumento {
     public TipoDocumento() {
     }
 
-    public TipoDocumento(Integer id, String nome) {
+    public TipoDocumento(Long id, String nome) {
         this.id = id;
         this.nome = nome;
 
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public TipoDocumento setId(Integer id) {
+    public TipoDocumento setId(Long id) {
         this.id = id;
         return this;
     }

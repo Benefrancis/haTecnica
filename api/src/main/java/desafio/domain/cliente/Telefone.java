@@ -18,19 +18,16 @@ public class Telefone {
     }
 
     public Telefone(PutTelefone dados) {
-
         this.ddi = dados.ddi();
         this.ddd = dados.ddd();
         this.numero = dados.numero();
     }
 
     public Telefone(String ddi, String ddd, String numero) {
-
         this.ddi = ddi;
         this.ddd = ddd;
         this.numero = numero;
     }
-
 
     public String getDdi() {
         return ddi;
