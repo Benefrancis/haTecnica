@@ -1,11 +1,11 @@
 package desafio.controller;
 
 
-import desafio.model.cliente.PessoaFisica;
-import desafio.model.cliente.dto.ListPessoaFisica;
-import desafio.model.cliente.dto.PutPessoaFisica;
-import desafio.oracle.repository.PessoaFisicaRepository;
-import desafio.service.PessoaFisicaService;
+import desafio.domain.cliente.PessoaFisica;
+import desafio.domain.cliente.dto.ListPessoaFisica;
+import desafio.domain.cliente.dto.PutPessoaFisica;
+import desafio.domain.cliente.repository.PessoaFisicaRepository;
+import desafio.domain.cliente.service.PessoaFisicaService;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

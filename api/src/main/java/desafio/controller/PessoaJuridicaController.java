@@ -1,10 +1,10 @@
 package desafio.controller;
 
-import desafio.model.cliente.PessoaJuridica;
-import desafio.model.cliente.dto.ListPessoaJuridica;
-import desafio.model.cliente.dto.PutPessoaJuridica;
-import desafio.oracle.repository.PessoaJuridicaRepository;
-import desafio.service.PessoaJuridicaService;
+import desafio.domain.cliente.PessoaJuridica;
+import desafio.domain.cliente.dto.ListPessoaJuridica;
+import desafio.domain.cliente.dto.PutPessoaJuridica;
+import desafio.domain.cliente.repository.PessoaJuridicaRepository;
+import desafio.domain.cliente.service.PessoaJuridicaService;
 import org.springframework.transaction.annotation.Transactional;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
