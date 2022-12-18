@@ -68,9 +68,15 @@ public class TipoCliente {
     }
 
     public void atualizarInformacoes(PutTipoCliente dados) {
+
         if (!dados.nome().equals(null)) {
             this.nome = dados.nome();
         }
+
+        if (!dados.sigla().equals(null)) {
+            this.sigla = dados.sigla();
+        }
+
     }
 
     @Override

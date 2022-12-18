@@ -26,7 +26,6 @@ public record PutPessoaJuridica(
 
 ) {
 
-
     public PutPessoaJuridica(PessoaJuridica pj) {
         this(pj.getId(), pj.getNome(), pj.getRazaoSocial(), new PutTelefone(pj.getTelefone()), new PutEndereco(pj.getEndereco()));
     }

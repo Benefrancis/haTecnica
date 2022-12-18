@@ -15,7 +15,6 @@ public abstract class Cliente {
     @Column(name = "ID_CLIENTE")
     private Long id;
 
-
     private String nome;
 
     @ManyToOne(fetch = FetchType.EAGER)
