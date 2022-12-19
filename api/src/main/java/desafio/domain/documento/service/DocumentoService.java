@@ -6,9 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
-public class ClienteService {
+public class DocumentoService {
 
     @Autowired
     private DocumentoRepository repository;
@@ -17,4 +18,7 @@ public class ClienteService {
         return repository.findByClienteId(id);
     }
 
+    public Optional<Documento> save(Documento documento) {
+        return Optional.of(repository.save(documento));
+    }
 }

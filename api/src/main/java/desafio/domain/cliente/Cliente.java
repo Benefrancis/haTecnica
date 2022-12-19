@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 @Table(name="HT_CLIENTE")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "tipo")
-public abstract class Cliente {
+public class Cliente {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_HT_CLIENTE")
@@ -43,6 +43,8 @@ public abstract class Cliente {
 
     public Cliente() {
     }
+
+
 
 
     public Long getId() {

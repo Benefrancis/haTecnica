@@ -3,13 +3,14 @@ package desafio.domain.documento.dto;
 import desafio.domain.cliente.dto.PutCliente;
 import desafio.domain.documento.Documento;
 import desafio.domain.documento.TipoDocumento;
+import jakarta.validation.constraints.NotBlank;
 
 import java.time.LocalDate;
 
 public record ListDocumento(
 
         Long id,
-
+        @NotBlank
         String numero,
 
         TipoDocumento tipo,
@@ -17,7 +18,7 @@ public record ListDocumento(
         LocalDate emissao,
 
         LocalDate validade,
-
+        @NotBlank
         Long cliente
 
 

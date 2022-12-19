@@ -1,6 +1,7 @@
 package desafio.domain.documento;
 
 import desafio.domain.cliente.Cliente;
+import desafio.domain.documento.dto.PutDocumento;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -54,7 +55,18 @@ public class Documento {
         this.tipo = tipo;
         this.emissao = emissao;
         this.validade = validade;
+
     }
+
+
+    public Documento(PutDocumento dados) {
+        this.id = dados.id();
+        this.numero = dados.numero();
+        this.tipo = dados.tipo();
+        this.emissao = dados.emissao();
+        this.validade = dados.validade();
+    }
+
 
     public Long getId() {
         return id;
