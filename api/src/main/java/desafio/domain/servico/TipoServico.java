@@ -6,13 +6,18 @@ import jakarta.persistence.*;
 @Table(
         name = "HT_TIPO_SERVICO",
         uniqueConstraints =
-        @UniqueConstraint(columnNames = {"nome"}, name = "UK_NOME_TIPO_SERVICO")
+        @UniqueConstraint(columnNames = {"nome"}, name = "UK_NOME_TIPO_SERVICO"),
+        indexes = @Index(
+                columnList = "nome",
+                unique = true,
+                name = "IDX_NOME_TIPO_SERVICO"
+        )
 )
 public class TipoServico {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_HT_TIPO_SERVICO")
     @SequenceGenerator(name = "SEQ_HT_TIPO_SERVICO", sequenceName = "SEQ_HT_TIPO_SERVICO", allocationSize = 1, initialValue = 1)
-    @Column(name = "ID_SERVICO")
+    @Column(name = "ID_TIPO_SERVICO")
     private Long id;
 
     @Column(name = "nome", nullable = false)

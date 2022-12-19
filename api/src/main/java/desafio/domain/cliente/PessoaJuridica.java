@@ -12,13 +12,8 @@ public class PessoaJuridica extends Cliente {
     private String razaoSocial;
 
 
-    public PessoaJuridica() {
-        super();
-    }
-
-
     public PessoaJuridica(PutPessoaJuridica dados) {
-        super(dados.id(), dados.nome(), new Endereco(dados.endereco()), new Telefone(dados.telefone()));
+        super(dados.id(), dados.nome(), new Telefone(dados.telefone()), new Endereco(dados.endereco()), new TipoCliente(dados.tipo()));
         this.razaoSocial = dados.razaoSocial();
     }
 
@@ -26,11 +21,18 @@ public class PessoaJuridica extends Cliente {
     public PessoaJuridica(Long id, String nome, String razaoSocial) {
         super(id, nome);
         this.razaoSocial = razaoSocial;
+        super.setTipo(new TipoCliente(2l, "Pessoa Jurídica", "PJ"));
     }
 
     public PessoaJuridica(String nome, String razaoSocial) {
         super(nome);
         this.razaoSocial = razaoSocial;
+        super.setTipo(new TipoCliente(2l, "Pessoa Jurídica", "PJ"));
+    }
+
+
+    public PessoaJuridica() {
+        super(new TipoCliente(2l, "Pessoa Jurídica", "PJ"));
     }
 
     public String getRazaoSocial() {

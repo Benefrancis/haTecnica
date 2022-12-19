@@ -22,11 +22,15 @@ public record PutPessoaJuridica(
 
         @NotNull
         @Valid
-        PutEndereco endereco
+        PutEndereco endereco,
+
+        @NotNull
+        @Valid
+        PutTipoCliente tipo
 
 ) {
 
     public PutPessoaJuridica(PessoaJuridica pj) {
-        this(pj.getId(), pj.getNome(), pj.getRazaoSocial(), new PutTelefone(pj.getTelefone()), new PutEndereco(pj.getEndereco()));
+        this(pj.getId(), pj.getNome(), pj.getRazaoSocial(), new PutTelefone(pj.getTelefone()), new PutEndereco(pj.getEndereco()), new PutTipoCliente(pj.getTipo()));
     }
 }

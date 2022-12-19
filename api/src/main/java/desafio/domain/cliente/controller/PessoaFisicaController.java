@@ -23,7 +23,6 @@ import java.net.URI;
 
 @RestController
 @RequestMapping("/pf")
-
 public class PessoaFisicaController {
 
     Logger log = LoggerFactory.getLogger(PessoaFisicaController.class);
@@ -39,7 +38,7 @@ public class PessoaFisicaController {
     @Transactional
     public ResponseEntity<PutPessoaFisica> save(@RequestBody @Valid PutPessoaFisica dados, UriComponentsBuilder builder) {
         var pf = service.save(new PessoaFisica(dados));
-        URI uri = builder.path("/cliente/{id}").buildAndExpand(pf.getId()).toUri();
+        URI uri = builder.path("/pf/{id}").buildAndExpand(pf.getId()).toUri();
         return ResponseEntity.created(uri).body(new PutPessoaFisica(pf));
     }
 

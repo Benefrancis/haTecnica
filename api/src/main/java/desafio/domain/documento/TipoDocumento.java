@@ -5,7 +5,12 @@ import jakarta.persistence.*;
 @Entity
 @Table(
         name="HT_TIPO_DOCUMENTO",
-        uniqueConstraints= @UniqueConstraint(columnNames={"nome"}, name = "UK_NOME_TIPO_DOCUMENTO")
+        uniqueConstraints= @UniqueConstraint(columnNames={"nome"}, name = "UK_NOME_TIPO_DOCUMENTO"),
+        indexes = @Index(
+                columnList = "nome",
+                unique = true,
+                name = "IDX_NOME_TIPO_DOCUMENTO"
+        )
 )
 public class TipoDocumento {
 

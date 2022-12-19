@@ -1,6 +1,7 @@
 package desafio.domain.servico;
 
 import desafio.domain.equipamento.Equipamento;
+import desafio.domain.equipamento.TipoEquipamento;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -8,7 +9,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name="HT_SERVICO")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "tipo")
+@DiscriminatorColumn(name = "ID_TIPO_SERVICO", discriminatorType = DiscriminatorType.INTEGER)
 public abstract class Servico {
 
     @Id
@@ -34,6 +35,11 @@ public abstract class Servico {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ID_EQUIPAMENTO", referencedColumnName = "ID_EQUIPAMENTO", foreignKey = @ForeignKey(name = "FK_EQUIPAMENTO_SERVICO", value = ConstraintMode.CONSTRAINT))
     private Equipamento equipamento;
+
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "ID_TIPO_SERVICO", referencedColumnName = "ID_TIPO_SERVICO", foreignKey = @ForeignKey(name = "FK_TIPO_SERVICO", value = ConstraintMode.CONSTRAINT), insertable=false, updatable=false)
+    private TipoServico tipo;
 
     private double valor;
 

@@ -10,7 +10,7 @@ import jakarta.persistence.Entity;
 import java.time.LocalDate;
 
 @Entity
-@DiscriminatorValue("CPF")
+@DiscriminatorValue("2")
 public class Cpf extends Documento {
 
     public Cpf() {

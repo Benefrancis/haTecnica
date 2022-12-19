@@ -55,7 +55,7 @@ public class PessoaJuridicaController {
 
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<PutPessoaJuridica> findById(@PathVariable Long id) {
+    public ResponseEntity<PutPessoaJuridica> findById(@PathVariable("id") Long id) {
         log.info("Recebido o pedido de informações do cliente com id  {}", id);
         var pj = service.findById(id);
         if (pj != null) {

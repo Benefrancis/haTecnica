@@ -20,9 +20,14 @@ public record PutPessoaFisica(
 
         @NotNull
         @Valid
-        PutEndereco endereco
+        PutEndereco endereco,
+
+        @NotNull
+        @Valid
+        PutTipoCliente tipo
+
 ) {
     public PutPessoaFisica(PessoaFisica pf) {
-        this(pf.getId(), pf.getNome(), pf.getNascimento(), new PutTelefone(pf.getTelefone()), new PutEndereco(pf.getEndereco()));
+        this(pf.getId(), pf.getNome(), pf.getNascimento(), new PutTelefone(pf.getTelefone()), new PutEndereco(pf.getEndereco()), new PutTipoCliente(pf.getTipo()));
     }
 }

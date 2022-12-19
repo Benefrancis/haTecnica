@@ -16,20 +16,22 @@ public class PessoaFisica extends Cliente {
     public PessoaFisica(Long id, String nome, LocalDate nascimento) {
         super(id, nome);
         this.nascimento = nascimento;
+        super.setTipo(new TipoCliente(1l, "Pessoa Física", "PF"));
     }
 
     public PessoaFisica(PutPessoaFisica dados) {
-        super(dados.id(), dados.nome(), new Endereco(dados.endereco()), new Telefone(dados.telefone()));
+        super(dados.id(), dados.nome(), new Telefone(dados.telefone()), new Endereco(dados.endereco()), new TipoCliente(dados.tipo()));
         this.nascimento = dados.nascimento();
     }
 
     public PessoaFisica(String nome, LocalDate nascimento) {
         super(1l, nome);
         this.nascimento = nascimento;
+        super.setTipo(new TipoCliente(1l, "Pessoa Física", "PF"));
     }
 
     public PessoaFisica() {
-        super();
+        super(new TipoCliente(1l, "Pessoa Física", "PF"));
     }
 
     public LocalDate getNascimento() {

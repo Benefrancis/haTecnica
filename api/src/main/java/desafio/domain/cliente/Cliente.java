@@ -1,12 +1,13 @@
 package desafio.domain.cliente;
 
 import desafio.domain.endereco.Endereco;
+import desafio.domain.equipamento.TipoEquipamento;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name="HT_CLIENTE")
+@Table(name = "HT_CLIENTE")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "tipo")
+@DiscriminatorColumn(name = "ID_TIPO_CLIENTE", discriminatorType = DiscriminatorType.INTEGER)
 public class Cliente {
 
     @Id
@@ -17,12 +18,21 @@ public class Cliente {
 
     private String nome;
 
+
+    @Embedded
+    private Telefone telefone;
+
+
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ID_ENDERECO", referencedColumnName = "ID_ENDERECO", foreignKey = @ForeignKey(name = "FK_ENDERECO_CLIENTE", value = ConstraintMode.CONSTRAINT))
     private Endereco endereco;
 
-    @Embedded
-    private Telefone telefone;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "ID_TIPO_CLIENTE", referencedColumnName = "ID_TIPO_CLIENTE", foreignKey = @ForeignKey(name = "FK_TIPO_CLIENTE", value = ConstraintMode.CONSTRAINT), insertable=false, updatable=false)
+    private TipoCliente tipo;
+
 
     public Cliente(String nome) {
         this.nome = nome;
@@ -33,19 +43,29 @@ public class Cliente {
         this.nome = nome;
     }
 
-    public Cliente(Long id, String nome, Endereco endereco, Telefone telefone) {
+    public Cliente(Long id, String nome, Telefone telefone, Endereco endereco, TipoCliente tipo) {
         this.id = id;
         this.nome = nome;
-        this.endereco = endereco;
         this.telefone = telefone;
+        this.endereco = endereco;
+        this.tipo = tipo;
     }
-
 
     public Cliente() {
     }
 
+    public Cliente(TipoCliente tipo) {
+        this.tipo = tipo;
+    }
 
+    public TipoCliente getTipo() {
+        return tipo;
+    }
 
+    public Cliente setTipo(TipoCliente tipo) {
+        this.tipo = tipo;
+        return this;
+    }
 
     public Long getId() {
         return id;

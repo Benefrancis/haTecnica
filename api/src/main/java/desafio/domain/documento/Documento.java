@@ -9,7 +9,7 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "HT_DOCUMENTO")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "NOME")
+@DiscriminatorColumn(name = "ID_TIPO_DOCUMENTO", discriminatorType = DiscriminatorType.INTEGER)
 public class Documento {
 
     @Id
@@ -27,7 +27,7 @@ public class Documento {
 
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "ID_TIPO_DOCUMENTO", referencedColumnName = "ID_TIPO_DOCUMENTO", foreignKey = @ForeignKey(name = "FK_TIPO_DOCUMENTO", value = ConstraintMode.CONSTRAINT))
+    @JoinColumn(name = "ID_TIPO_DOCUMENTO", referencedColumnName = "ID_TIPO_DOCUMENTO", foreignKey = @ForeignKey(name = "FK_TIPO_DOCUMENTO_CLIENTE", value = ConstraintMode.CONSTRAINT), insertable=false, updatable=false)
     private TipoDocumento tipo;
 
 
