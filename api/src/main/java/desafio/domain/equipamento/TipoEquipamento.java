@@ -10,7 +10,6 @@ import org.springframework.context.annotation.Primary;
         @UniqueConstraint(columnNames = {"nome"}, name = "UK_NOME_TIPO_EQUIPAMENTO"),
         indexes = @Index(
                 columnList = "nome",
-                unique = true,
                 name = "IDX_NOME_TIPO_EQUIPAMENTO"
         )
 )

@@ -6,7 +6,8 @@ import jakarta.persistence.*;
 import java.util.StringJoiner;
 
 @Entity
-@Table(name="HT_PAIS", uniqueConstraints= @UniqueConstraint(columnNames={"nome"}, name = "UK_NOME_PAIS"))
+@Table(name="HT_PAIS" // , uniqueConstraints= @UniqueConstraint(columnNames={"nome"}, name = "UK_NOME_PAIS")
+)
 public class Pais {
 
     @Id

@@ -8,7 +8,6 @@ import jakarta.persistence.*;
         uniqueConstraints= @UniqueConstraint(columnNames={"nome"}, name = "UK_NOME_TIPO_DOCUMENTO"),
         indexes = @Index(
                 columnList = "nome",
-                unique = true,
                 name = "IDX_NOME_TIPO_DOCUMENTO"
         )
 )

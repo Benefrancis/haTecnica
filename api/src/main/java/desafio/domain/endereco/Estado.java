@@ -5,9 +5,8 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(
-        name = "HT_ESTADO",
-        uniqueConstraints =
-        @UniqueConstraint(columnNames = {"sigla"}, name = "UK_SIGLA_ESTADO")
+        name = "HT_ESTADO"
+      // , uniqueConstraints =  @UniqueConstraint(columnNames = {"sigla"}, name = "UK_SIGLA_ESTADO")
 )
 public class Estado {
 

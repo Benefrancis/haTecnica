@@ -9,6 +9,7 @@ import desafio.domain.endereco.repository.EstadoRepository;
 import desafio.domain.endereco.repository.PaisRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 
@@ -33,6 +34,7 @@ public class PessoaFisicaService {
     @Autowired
     private TipoClienteRepository tipoClienteRepository;
 
+
     public PessoaFisica findById(Long id) {
         return repository.findById(id).orElse(null);
     }
@@ -43,19 +45,21 @@ public class PessoaFisicaService {
 
     public PessoaFisica save(PessoaFisica pf) {
 
-        if (!pf.getEndereco().equals(null)) {
-            enderecoRepository.save(pf.getEndereco());
-            if (!pf.getEndereco().getCidade().equals(null)) {
-                cidadeRepository.save(pf.getEndereco().getCidade());
-                if (!pf.getEndereco().getCidade().getEstado().equals(null)) {
-                    estadoRepository.save(pf.getEndereco().getCidade().getEstado());
-                    if (!pf.getEndereco().getCidade().getEstado().getPais().equals(null)) {
-                        paisRepository.save(pf.getEndereco().getCidade().getEstado().getPais());
+        if(pf.getTipo() != null) {
+            tipoClienteRepository.save(pf.getTipo());
+            if (pf.getEndereco() != null) {
+                enderecoRepository.save(pf.getEndereco());
+                if (pf.getEndereco().getCidade() != null) {
+                    cidadeRepository.save(pf.getEndereco().getCidade());
+                    if (pf.getEndereco().getCidade().getEstado() != null) {
+                        estadoRepository.save(pf.getEndereco().getCidade().getEstado());
+                        if (pf.getEndereco().getCidade().getEstado().getPais() != null) {
+                            paisRepository.save(pf.getEndereco().getCidade().getEstado().getPais());
+                        }
                     }
                 }
             }
         }
-
         repository.save(pf);
         return pf;
     }

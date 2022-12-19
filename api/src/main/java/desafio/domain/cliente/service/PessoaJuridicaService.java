@@ -42,21 +42,22 @@ public class PessoaJuridicaService {
     }
 
     public PessoaJuridica save(PessoaJuridica pj) {
+        if (pj.getTipo() != null) {
+            tipoClienteRepository.save(pj.getTipo());
 
-
-        if (!pj.getEndereco().equals(null)) {
-            enderecoRepository.save(pj.getEndereco());
-            if (!pj.getEndereco().getCidade().equals(null)) {
-                cidadeRepository.save(pj.getEndereco().getCidade());
-                if (!pj.getEndereco().getCidade().getEstado().equals(null)) {
-                    estadoRepository.save(pj.getEndereco().getCidade().getEstado());
-                    if (!pj.getEndereco().getCidade().getEstado().getPais().equals(null)) {
-                        paisRepository.save(pj.getEndereco().getCidade().getEstado().getPais());
+            if (pj.getEndereco() != null) {
+                enderecoRepository.save(pj.getEndereco());
+                if (pj.getEndereco().getCidade() != null) {
+                    cidadeRepository.save(pj.getEndereco().getCidade());
+                    if (pj.getEndereco().getCidade().getEstado() != null) {
+                        estadoRepository.save(pj.getEndereco().getCidade().getEstado());
+                        if (pj.getEndereco().getCidade().getEstado().getPais() != null) {
+                            paisRepository.save(pj.getEndereco().getCidade().getEstado().getPais());
+                        }
                     }
                 }
             }
         }
-
 
         repository.save(pj);
         return pj;
