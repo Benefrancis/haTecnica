@@ -22,7 +22,7 @@ public class Estado {
     @Column(name = "sigla", nullable = false)
     private String sigla;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.DETACH)
     @JoinColumn(name = "ID_PAIS", referencedColumnName = "ID_PAIS", foreignKey = @ForeignKey(name = "FK_PAIS_ESTADO", value = ConstraintMode.CONSTRAINT))
     private Pais pais;
 

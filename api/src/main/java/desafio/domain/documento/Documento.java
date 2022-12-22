@@ -19,13 +19,13 @@ public class Documento {
     private String numero;
 
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.DETACH)
     @JoinColumn(name = "ID_CLIENTE", referencedColumnName = "ID_CLIENTE", foreignKey = @ForeignKey(name = "FK_CLIENTE_DOCUMENTO", value = ConstraintMode.CONSTRAINT))
     private Cliente cliente;
 
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
-    @JoinColumn(name = "ID_TIPO_DOCUMENTO", referencedColumnName = "ID_TIPO_DOCUMENTO", foreignKey = @ForeignKey(name = "FK_TIPO_DOCUMENTO_CLIENTE", value = ConstraintMode.CONSTRAINT), insertable = false, updatable = false)
+    @ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.DETACH)
+    @JoinColumn(name = "ID_TIPO_DOCUMENTO", referencedColumnName = "ID_TIPO_DOCUMENTO", foreignKey = @ForeignKey(name = "FK_TIPO_DOCUMENTO_CLIENTE", value = ConstraintMode.CONSTRAINT))
     private TipoDocumento tipo;
 
 

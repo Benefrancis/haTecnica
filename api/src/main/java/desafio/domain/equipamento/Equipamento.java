@@ -20,15 +20,15 @@ public class Equipamento {
     @Column(name = "ID_EQUIPAMENTO")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
     @JoinColumn(name = "ID_CLIENTE", referencedColumnName = "ID_CLIENTE", foreignKey = @ForeignKey(name = "FK_CLIENTE_EQUIPAMENTO", value = ConstraintMode.CONSTRAINT))
     private Cliente cliente;
 
     @Column(name = "NR_SERIE")
     private String numeroDeSerie;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "ID_TIPO_EQUIPAMENTO", referencedColumnName = "ID_TIPO_EQUIPAMENTO", foreignKey = @ForeignKey(name = "FK_TIPO_EQUIPAMENTO", value = ConstraintMode.CONSTRAINT), insertable = false, updatable = false)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
+    @JoinColumn(name = "ID_TIPO_EQUIPAMENTO", referencedColumnName = "ID_TIPO_EQUIPAMENTO", foreignKey = @ForeignKey(name = "FK_TIPO_EQUIPAMENTO", value = ConstraintMode.CONSTRAINT))
     private TipoEquipamento tipo;
 
     public Equipamento() {

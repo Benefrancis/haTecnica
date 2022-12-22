@@ -16,7 +16,7 @@ public class Cidade {
 
     private String nome;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.DETACH)
     @JoinColumn(name = "ID_ESTADO", referencedColumnName = "ID_ESTADO", foreignKey = @ForeignKey(name = "FK_ESTADO_CIDADE", value = ConstraintMode.CONSTRAINT))
     private Estado estado;
 

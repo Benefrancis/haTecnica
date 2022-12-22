@@ -20,8 +20,8 @@ public class Servico {
 
     private double valor;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
-    @JoinColumn(name = "ID_TIPO_SERVICO", referencedColumnName = "ID_TIPO_SERVICO", foreignKey = @ForeignKey(name = "FK_TIPO_SERVICO", value = ConstraintMode.CONSTRAINT), insertable = false, updatable = false)
+    @ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.DETACH)
+    @JoinColumn(name = "ID_TIPO_SERVICO", referencedColumnName = "ID_TIPO_SERVICO", foreignKey = @ForeignKey(name = "FK_TIPO_SERVICO", value = ConstraintMode.CONSTRAINT))
     private TipoServico tipo;
 
     @Temporal(TemporalType.TIMESTAMP)
@@ -36,7 +36,7 @@ public class Servico {
     @Column(name = "DT_CONCLUSAO")
     private LocalDateTime dataConclusao;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.DETACH)
     @JoinColumn(name = "ID_EQUIPAMENTO", referencedColumnName = "ID_EQUIPAMENTO", foreignKey = @ForeignKey(name = "FK_EQUIPAMENTO_SERVICO", value = ConstraintMode.CONSTRAINT))
     private Equipamento equipamento;
 
