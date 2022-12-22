@@ -24,6 +24,11 @@ public record PutEstado(
 ) {
 
     public PutEstado(Estado e) {
-        this(e.getId(), e.getNome(), e.getSigla(), new PutPais(e.getPais()));
+        this(
+                e.getId(),
+                e.getNome(),
+                e.getSigla(),
+                new PutPais(e.getPais())
+        );
     }
 }

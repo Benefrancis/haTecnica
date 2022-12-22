@@ -4,10 +4,13 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(
-        name="HT_USUARIO",
-        uniqueConstraints=@UniqueConstraint(columnNames={"username"}, name = "UK_USERNAME_USER")
+        name = "HT_USUARIO",
+        uniqueConstraints = @UniqueConstraint(
+                columnNames = {"username"},
+                name = "UK_USERNAME_USER"
+        )
 )
-public class Usuario implements Autenticavel {
+public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_HT_USUARIO")
@@ -15,10 +18,10 @@ public class Usuario implements Autenticavel {
     @Column(name = "ID_USUARIO")
     private Long id;
 
-    @Column(name="username", nullable = false )
+    @Column(name = "username", nullable = false)
     private String username;
 
-    @Column(name="password",  nullable = false)
+    @Column(name = "password", nullable = false)
     private String password;
 
 
@@ -40,23 +43,23 @@ public class Usuario implements Autenticavel {
         return this;
     }
 
-    @Override
+
     public String getUsername() {
         return username;
     }
 
-    @Override
+
     public Usuario setUsername(String username) {
         this.username = username;
         return this;
     }
 
-    @Override
+
     public String getPassword() {
         return password;
     }
 
-    @Override
+
     public Usuario setPassword(String password) {
         this.password = password;
         return this;

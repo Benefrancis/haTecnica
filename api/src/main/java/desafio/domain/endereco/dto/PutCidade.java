@@ -15,6 +15,10 @@ public record PutCidade(
         PutEstado estado
 ) {
     public PutCidade(Cidade c) {
-        this(c.getId(), c.getNome(), new PutEstado(c.getEstado()));
+        this(
+                c.getId(),
+                c.getNome(),
+                new PutEstado(c.getEstado())
+        );
     }
 }

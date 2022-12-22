@@ -9,6 +9,9 @@ public record PutPais(
         String nome
 ) {
     public PutPais(Pais p) {
-        this(p.getId(), p.getNome());
+        this(
+                p.getId(),
+                p.getNome()
+        );
     }
 }

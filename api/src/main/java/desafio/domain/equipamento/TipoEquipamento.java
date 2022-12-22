@@ -1,16 +1,18 @@
 package desafio.domain.equipamento;
 
+import desafio.domain.equipamento.dto.PutTipoEquipamento;
 import jakarta.persistence.*;
-import org.springframework.context.annotation.Primary;
 
 @Entity
 @Table(
         name = "HT_TIPO_EQUIPAMENTO",
         uniqueConstraints =
-        @UniqueConstraint(columnNames = {"nome"}, name = "UK_NOME_TIPO_EQUIPAMENTO"),
-        indexes = @Index(
-                columnList = "nome",
-                name = "IDX_NOME_TIPO_EQUIPAMENTO"
+        @UniqueConstraint(
+                columnNames = {"nome"},
+                name = "UK_NOME_TIPO_EQUIPAMENTO"),
+                indexes = @Index(
+                    columnList = "nome",
+                    name = "IDX_NOME_TIPO_EQUIPAMENTO"
         )
 )
 
@@ -33,6 +35,11 @@ public class TipoEquipamento {
     public TipoEquipamento() {
     }
 
+    public TipoEquipamento(PutTipoEquipamento te) {
+        this.id = te.id();
+        this.nome = te.nome();
+    }
+
     public Long getId() {
         return id;
     }
@@ -50,7 +57,6 @@ public class TipoEquipamento {
         this.nome = nome;
         return this;
     }
-
 
     @Override
     public String toString() {

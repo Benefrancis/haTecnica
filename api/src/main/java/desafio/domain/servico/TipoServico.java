@@ -1,5 +1,6 @@
 package desafio.domain.servico;
 
+import desafio.domain.servico.dto.PutTipoServico;
 import jakarta.persistence.*;
 
 @Entity
@@ -27,6 +28,13 @@ public class TipoServico {
         this.nome = nome;
     }
 
+
+    public TipoServico(PutTipoServico ts) {
+        this.id = ts.id();
+        this.nome = ts.nome();
+    }
+
+
     public TipoServico() {
 
     }
@@ -50,6 +58,14 @@ public class TipoServico {
     }
 
 
+
+    public void atualizarInforamcoes(PutTipoServico ts){
+        if(ts.nome()!= null){
+            this.nome =ts.nome();
+        }
+    }
+
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("TipoServico{");
@@ -58,4 +74,8 @@ public class TipoServico {
         sb.append('}');
         return sb.toString();
     }
+
+
+
+
 }

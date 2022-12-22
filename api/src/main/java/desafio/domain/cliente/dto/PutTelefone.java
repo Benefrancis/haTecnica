@@ -12,6 +12,11 @@ public record PutTelefone(
         String numero
 ) {
     public PutTelefone(Telefone t) {
-        this(t.getDdi(), t.getDdd(), t.getNumero());
+
+        this(
+                t.getDdi(),
+                t.getDdd(),
+                t.getNumero()
+        );
     }
 }

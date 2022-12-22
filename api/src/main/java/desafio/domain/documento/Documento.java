@@ -8,8 +8,6 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "HT_DOCUMENTO")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "ID_TIPO_DOCUMENTO", discriminatorType = DiscriminatorType.INTEGER)
 public class Documento {
 
     @Id
@@ -21,13 +19,13 @@ public class Documento {
     private String numero;
 
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
     @JoinColumn(name = "ID_CLIENTE", referencedColumnName = "ID_CLIENTE", foreignKey = @ForeignKey(name = "FK_CLIENTE_DOCUMENTO", value = ConstraintMode.CONSTRAINT))
     private Cliente cliente;
 
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "ID_TIPO_DOCUMENTO", referencedColumnName = "ID_TIPO_DOCUMENTO", foreignKey = @ForeignKey(name = "FK_TIPO_DOCUMENTO_CLIENTE", value = ConstraintMode.CONSTRAINT), insertable=false, updatable=false)
+    @ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+    @JoinColumn(name = "ID_TIPO_DOCUMENTO", referencedColumnName = "ID_TIPO_DOCUMENTO", foreignKey = @ForeignKey(name = "FK_TIPO_DOCUMENTO_CLIENTE", value = ConstraintMode.CONSTRAINT), insertable = false, updatable = false)
     private TipoDocumento tipo;
 
 
@@ -43,7 +41,6 @@ public class Documento {
 
     }
 
-
     public Documento(TipoDocumento tipo) {
         this.tipo = tipo;
     }
@@ -58,15 +55,13 @@ public class Documento {
 
     }
 
-
     public Documento(PutDocumento dados) {
         this.id = dados.id();
         this.numero = dados.numero();
-        this.tipo = dados.tipo();
+        this.tipo = new TipoDocumento(dados.tipo());
         this.emissao = dados.emissao();
         this.validade = dados.validade();
     }
-
 
     public Long getId() {
         return id;
@@ -121,7 +116,6 @@ public class Documento {
         this.validade = validade;
         return this;
     }
-
 
     @Override
     public String toString() {

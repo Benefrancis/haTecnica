@@ -32,6 +32,14 @@ public record PutEndereco(
 ) {
 
     public PutEndereco(Endereco e) {
-        this(e.getId(), e.getLogradouro(), e.getNumero(), e.getComplemento(), e.getBairro(), e.getCep(), new PutCidade(e.getCidade()));
+        this(
+                e.getId(),
+                e.getLogradouro(),
+                e.getNumero(),
+                e.getComplemento(),
+                e.getBairro(),
+                e.getCep(),
+                new PutCidade(e.getCidade())
+        );
     }
 }

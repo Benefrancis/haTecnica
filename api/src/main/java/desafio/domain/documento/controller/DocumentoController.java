@@ -2,10 +2,7 @@ package desafio.domain.documento.controller;
 
 import desafio.domain.cliente.Cliente;
 import desafio.domain.cliente.repository.ClienteRepository;
-import desafio.domain.documento.Cnpj;
-import desafio.domain.documento.Cpf;
 import desafio.domain.documento.Documento;
-import desafio.domain.documento.Rg;
 import desafio.domain.documento.dto.ListDocumento;
 import desafio.domain.documento.dto.PutDocumento;
 import desafio.domain.documento.service.DocumentoService;
@@ -17,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping({"/cliente", "pf", "pj"})
+@RequestMapping({"/cliente"})
 public class DocumentoController {
 
     @Autowired
@@ -40,25 +37,13 @@ public class DocumentoController {
 
         if (cliente != null && doc.cliente().id().equals(cliente.getId())) {
 
-            Documento documento = null;
-
-            var t = doc.tipo().getId();
-
-            if (t == 1) {
-                documento = new Rg(doc);
-            } else if (t == 2) {
-                documento = new Cpf(doc);
-            } else if (t == 3) {
-                documento = new Cnpj(doc);
-            } else {
-                documento = new Documento(doc);
-            }
+            var documento = new Documento(doc);
 
             documento.setCliente(cliente);
 
-            var docSalvo = service.save(documento).orElse(null);
+            documento = service.save(documento).orElse(null);
 
-            return new PutDocumento(docSalvo);
+            return new PutDocumento(documento);
 
         }
 

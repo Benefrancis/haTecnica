@@ -1,11 +1,15 @@
 package desafio.domain.documento;
 
+import desafio.domain.documento.dto.PutTipoDocumento;
 import jakarta.persistence.*;
 
 @Entity
 @Table(
-        name="HT_TIPO_DOCUMENTO",
-        uniqueConstraints= @UniqueConstraint(columnNames={"nome"}, name = "UK_NOME_TIPO_DOCUMENTO"),
+        name = "HT_TIPO_DOCUMENTO",
+        uniqueConstraints = @UniqueConstraint(
+                columnNames = {"nome"},
+                name = "UK_NOME_TIPO_DOCUMENTO"
+        ),
         indexes = @Index(
                 columnList = "nome",
                 name = "IDX_NOME_TIPO_DOCUMENTO"
@@ -31,6 +35,13 @@ public class TipoDocumento {
         this.nome = nome;
 
     }
+
+
+    public TipoDocumento(PutTipoDocumento td) {
+        this.id = td.id();
+        this.nome = td.nome();
+    }
+
 
     public Long getId() {
         return id;
