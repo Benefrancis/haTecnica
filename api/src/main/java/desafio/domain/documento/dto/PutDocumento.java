@@ -1,10 +1,12 @@
 package desafio.domain.documento.dto;
 
+import desafio.domain.cliente.Cliente;
 import desafio.domain.cliente.dto.PutCliente;
 import desafio.domain.documento.Documento;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jdk.jshell.Snippet;
 
 import java.time.LocalDate;
 
@@ -27,6 +29,8 @@ public record PutDocumento(
 
 ) {
 
+
+
     public PutDocumento(Documento dados) {
         this(
                 dados.getId(),
@@ -37,4 +41,6 @@ public record PutDocumento(
                 new PutCliente(dados.getCliente())
         );
     }
+
+
 }

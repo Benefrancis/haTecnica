@@ -19,12 +19,12 @@ public class Documento {
     private String numero;
 
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.DETACH)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
     @JoinColumn(name = "ID_CLIENTE", referencedColumnName = "ID_CLIENTE", foreignKey = @ForeignKey(name = "FK_CLIENTE_DOCUMENTO", value = ConstraintMode.CONSTRAINT))
     private Cliente cliente;
 
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.DETACH)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
     @JoinColumn(name = "ID_TIPO_DOCUMENTO", referencedColumnName = "ID_TIPO_DOCUMENTO", foreignKey = @ForeignKey(name = "FK_TIPO_DOCUMENTO_CLIENTE", value = ConstraintMode.CONSTRAINT))
     private TipoDocumento tipo;
 
@@ -61,6 +61,7 @@ public class Documento {
         this.tipo = new TipoDocumento(dados.tipo());
         this.emissao = dados.emissao();
         this.validade = dados.validade();
+        if (dados.cliente() != null) this.cliente = new Cliente(dados.cliente());
     }
 
     public Long getId() {
@@ -128,5 +129,13 @@ public class Documento {
         sb.append(", validade=").append(validade);
         sb.append('}');
         return sb.toString();
+    }
+
+    public void atualizarInforamcoes(PutDocumento dados) {
+        this.id = dados.id();
+        this.numero = dados.numero();
+        this.tipo = new TipoDocumento(dados.tipo());
+        this.emissao = dados.emissao();
+        this.validade = dados.validade();
     }
 }

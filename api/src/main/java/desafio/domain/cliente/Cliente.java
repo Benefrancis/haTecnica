@@ -39,9 +39,9 @@ public class Cliente {
         this.id = c.id();
         this.nome = c.nome();
         this.nascimento = c.nascimento();
-        this.telefone = new Telefone(c.telefone());
-        this.endereco = new Endereco(c.endereco());
-        this.tipo = new TipoCliente(c.tipo());
+        if (c.telefone() != null) this.telefone = new Telefone(c.telefone());
+        if (c.endereco() != null) this.endereco = new Endereco(c.endereco());
+        if (c.tipo() != null) this.tipo = new TipoCliente(c.tipo());
     }
 
 
@@ -142,4 +142,5 @@ public class Cliente {
         sb.append('}');
         return sb.toString();
     }
+
 }
