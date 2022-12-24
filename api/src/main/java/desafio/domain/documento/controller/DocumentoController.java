@@ -6,7 +6,7 @@ import desafio.domain.documento.Documento;
 import desafio.domain.documento.dto.ListDocumento;
 import desafio.domain.documento.dto.PutDocumento;
 import desafio.domain.documento.service.DocumentoService;
-import desafio.infra.EntityNotFoundException;
+import desafio.infra.exceptions.EntityNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

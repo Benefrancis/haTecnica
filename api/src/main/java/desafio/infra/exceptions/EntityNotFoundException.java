@@ -1,4 +1,4 @@
-package desafio.infra;
+package desafio.infra.exceptions;
 
 import java.util.function.Supplier;
 

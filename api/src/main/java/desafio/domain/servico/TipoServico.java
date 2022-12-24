@@ -6,12 +6,9 @@ import jakarta.persistence.*;
 @Entity
 @Table(
         name = "HT_TIPO_SERVICO",
-        uniqueConstraints =
-        @UniqueConstraint(columnNames = {"nome"}, name = "UK_NOME_TIPO_SERVICO"),
-        indexes = @Index(
-                columnList = "nome",
-                name = "IDX_NOME_TIPO_SERVICO"
-        )
+        uniqueConstraints = @UniqueConstraint(
+                columnNames = {"nome"},
+                name = "UK_NOME_TIPO_SERVICO")
 )
 public class TipoServico {
     @Id
@@ -58,10 +55,9 @@ public class TipoServico {
     }
 
 
-
-    public void atualizarInforamcoes(PutTipoServico ts){
-        if(ts.nome()!= null){
-            this.nome =ts.nome();
+    public void atualizarInforamcoes(PutTipoServico ts) {
+        if (ts.nome() != null) {
+            this.nome = ts.nome();
         }
     }
 
@@ -74,8 +70,6 @@ public class TipoServico {
         sb.append('}');
         return sb.toString();
     }
-
-
 
 
 }

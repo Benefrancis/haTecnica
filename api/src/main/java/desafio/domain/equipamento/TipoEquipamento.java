@@ -6,14 +6,9 @@ import jakarta.persistence.*;
 @Entity
 @Table(
         name = "HT_TIPO_EQUIPAMENTO",
-        uniqueConstraints =
-        @UniqueConstraint(
+        uniqueConstraints = @UniqueConstraint(
                 columnNames = {"nome"},
-                name = "UK_NOME_TIPO_EQUIPAMENTO"),
-                indexes = @Index(
-                    columnList = "nome",
-                    name = "IDX_NOME_TIPO_EQUIPAMENTO"
-        )
+                name = "UK_NOME_TIPO_EQUIPAMENTO")
 )
 
 public class TipoEquipamento {

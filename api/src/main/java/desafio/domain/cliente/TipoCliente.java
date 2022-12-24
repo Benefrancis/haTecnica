@@ -3,14 +3,20 @@ package desafio.domain.cliente;
 
 import desafio.domain.cliente.dto.PutTipoCliente;
 import jakarta.persistence.*;
+import org.springframework.context.annotation.Primary;
 
 @Entity
 @Table(
-        name = "HT_TIPO_CLIENTE",//         uniqueConstraints= @UniqueConstraint(columnNames={"nome"}, name = "UK_NOME_TIPO_CLIENTE"),
+        name = "HT_TIPO_CLIENTE",
+        uniqueConstraints = @UniqueConstraint(
+                columnNames = {"nome"},
+                name = "UK_NOME_TIPO_CLIENTE"),
+
         indexes = @Index(
                 columnList = "nome",
                 name = "IDX_NOME_TIPO_CLIENTE"
         )
+
 )
 public class TipoCliente {
 

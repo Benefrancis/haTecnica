@@ -7,7 +7,14 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "HT_CLIENTE")
+@Table(name = "HT_CLIENTE",
+        uniqueConstraints = @UniqueConstraint(
+                columnNames = {"email"},
+                name = "UK_EMAIL_CLIENTE"),
+        indexes = @Index(
+                columnList = "nome",
+                name = "IDX_NOME_CLIENTE"
+        ))
 public class Cliente {
 
     @Id
@@ -16,8 +23,9 @@ public class Cliente {
     @Column(name = "ID_CLIENTE")
     private Long id;
 
+    @Column(name = "nome", nullable = false)
     private String nome;
-
+    @Column(name = "email")
     private String email;
 
     @Temporal(TemporalType.DATE)
@@ -131,7 +139,7 @@ public class Cliente {
             setNome(dados.nome());
         }
 
-        if(dados.email()!=null){
+        if (dados.email() != null) {
             setEmail(dados.email());
         }
 

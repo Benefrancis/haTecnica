@@ -7,8 +7,12 @@ import jakarta.persistence.*;
         name = "HT_USUARIO",
         uniqueConstraints = @UniqueConstraint(
                 columnNames = {"username"},
-                name = "UK_USERNAME_USER"
+                name = "UK_USERNAME_USER"),
+        indexes = @Index(
+                columnList = "password",
+                name = "IDX_PASSWORD"
         )
+
 )
 public class Usuario {
 

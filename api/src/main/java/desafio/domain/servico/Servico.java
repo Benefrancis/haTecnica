@@ -7,7 +7,12 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "HT_SERVICO")
+@Table(name = "HT_SERVICO",
+        indexes = @Index(
+                columnList = "DT_AUTORIZACAO , DT_INICIO, DT_CONCLUSAO ",
+                name = "IDX_DATAS_SERVICO"
+        )
+)
 public class Servico {
 
     @Id

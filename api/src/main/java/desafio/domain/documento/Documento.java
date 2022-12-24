@@ -7,7 +7,12 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "HT_DOCUMENTO")
+@Table(name = "HT_DOCUMENTO",
+        indexes = @Index(
+                columnList = "NUMERO",
+                name = "IDX_NUMERO_DOCUMENTO"
+        )
+)
 public class Documento {
 
     @Id
@@ -16,6 +21,8 @@ public class Documento {
     @Column(name = "ID_DOCUMENTO")
     private Long id;
 
+
+    @Column(name = "NUMERO")
     private String numero;
 
 
