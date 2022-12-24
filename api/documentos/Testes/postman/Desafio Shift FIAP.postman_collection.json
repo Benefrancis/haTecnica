@@ -1,0 +1,222 @@
+{
+	"info": {
+		"_postman_id": "5868dd3e-1693-4319-921d-b08873eaeaa9",
+		"name": "Desafio Shift FIAP",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1524675"
+	},
+	"item": [
+		{
+			"name": "Cliente",
+			"item": [
+				{
+					"name": "POST PF",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Benefrancis do Nascimento\",\r\n    \"nascimento\": \"1977-03-08\",\r\n    \"email\": \"benefrancis@gmail.com\",\r\n    \"tipo\": {\r\n        \"id\": 1,\r\n        \"nome\": \"Pessoa Física\",\r\n        \"sigla\": \"PF\"\r\n    },\r\n    \"telefone\": {\r\n        \"ddi\": \"55\",\r\n        \"ddd\": \"11\",\r\n        \"numero\": \"982816536\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/cliente",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cliente"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST PJ",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"FIAP Alura\",\r\n    \"nascimento\": null,\r\n    \"tipo\": {\r\n        \"id\": 2,\r\n        \"nome\": \"Pessoa Jurídica\",\r\n        \"sigla\": \"PJ\"\r\n    },\r\n    \"telefone\": {\r\n        \"ddi\": \"55\",\r\n        \"ddd\": \"11\",\r\n        \"numero\": \"33858010\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/cliente",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cliente"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET CLIENTES",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/cliente",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cliente"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Documento",
+			"item": [
+				{
+					"name": "GET DOCUMENTOS",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/cliente/1/documento",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cliente",
+								"1",
+								"documento"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST DOCUMENTO",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n    {\r\n        \"numero\": \"11319526000155\",\r\n        \"tipo\": {\r\n            \"id\": 3,\r\n            \"nome\": \"CNPJ\"\r\n        },\r\n        \"emissao\": null,\r\n        \"validade\": null,\r\n        \"cliente\": {\r\n            \"id\": 1\r\n        }\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/cliente/1/documento",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cliente",
+								"1",
+								"documento"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET DOCUMENTO POR ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/cliente/1/documento/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cliente",
+								"1",
+								"documento",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT DOCUMENTO",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n \r\n    \"numero\": \"000000000/0001-91\",\r\n    \"tipo\": {\r\n        \"id\": 3,\r\n        \"nome\": \"CNPJ\"\r\n    },\r\n    \"emissao\": null,\r\n    \"validade\": null,\r\n    \"cliente\": {\r\n        \"id\": 1\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/cliente/1/documento/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cliente",
+								"1",
+								"documento",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Equipamento",
+			"item": [
+				{
+					"name": "GET EQUIPAMENTOS",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/cliente/1/equipamento",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cliente",
+								"1",
+								"equipamento"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
