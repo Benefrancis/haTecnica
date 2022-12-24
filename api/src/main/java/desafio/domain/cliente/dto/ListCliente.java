@@ -10,8 +10,8 @@ public record ListCliente(
         String nome,
         LocalDate nascimento,
         PutTipoCliente tipo,
-        PutTelefone telefone,
-        PutEndereco endereco
+        PutTelefone telefone
+
 ) {
     public ListCliente(Cliente c) {
 
@@ -20,8 +20,8 @@ public record ListCliente(
                 c.getNome(),
                 c.getNascimento(),
                 (c.getTipo() != null) ? new PutTipoCliente(c.getTipo()) : null,
-                (c.getTelefone() != null) ? new PutTelefone(c.getTelefone()) : null,
-                (c.getEndereco() != null) ? new PutEndereco(c.getEndereco()) : null
+                (c.getTelefone() != null) ? new PutTelefone(c.getTelefone()) : null
+
         );
     }
 }

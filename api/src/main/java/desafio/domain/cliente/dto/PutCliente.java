@@ -26,10 +26,10 @@ public record PutCliente(
         PutTipoCliente tipo,
 
 
-        PutTelefone telefone,
+        PutTelefone telefone
 
 
-        PutEndereco endereco
+
 
 ) {
 
@@ -41,8 +41,8 @@ public record PutCliente(
                 c.getEmail(),
                 c.getNascimento(),
                 new PutTipoCliente(c.getTipo()),
-                new PutTelefone(c.getTelefone()),
-                new PutEndereco(c.getEndereco())
+                new PutTelefone(c.getTelefone())
+
         );
     }
 }

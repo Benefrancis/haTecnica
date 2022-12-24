@@ -5,6 +5,4 @@ public interface ResultInterface {
     Integer getCode();
 
     String getMessage();
-} 
-
-
+}

@@ -1,5 +1,6 @@
 package desafio.domain.endereco;
 
+import desafio.domain.cliente.Cliente;
 import desafio.domain.endereco.dto.PutEndereco;
 import jakarta.persistence.*;
 
@@ -31,6 +32,12 @@ public class Endereco {
     private Cidade cidade;
 
 
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
+    @JoinColumn(name = "ID_CLIENTE", referencedColumnName = "ID_CLIENTE", foreignKey = @ForeignKey(name = "FK_CLIENTE_ENDERECO", value = ConstraintMode.CONSTRAINT))
+    private Cliente cliente;
+
+
+
     public Endereco() {
     }
 
@@ -46,17 +53,19 @@ public class Endereco {
         this.numero = dados.numero();
         this.complemento = dados.complemento();
         this.logradouro = dados.logradouro();
+        this.cliente = new Cliente(dados.cliente());
     }
 
-    public Endereco(String logradouro, String numero, String complemento, String bairro, String cep, Cidade cidade) {
+    public Endereco(Long id, String logradouro, String numero, String complemento, String bairro, String cep, Cidade cidade, Cliente cliente) {
+        this.id = id;
         this.logradouro = logradouro;
         this.numero = numero;
         this.complemento = complemento;
         this.bairro = bairro;
         this.cep = cep;
         this.cidade = cidade;
+        this.cliente = cliente;
     }
-
 
     public Long getId() {
         return id;
@@ -121,6 +130,16 @@ public class Endereco {
         return this;
     }
 
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public Endereco setCliente(Cliente cliente) {
+        this.cliente = cliente;
+        return this;
+    }
+
     public void atualizarInformacoes(PutEndereco dados) {
 
         this.id = dados.id();
@@ -149,20 +168,27 @@ public class Endereco {
         if (!dados.logradouro().equals(null)) {
             this.logradouro = dados.logradouro();
         }
+
+
+        if(!dados.cliente().equals(null)){
+            this.cliente.atualizarInformacoes(dados.cliente());
+        }
     }
 
 
     @Override
     public String toString() {
-        return new StringJoiner(", ", Endereco.class.getSimpleName() + "[", "]")
-                .add("id=" + id)
-                .add("logradouro='" + logradouro + "'")
-                .add("numero='" + numero + "'")
-                .add("complemento='" + complemento + "'")
-                .add("bairro='" + bairro + "'")
-                .add("cep=" + cep)
-                .add("cidade=" + cidade)
-                .toString();
+        final StringBuilder sb = new StringBuilder("Endereco{");
+        sb.append("id=").append(id);
+        sb.append(", logradouro='").append(logradouro).append('\'');
+        sb.append(", numero='").append(numero).append('\'');
+        sb.append(", complemento='").append(complemento).append('\'');
+        sb.append(", bairro='").append(bairro).append('\'');
+        sb.append(", cep='").append(cep).append('\'');
+        sb.append(", cidade=").append(cidade);
+        sb.append(", cliente=").append(cliente);
+        sb.append('}');
+        return sb.toString();
     }
 }
 

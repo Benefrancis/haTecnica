@@ -35,9 +35,9 @@ public class Cliente {
     private Telefone telefone;
 
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "ID_ENDERECO", referencedColumnName = "ID_ENDERECO", foreignKey = @ForeignKey(name = "FK_ENDERECO_CLIENTE", value = ConstraintMode.CONSTRAINT))
-    private Endereco endereco;
+//    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+//    @JoinColumn(name = "ID_ENDERECO", referencedColumnName = "ID_ENDERECO", foreignKey = @ForeignKey(name = "FK_ENDERECO_CLIENTE", value = ConstraintMode.CONSTRAINT))
+//    private Endereco endereco;
 
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
@@ -51,7 +51,6 @@ public class Cliente {
         this.email = c.email();
         this.nascimento = c.nascimento();
         if (c.telefone() != null) this.telefone = new Telefone(c.telefone());
-        if (c.endereco() != null) this.endereco = new Endereco(c.endereco());
         if (c.tipo() != null) this.tipo = new TipoCliente(c.tipo());
     }
 
@@ -59,13 +58,12 @@ public class Cliente {
     public Cliente() {
     }
 
-    public Cliente(Long id, String nome, String email, LocalDate nascimento, Telefone telefone, Endereco endereco, TipoCliente tipo) {
+    public Cliente(Long id, String nome, String email, LocalDate nascimento, Telefone telefone,  TipoCliente tipo) {
         this.id = id;
         this.nome = nome;
         this.email = email;
         this.nascimento = nascimento;
         this.telefone = telefone;
-        this.endereco = endereco;
         this.tipo = tipo;
     }
 
@@ -115,14 +113,7 @@ public class Cliente {
         return this;
     }
 
-    public Endereco getEndereco() {
-        return endereco;
-    }
 
-    public Cliente setEndereco(Endereco endereco) {
-        this.endereco = endereco;
-        return this;
-    }
 
     public TipoCliente getTipo() {
         return tipo;
@@ -149,9 +140,7 @@ public class Cliente {
         if (dados.telefone() != null) {
             getTelefone().atualizarInformacoes(dados.telefone());
         }
-        if (dados.endereco() != null) {
-            getEndereco().atualizarInformacoes(dados.endereco());
-        }
+
 
     }
 
@@ -164,7 +153,6 @@ public class Cliente {
         sb.append(", email='").append(email).append('\'');
         sb.append(", nascimento=").append(nascimento);
         sb.append(", telefone=").append(telefone);
-        sb.append(", endereco=").append(endereco);
         sb.append(", tipo=").append(tipo);
         sb.append('}');
         return sb.toString();

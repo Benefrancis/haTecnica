@@ -1,5 +1,6 @@
 package desafio.domain.endereco.dto;
 
+import desafio.domain.cliente.dto.PutCliente;
 import desafio.domain.endereco.Endereco;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
@@ -27,7 +28,11 @@ public record PutEndereco(
 
         @NotNull
         @Valid
-        PutCidade cidade
+        PutCidade cidade,
+
+        @NotNull
+        @Valid
+        PutCliente cliente
 
 ) {
 
@@ -39,7 +44,8 @@ public record PutEndereco(
                 e.getComplemento(),
                 e.getBairro(),
                 e.getCep(),
-                new PutCidade(e.getCidade())
+                new PutCidade(e.getCidade()),
+                new PutCliente(e.getCliente())
         );
     }
 }
