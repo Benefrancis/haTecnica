@@ -44,8 +44,8 @@ public class ClienteService {
     }
 
     public Cliente save(@Valid Cliente c) {
-        repository.save(c);
-        return repository.getReferenceById(c.getId());
+        var ret = repository.saveAndFlush(c);
+        return ret; //repository.findById(c.getId()).orElse(null);
     }
 
 }

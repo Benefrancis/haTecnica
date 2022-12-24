@@ -18,6 +18,8 @@ public class Cliente {
 
     private String nome;
 
+    private String email;
+
     @Temporal(TemporalType.DATE)
     private LocalDate nascimento;
 
@@ -30,7 +32,7 @@ public class Cliente {
     private Endereco endereco;
 
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
     @JoinColumn(name = "ID_TIPO_CLIENTE", referencedColumnName = "ID_TIPO_CLIENTE", foreignKey = @ForeignKey(name = "FK_TIPO_CLIENTE", value = ConstraintMode.CONSTRAINT))
     private TipoCliente tipo;
 
@@ -38,6 +40,7 @@ public class Cliente {
     public Cliente(PutCliente c) {
         this.id = c.id();
         this.nome = c.nome();
+        this.email = c.email();
         this.nascimento = c.nascimento();
         if (c.telefone() != null) this.telefone = new Telefone(c.telefone());
         if (c.endereco() != null) this.endereco = new Endereco(c.endereco());
@@ -48,15 +51,15 @@ public class Cliente {
     public Cliente() {
     }
 
-    public Cliente(Long id, String nome, LocalDate nascimento, Telefone telefone, Endereco endereco, TipoCliente tipo) {
+    public Cliente(Long id, String nome, String email, LocalDate nascimento, Telefone telefone, Endereco endereco, TipoCliente tipo) {
         this.id = id;
         this.nome = nome;
+        this.email = email;
         this.nascimento = nascimento;
         this.telefone = telefone;
         this.endereco = endereco;
         this.tipo = tipo;
     }
-
 
     public Long getId() {
         return id;
@@ -73,6 +76,16 @@ public class Cliente {
 
     public Cliente setNome(String nome) {
         this.nome = nome;
+        return this;
+    }
+
+
+    public String getEmail() {
+        return email;
+    }
+
+    public Cliente setEmail(String email) {
+        this.email = email;
         return this;
     }
 
@@ -118,6 +131,10 @@ public class Cliente {
             setNome(dados.nome());
         }
 
+        if(dados.email()!=null){
+            setEmail(dados.email());
+        }
+
         if (dados.nascimento() != null) {
             setNascimento(dados.nascimento());
         }
@@ -130,11 +147,13 @@ public class Cliente {
 
     }
 
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Cliente{");
         sb.append("id=").append(id);
         sb.append(", nome='").append(nome).append('\'');
+        sb.append(", email='").append(email).append('\'');
         sb.append(", nascimento=").append(nascimento);
         sb.append(", telefone=").append(telefone);
         sb.append(", endereco=").append(endereco);
@@ -142,5 +161,4 @@ public class Cliente {
         sb.append('}');
         return sb.toString();
     }
-
 }
