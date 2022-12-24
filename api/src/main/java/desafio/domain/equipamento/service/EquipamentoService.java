@@ -1,8 +1,12 @@
 package desafio.domain.equipamento.service;
 
+import desafio.domain.documento.Documento;
 import desafio.domain.equipamento.Equipamento;
 import desafio.domain.equipamento.repository.EquipamentoRepository;
+import jakarta.validation.constraints.Min;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,9 +19,9 @@ public class EquipamentoService {
     @Autowired
     private EquipamentoRepository repository;
 
-    public List<Equipamento> findByClienteId(Long id) {
-        List<Equipamento> o = repository.findByClienteId(id);
-        return o;
+    public Page<Equipamento> findByClienteId(@Min(value = 1, message = "Informe o ID da entidade")  Long id, Pageable paginacao) {
+        return repository.findByClienteId(id, paginacao);
+
 
     }
 

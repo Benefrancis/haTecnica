@@ -2,12 +2,16 @@ package desafio.domain.equipamento.controller;
 
 import desafio.domain.cliente.Cliente;
 import desafio.domain.cliente.repository.ClienteRepository;
+import desafio.domain.documento.dto.ListDocumento;
 import desafio.domain.equipamento.Equipamento;
 import desafio.domain.equipamento.dto.ListEquipamento;
 import desafio.domain.equipamento.dto.PutEquipamento;
 import desafio.domain.equipamento.service.EquipamentoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -29,8 +33,10 @@ public class EquipamentoController {
 
 
     @GetMapping("/{id}/equipamento")
-    public List<ListEquipamento> findByClienteId(@PathVariable("id") Long id) {
-        return service.findByClienteId(id).stream().map(ListEquipamento::new).toList();
+    public ResponseEntity<Page<ListEquipamento>> findByClienteId(@PathVariable("id") Long id, @PageableDefault(size = 10, sort = {"cliente.nome"}) Pageable paginacao) {
+        var cliente = IsValidCliente(id);
+        if (cliente == null) return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(service.findByClienteId(id, paginacao).map(ListEquipamento::new));
     }
 
     @PostMapping("/{id}/equipamento")
@@ -68,5 +74,11 @@ public class EquipamentoController {
             err.printStackTrace();
             return ResponseEntity.badRequest().build();
         }
+    }
+
+    private Cliente IsValidCliente(Long id) {
+
+        var cliente = clienteRepository.findById(id).orElse(null);
+        return cliente;
     }
 }

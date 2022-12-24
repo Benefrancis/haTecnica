@@ -35,7 +35,7 @@ public class DocumentoController {
 
         var cliente = IsValidCliente(id);
 
-        if (cliente == null) return ResponseEntity.badRequest().build();
+        if (cliente == null) return ResponseEntity.notFound().build();
 
         return ResponseEntity.ok(service.findByClienteId(id, paginacao).map(ListDocumento::new));
     }
