@@ -1,306 +1,471 @@
-CREATE SEQUENCE seq_ht_cliente START WITH 1 INCREMENT BY 1;
-CREATE SEQUENCE seq_ht_endereco START WITH 1 INCREMENT BY 1;
-CREATE SEQUENCE seq_ht_cidade START WITH 1 INCREMENT BY 1;
-CREATE SEQUENCE seq_ht_estado START WITH 1 INCREMENT BY 1;
-CREATE SEQUENCE seq_ht_pais START WITH 1 INCREMENT BY 1;
-CREATE SEQUENCE seq_ht_documento START WITH 1 INCREMENT BY 1;
-CREATE SEQUENCE seq_ht_tipo_documento START WITH 1 INCREMENT BY 1;
-CREATE SEQUENCE seq_ht_equipamento START WITH 1 INCREMENT BY 1;
-CREATE SEQUENCE seq_ht_tipo_equipamento START WITH 1 INCREMENT BY 1;
-CREATE SEQUENCE seq_ht_servico START WITH 1 INCREMENT BY 1;
-CREATE SEQUENCE seq_ht_tipo_servico START WITH 1 INCREMENT BY 1;
-CREATE SEQUENCE seq_ht_usuario START WITH 1 INCREMENT BY 1;
-CREATE SEQUENCE seq_ht_tipo_cliente START WITH 1 INCREMENT BY 1;
-
-CREATE TABLE ht_tipo_cliente
-(
-    id_tipo_cliente NUMBER(38, 0) NOT NULL,
-    nome            VARCHAR2(255) NOT NULL,
-    sigla           VARCHAR2(255),
-    CONSTRAINT pk_ht_tipo_cliente PRIMARY KEY (id_tipo_cliente)
-);
-
-
-
-
-CREATE TABLE ht_usuario
-(
-    id_usuario NUMBER(38, 0) NOT NULL,
-    username   VARCHAR2(255) NOT NULL,
-    password   VARCHAR2(255) NOT NULL,
-    CONSTRAINT pk_ht_usuario PRIMARY KEY (id_usuario)
-);
-
-
-
-CREATE TABLE ht_tipo_servico
-(
-    id_tipo_servico NUMBER(38, 0) NOT NULL,
-    nome            VARCHAR2(255) NOT NULL,
-    CONSTRAINT pk_ht_tipo_servico PRIMARY KEY (id_tipo_servico)
-);
-
-
-
-CREATE TABLE ht_tipo_equipamento
-(
-    id_tipo_equipamento NUMBER(38, 0) NOT NULL,
-    nome                VARCHAR2(255) NOT NULL,
-    CONSTRAINT pk_ht_tipo_equipamento PRIMARY KEY (id_tipo_equipamento)
-);
-
-
-CREATE TABLE ht_tipo_documento
-(
-    id_tipo_documento NUMBER(38, 0) NOT NULL,
-    nome              VARCHAR2(255) NOT NULL,
-    CONSTRAINT pk_ht_tipo_documento PRIMARY KEY (id_tipo_documento)
-);
-
-ALTER TABLE ht_tipo_documento
-    ADD CONSTRAINT UK_NOME_TIPO_DOCUMENTO UNIQUE (nome);
-
-CREATE INDEX IDX_NOME_TIPO_DOCUMENTO ON ht_tipo_documento (nome);
-
-
-
-CREATE TABLE ht_pais
-(
-    id_pais NUMBER(38, 0) NOT NULL,
-    nome    VARCHAR2(255) NOT NULL,
-    CONSTRAINT pk_ht_pais PRIMARY KEY (id_pais)
-);
-
-
-CREATE TABLE ht_estado
-(
-    id_estado NUMBER(38, 0) NOT NULL,
-    nome      VARCHAR2(255),
-    sigla     VARCHAR2(255) NOT NULL,
-    id_pais   NUMBER(38, 0),
-    CONSTRAINT pk_ht_estado PRIMARY KEY (id_estado)
-);
-
-
-
-CREATE TABLE ht_cidade
-(
-    id_cidade NUMBER(38, 0) NOT NULL,
-    nome      VARCHAR2(255),
-    id_estado NUMBER(38, 0),
-    CONSTRAINT pk_ht_cidade PRIMARY KEY (id_cidade)
-);
-
-
-
-CREATE TABLE ht_endereco
-(
-    id_endereco NUMBER(38, 0) NOT NULL,
-    logradouro  VARCHAR2(255),
-    numero      VARCHAR2(255),
-    complemento VARCHAR2(255),
-    bairro      VARCHAR2(255),
-    cep         VARCHAR2(255),
-    id_cidade   NUMBER(38, 0),
-    CONSTRAINT pk_ht_endereco PRIMARY KEY (id_endereco)
-);
-
-
-CREATE TABLE ht_cliente
-(
-    id_cliente      NUMBER(38, 0) NOT NULL,
-    nome            VARCHAR2(255),
-    nascimento      date,
-    id_endereco     NUMBER(38, 0),
-    id_tipo_cliente NUMBER(38, 0),
-    ddi             VARCHAR2(255),
-    ddd             VARCHAR2(255) NOT NULL,
-    numero          VARCHAR2(255) NOT NULL,
-    CONSTRAINT pk_ht_cliente PRIMARY KEY (id_cliente)
-);
-
-
-
-
-CREATE TABLE ht_documento
-(
-    id_documento      NUMBER(38, 0) NOT NULL,
-    numero            VARCHAR2(255),
-    id_cliente        NUMBER(38, 0),
-    id_tipo_documento NUMBER(38, 0),
-    dt_emissao        date,
-    dt_validade       date,
-    CONSTRAINT pk_ht_documento PRIMARY KEY (id_documento)
-);
-
-
-
-
-CREATE TABLE ht_equipamento
-(
-    id_equipamento      NUMBER(38, 0) NOT NULL,
-    id_cliente          NUMBER(38, 0),
-    nr_serie            VARCHAR2(255),
-    id_tipo_equipamento NUMBER(38, 0),
-    CONSTRAINT pk_ht_equipamento PRIMARY KEY (id_equipamento)
-);
-
-
-
-CREATE TABLE ht_servico
-(
-    id_servico      NUMBER(38, 0) NOT NULL,
-    descricao       VARCHAR2(255),
-    valor           FLOAT(24)     NOT NULL,
-    id_tipo_servico NUMBER(38, 0),
-    dt_autorizacao  TIMESTAMP,
-    dt_inicio       TIMESTAMP,
-    dt_conclusao    TIMESTAMP,
-    id_equipamento  NUMBER(38, 0),
-    CONSTRAINT pk_ht_servico PRIMARY KEY (id_servico)
-);
-
-
-
-CREATE INDEX IDX_NOME_TIPO_CLIENTE ON ht_tipo_cliente (nome);
-
-ALTER TABLE ht_usuario
-    ADD CONSTRAINT UK_USERNAME_USER UNIQUE (username);
-	
-ALTER TABLE ht_tipo_servico
-    ADD CONSTRAINT UK_NOME_TIPO_SERVICO UNIQUE (nome);
-
-CREATE INDEX IDX_NOME_TIPO_SERVICO ON ht_tipo_servico (nome);
-
-
-
-ALTER TABLE ht_servico
-    ADD CONSTRAINT FK_HT_SERVICO_ON_ID_EQUIPAMENTO FOREIGN KEY (id_equipamento) REFERENCES ht_equipamento (id_equipamento);
-
-ALTER TABLE ht_servico
-    ADD CONSTRAINT FK_HT_SERVICO_ON_ID_TIPO_SERVICO FOREIGN KEY (id_tipo_servico) REFERENCES ht_tipo_servico (id_tipo_servico);
-
-ALTER TABLE ht_tipo_equipamento
-    ADD CONSTRAINT UK_NOME_TIPO_EQUIPAMENTO UNIQUE (nome);
-
-CREATE INDEX IDX_NOME_TIPO_EQUIPAMENTO ON ht_tipo_equipamento (nome);
-
-
-CREATE INDEX idx_equipamento_nr_serie ON ht_equipamento (nr_serie);
-
-ALTER TABLE ht_equipamento
-    ADD CONSTRAINT FK_HT_EQUIPAMENTO_ON_ID_CLIENTE FOREIGN KEY (id_cliente) REFERENCES ht_cliente (id_cliente);
-
-ALTER TABLE ht_equipamento
-    ADD CONSTRAINT FK_HT_EQUIPAMENTO_ON_ID_TIPO_EQUIPAMENTO FOREIGN KEY (id_tipo_equipamento) REFERENCES ht_tipo_equipamento (id_tipo_equipamento);
-
-ALTER TABLE ht_documento
-    ADD CONSTRAINT FK_HT_DOCUMENTO_ON_ID_CLIENTE FOREIGN KEY (id_cliente) REFERENCES ht_cliente (id_cliente);
-
-ALTER TABLE ht_documento
-    ADD CONSTRAINT FK_HT_DOCUMENTO_ON_ID_TIPO_DOCUMENTO FOREIGN KEY (id_tipo_documento) REFERENCES ht_tipo_documento (id_tipo_documento);
-
-ALTER TABLE ht_estado
-    ADD CONSTRAINT FK_HT_ESTADO_ON_ID_PAIS FOREIGN KEY (id_pais) REFERENCES ht_pais (id_pais);
-
-ALTER TABLE ht_cidade
-    ADD CONSTRAINT FK_HT_CIDADE_ON_ID_ESTADO FOREIGN KEY (id_estado) REFERENCES ht_estado (id_estado);
-
-ALTER TABLE ht_endereco
-    ADD CONSTRAINT FK_HT_ENDERECO_ON_ID_CIDADE FOREIGN KEY (id_cidade) REFERENCES ht_cidade (id_cidade);
-
-ALTER TABLE ht_cliente
-    ADD CONSTRAINT FK_HT_CLIENTE_ON_ID_ENDERECO FOREIGN KEY (id_endereco) REFERENCES ht_endereco (id_endereco);
-
-ALTER TABLE ht_cliente
-    ADD CONSTRAINT FK_HT_CLIENTE_ON_ID_TIPO_CLIENTE FOREIGN KEY (id_tipo_cliente) REFERENCES ht_tipo_cliente (id_tipo_cliente);
-	
-	
-	
-	
-	
-REM INSERTING into HT_TIPO_CLIENTE
-SET DEFINE OFF;
-Insert into HT_TIPO_CLIENTE (ID_TIPO_CLIENTE,NOME,SIGLA) values (SEQ_HT_TIPO_CLIENTE.NEXTVAL,'Pessoa Física','PF');
-Insert into HT_TIPO_CLIENTE (ID_TIPO_CLIENTE,NOME,SIGLA) values (SEQ_HT_TIPO_CLIENTE.NEXTVAL,'Pessoa Jurídica','PJ');
-
-
-
-REM INSERTING into HT_TIPO_DOCUMENTO
-SET DEFINE OFF;
-Insert into HT_TIPO_DOCUMENTO (ID_TIPO_DOCUMENTO,NOME) values (SEQ_HT_TIPO_DOCUMENTO.NEXTVAL ,'RG');
-Insert into HT_TIPO_DOCUMENTO (ID_TIPO_DOCUMENTO,NOME) values (SEQ_HT_TIPO_DOCUMENTO.NEXTVAL,'CPF');
-Insert into HT_TIPO_DOCUMENTO (ID_TIPO_DOCUMENTO,NOME) values (SEQ_HT_TIPO_DOCUMENTO.NEXTVAL,'CNPJ');
-
-
-REM INSERTING into HT_TIPO_EQUIPAMENTO
-SET DEFINE OFF;
-Insert into HT_TIPO_EQUIPAMENTO (ID_TIPO_EQUIPAMENTO,NOME) values (SEQ_HT_TIPO_EQUIPAMENTO.NEXTVAL,'Notebook');
-Insert into HT_TIPO_EQUIPAMENTO (ID_TIPO_EQUIPAMENTO,NOME) values (SEQ_HT_TIPO_EQUIPAMENTO.NEXTVAL,'Desktop');
-Insert into HT_TIPO_EQUIPAMENTO (ID_TIPO_EQUIPAMENTO,NOME) values (SEQ_HT_TIPO_EQUIPAMENTO.NEXTVAL,'Tablet');
-Insert into HT_TIPO_EQUIPAMENTO (ID_TIPO_EQUIPAMENTO,NOME) values (SEQ_HT_TIPO_EQUIPAMENTO.NEXTVAL,'Celular');
-Insert into HT_TIPO_EQUIPAMENTO (ID_TIPO_EQUIPAMENTO,NOME) values (SEQ_HT_TIPO_EQUIPAMENTO.NEXTVAL,'Video Game');
-
-
-REM INSERTING into HT_TIPO_SERVICO
-SET DEFINE OFF;
-Insert into HT_TIPO_SERVICO (ID_TIPO_SERVICO,NOME) values (SEQ_HT_TIPO_SERVICO.NEXTVAL,'Orçamento');
-Insert into HT_TIPO_SERVICO (ID_TIPO_SERVICO,NOME) values (SEQ_HT_TIPO_SERVICO.NEXTVAL,'Limpeza');
-Insert into HT_TIPO_SERVICO (ID_TIPO_SERVICO,NOME) values (SEQ_HT_TIPO_SERVICO.NEXTVAL,'Instalação ou Substituição de Peça');
-REM INSERTING into HT_USUARIO
-SET DEFINE OFF;
-
-
-REM INSERTING into HT_PAIS
-SET DEFINE OFF;
-Insert into HT_PAIS (ID_PAIS,NOME) values (SEQ_HT_PAIS.NEXTVAL,'Brasil');
-
-
-
-REM INSERTING into HT_ESTADO
-SET DEFINE OFF;
-Insert into HT_ESTADO (ID_ESTADO,NOME,SIGLA,ID_PAIS) values (SEQ_HT_ESTADO.NEXTVAL,'São Paulo','SP','1');
-
-
-
-
-
+--------------------------------------------------------
+--  Arquivo criado - s�bado-dezembro-24-2022   
+--------------------------------------------------------
+--------------------------------------------------------
+--  DDL for Table HT_CIDADE
+--------------------------------------------------------
+
+  CREATE TABLE "HT_CIDADE" 
+   (	"ID_CIDADE" NUMBER(19,0), 
+	"NOME" VARCHAR2(255 CHAR), 
+	"ID_ESTADO" NUMBER(19,0)
+   ) ;
+--------------------------------------------------------
+--  DDL for Table HT_CLIENTE
+--------------------------------------------------------
+
+  CREATE TABLE "HT_CLIENTE" 
+   (	"ID_CLIENTE" NUMBER(19,0), 
+	"EMAIL" VARCHAR2(255 CHAR), 
+	"NASCIMENTO" DATE, 
+	"NOME" VARCHAR2(255 CHAR), 
+	"DDD" VARCHAR2(255 CHAR), 
+	"DDI" VARCHAR2(255 CHAR), 
+	"NUMERO" VARCHAR2(255 CHAR), 
+	"ID_TIPO_CLIENTE" NUMBER(19,0)
+   ) ;
+--------------------------------------------------------
+--  DDL for Table HT_DOCUMENTO
+--------------------------------------------------------
+
+  CREATE TABLE "HT_DOCUMENTO" 
+   (	"ID_DOCUMENTO" NUMBER(19,0), 
+	"DT_EMISSAO" DATE, 
+	"NUMERO" VARCHAR2(255 CHAR), 
+	"DT_VALIDADE" DATE, 
+	"ID_CLIENTE" NUMBER(19,0), 
+	"ID_TIPO_DOCUMENTO" NUMBER(19,0)
+   ) ;
+--------------------------------------------------------
+--  DDL for Table HT_ENDERECO
+--------------------------------------------------------
+
+  CREATE TABLE "HT_ENDERECO" 
+   (	"ID_ENDERECO" NUMBER(19,0), 
+	"BAIRRO" VARCHAR2(255 CHAR), 
+	"CEP" VARCHAR2(255 CHAR), 
+	"COMPLEMENTO" VARCHAR2(255 CHAR), 
+	"LOGRADOURO" VARCHAR2(255 CHAR), 
+	"NUMERO" VARCHAR2(255 CHAR), 
+	"ID_CIDADE" NUMBER(19,0), 
+	"ID_CLIENTE" NUMBER(19,0)
+   ) ;
+--------------------------------------------------------
+--  DDL for Table HT_EQUIPAMENTO
+--------------------------------------------------------
+
+  CREATE TABLE "HT_EQUIPAMENTO" 
+   (	"ID_EQUIPAMENTO" NUMBER(19,0), 
+	"NR_SERIE" VARCHAR2(255 CHAR), 
+	"ID_CLIENTE" NUMBER(19,0), 
+	"ID_TIPO_EQUIPAMENTO" NUMBER(19,0)
+   ) ;
+--------------------------------------------------------
+--  DDL for Table HT_ESTADO
+--------------------------------------------------------
+
+  CREATE TABLE "HT_ESTADO" 
+   (	"ID_ESTADO" NUMBER(19,0), 
+	"NOME" VARCHAR2(255 CHAR), 
+	"SIGLA" VARCHAR2(255 CHAR), 
+	"ID_PAIS" NUMBER(19,0)
+   ) ;
+--------------------------------------------------------
+--  DDL for Table HT_PAIS
+--------------------------------------------------------
+
+  CREATE TABLE "HT_PAIS" 
+   (	"ID_PAIS" NUMBER(19,0), 
+	"NOME" VARCHAR2(255 CHAR)
+   ) ;
+--------------------------------------------------------
+--  DDL for Table HT_SERVICO
+--------------------------------------------------------
+
+  CREATE TABLE "HT_SERVICO" 
+   (	"ID_SERVICO" NUMBER(19,0), 
+	"DT_AUTORIZACAO" TIMESTAMP (6), 
+	"DT_CONCLUSAO" TIMESTAMP (6), 
+	"DT_INICIO" TIMESTAMP (6), 
+	"DESCRICAO" VARCHAR2(255 CHAR), 
+	"VALOR" FLOAT(53), 
+	"ID_EQUIPAMENTO" NUMBER(19,0), 
+	"ID_TIPO_SERVICO" NUMBER(19,0)
+   ) ;
+--------------------------------------------------------
+--  DDL for Table HT_TIPO_CLIENTE
+--------------------------------------------------------
+
+  CREATE TABLE "HT_TIPO_CLIENTE" 
+   (	"ID_TIPO_CLIENTE" NUMBER(19,0), 
+	"NOME" VARCHAR2(255 CHAR), 
+	"SIGLA" VARCHAR2(255 CHAR)
+   ) ;
+--------------------------------------------------------
+--  DDL for Table HT_TIPO_DOCUMENTO
+--------------------------------------------------------
+
+  CREATE TABLE "HT_TIPO_DOCUMENTO" 
+   (	"ID_TIPO_DOCUMENTO" NUMBER(19,0), 
+	"NOME" VARCHAR2(255 CHAR)
+   ) ;
+--------------------------------------------------------
+--  DDL for Table HT_TIPO_EQUIPAMENTO
+--------------------------------------------------------
+
+  CREATE TABLE "HT_TIPO_EQUIPAMENTO" 
+   (	"ID_TIPO_EQUIPAMENTO" NUMBER(19,0), 
+	"NOME" VARCHAR2(255 CHAR)
+   ) ;
+--------------------------------------------------------
+--  DDL for Table HT_TIPO_SERVICO
+--------------------------------------------------------
+
+  CREATE TABLE "HT_TIPO_SERVICO" 
+   (	"ID_TIPO_SERVICO" NUMBER(19,0), 
+	"NOME" VARCHAR2(255 CHAR)
+   ) ;
+--------------------------------------------------------
+--  DDL for Table HT_USUARIO
+--------------------------------------------------------
+
+  CREATE TABLE "HT_USUARIO" 
+   (	"ID_USUARIO" NUMBER(19,0), 
+	"PASSWORD" VARCHAR2(255 CHAR), 
+	"USERNAME" VARCHAR2(255 CHAR)
+   ) ;
 REM INSERTING into HT_CIDADE
 SET DEFINE OFF;
-Insert into HT_CIDADE (ID_CIDADE,NOME,ID_ESTADO) values (SEQ_HT_CIDADE.NEXTVAL,'São Paulo','1');
-Insert into HT_CIDADE (ID_CIDADE,NOME,ID_ESTADO) values (SEQ_HT_CIDADE.NEXTVAL,'Campinas','1');
-Insert into HT_CIDADE (ID_CIDADE,NOME,ID_ESTADO) values (SEQ_HT_CIDADE.NEXTVAL,'Osasco','1');
-
-
-
-
-
-REM INSERTING into HT_ENDERECO
-SET DEFINE OFF;
-Insert into HT_ENDERECO (ID_ENDERECO,BAIRRO,CEP,COMPLEMENTO,LOGRADOURO,NUMERO,ID_CIDADE) values (SEQ_HT_ENDERECO.NEXTVAL,'Bela Vista','06086-120','AP81-A','Rua Adolpho Bozzi','505','3');
-
-
 REM INSERTING into HT_CLIENTE
 SET DEFINE OFF;
-Insert into HT_CLIENTE (ID_CLIENTE,NASCIMENTO,NOME,DDD,DDI,NUMERO,ID_ENDERECO,ID_TIPO_CLIENTE) values (SEQ_HT_CLIENTE.NEXTVAL,to_date('08/03/77','DD/MM/RR'),'Benefrancis do Nascimento','11','55','982816536','1','1');
-Insert into HT_CLIENTE (ID_CLIENTE,NASCIMENTO,NOME,DDD,DDI,NUMERO,ID_ENDERECO,ID_TIPO_CLIENTE) values (SEQ_HT_CLIENTE.NEXTVAL,to_date('15/05/00','DD/MM/RR'),'Bruno Sudré do Nascimento','11','55','982816536','1','1');
-
-
-
 REM INSERTING into HT_DOCUMENTO
 SET DEFINE OFF;
-Insert into HT_DOCUMENTO (ID_DOCUMENTO,DT_EMISSAO,NUMERO,DT_VALIDADE,ID_CLIENTE,ID_TIPO_DOCUMENTO) values (SEQ_HT_DOCUMENTO.NEXTVAL,null,'284739753',null,'1','1');
-
-
-
-
-
+REM INSERTING into HT_ENDERECO
+SET DEFINE OFF;
 REM INSERTING into HT_EQUIPAMENTO
 SET DEFINE OFF;
-Insert into HT_EQUIPAMENTO (ID_EQUIPAMENTO,NR_SERIE,ID_CLIENTE,ID_TIPO_EQUIPAMENTO) values (SEQ_HT_EQUIPAMENTO.NEXTVAL,'0','1','1');
-
+REM INSERTING into HT_ESTADO
+SET DEFINE OFF;
+REM INSERTING into HT_PAIS
+SET DEFINE OFF;
 REM INSERTING into HT_SERVICO
 SET DEFINE OFF;
-Insert into HT_SERVICO (ID_SERVICO,DT_AUTORIZACAO,DT_CONCLUSAO,DT_INICIO,DESCRICAO,VALOR,ID_EQUIPAMENTO,ID_TIPO_SERVICO) values (SEQ_HT_SERVICO.NEXTVAL,to_timestamp('21/12/22 19:55:25,630220000','DD/MM/RR HH24:MI:SSXFF'),null,null,'Verificação dos componenetes substituição da pasta térmica.','100','1','2');
+REM INSERTING into HT_TIPO_CLIENTE
+SET DEFINE OFF;
+REM INSERTING into HT_TIPO_DOCUMENTO
+SET DEFINE OFF;
+REM INSERTING into HT_TIPO_EQUIPAMENTO
+SET DEFINE OFF;
+REM INSERTING into HT_TIPO_SERVICO
+SET DEFINE OFF;
+REM INSERTING into HT_USUARIO
+SET DEFINE OFF;
+--------------------------------------------------------
+--  DDL for Index SYS_C0011781
+--------------------------------------------------------
 
-COMMIT;	
+  CREATE UNIQUE INDEX "SYS_C0011781" ON "HT_CIDADE" ("ID_CIDADE") 
+  ;
+--------------------------------------------------------
+--  DDL for Index SYS_C0011786
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "SYS_C0011786" ON "HT_CLIENTE" ("ID_CLIENTE") 
+  ;
+--------------------------------------------------------
+--  DDL for Index IDX_NOME_CLIENTE
+--------------------------------------------------------
+
+  CREATE INDEX "IDX_NOME_CLIENTE" ON "HT_CLIENTE" ("NOME") 
+  ;
+--------------------------------------------------------
+--  DDL for Index UK_EMAIL_CLIENTE
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "UK_EMAIL_CLIENTE" ON "HT_CLIENTE" ("EMAIL") 
+  ;
+--------------------------------------------------------
+--  DDL for Index SYS_C0011788
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "SYS_C0011788" ON "HT_DOCUMENTO" ("ID_DOCUMENTO") 
+  ;
+--------------------------------------------------------
+--  DDL for Index IDX_NUMERO_DOCUMENTO
+--------------------------------------------------------
+
+  CREATE INDEX "IDX_NUMERO_DOCUMENTO" ON "HT_DOCUMENTO" ("NUMERO") 
+  ;
+--------------------------------------------------------
+--  DDL for Index SYS_C0011790
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "SYS_C0011790" ON "HT_ENDERECO" ("ID_ENDERECO") 
+  ;
+--------------------------------------------------------
+--  DDL for Index SYS_C0011792
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "SYS_C0011792" ON "HT_EQUIPAMENTO" ("ID_EQUIPAMENTO") 
+  ;
+--------------------------------------------------------
+--  DDL for Index IDX_EQUIPAMENTO_NR_SERIE
+--------------------------------------------------------
+
+  CREATE INDEX "IDX_EQUIPAMENTO_NR_SERIE" ON "HT_EQUIPAMENTO" ("NR_SERIE") 
+  ;
+--------------------------------------------------------
+--  DDL for Index SYS_C0011795
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "SYS_C0011795" ON "HT_ESTADO" ("ID_ESTADO") 
+  ;
+--------------------------------------------------------
+--  DDL for Index SYS_C0011798
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "SYS_C0011798" ON "HT_PAIS" ("ID_PAIS") 
+  ;
+--------------------------------------------------------
+--  DDL for Index SYS_C0011801
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "SYS_C0011801" ON "HT_SERVICO" ("ID_SERVICO") 
+  ;
+--------------------------------------------------------
+--  DDL for Index IDX_DATAS_SERVICO
+--------------------------------------------------------
+
+  CREATE INDEX "IDX_DATAS_SERVICO" ON "HT_SERVICO" ("DT_AUTORIZACAO", "DT_INICIO", "DT_CONCLUSAO") 
+  ;
+--------------------------------------------------------
+--  DDL for Index SYS_C0011804
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "SYS_C0011804" ON "HT_TIPO_CLIENTE" ("ID_TIPO_CLIENTE") 
+  ;
+--------------------------------------------------------
+--  DDL for Index IDX_NOME_TIPO_CLIENTE
+--------------------------------------------------------
+
+  CREATE INDEX "IDX_NOME_TIPO_CLIENTE" ON "HT_TIPO_CLIENTE" ("NOME") 
+  ;
+--------------------------------------------------------
+--  DDL for Index SYS_C0011807
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "SYS_C0011807" ON "HT_TIPO_DOCUMENTO" ("ID_TIPO_DOCUMENTO") 
+  ;
+--------------------------------------------------------
+--  DDL for Index UK_NOME_TIPO_DOCUMENTO
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "UK_NOME_TIPO_DOCUMENTO" ON "HT_TIPO_DOCUMENTO" ("NOME") 
+  ;
+--------------------------------------------------------
+--  DDL for Index SYS_C0011810
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "SYS_C0011810" ON "HT_TIPO_EQUIPAMENTO" ("ID_TIPO_EQUIPAMENTO") 
+  ;
+--------------------------------------------------------
+--  DDL for Index UK_NOME_TIPO_EQUIPAMENTO
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "UK_NOME_TIPO_EQUIPAMENTO" ON "HT_TIPO_EQUIPAMENTO" ("NOME") 
+  ;
+--------------------------------------------------------
+--  DDL for Index SYS_C0011813
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "SYS_C0011813" ON "HT_TIPO_SERVICO" ("ID_TIPO_SERVICO") 
+  ;
+--------------------------------------------------------
+--  DDL for Index UK_NOME_TIPO_SERVICO
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "UK_NOME_TIPO_SERVICO" ON "HT_TIPO_SERVICO" ("NOME") 
+  ;
+--------------------------------------------------------
+--  DDL for Index SYS_C0011817
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "SYS_C0011817" ON "HT_USUARIO" ("ID_USUARIO") 
+  ;
+--------------------------------------------------------
+--  DDL for Index IDX_PASSWORD
+--------------------------------------------------------
+
+  CREATE INDEX "IDX_PASSWORD" ON "HT_USUARIO" ("PASSWORD") 
+  ;
+--------------------------------------------------------
+--  DDL for Index UK_USERNAME_USER
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "UK_USERNAME_USER" ON "HT_USUARIO" ("USERNAME") 
+  ;
+--------------------------------------------------------
+--  Constraints for Table HT_CIDADE
+--------------------------------------------------------
+
+  ALTER TABLE "HT_CIDADE" MODIFY ("ID_CIDADE" NOT NULL ENABLE);
+  ALTER TABLE "HT_CIDADE" ADD PRIMARY KEY ("ID_CIDADE")
+  USING INDEX  ENABLE;
+--------------------------------------------------------
+--  Constraints for Table HT_CLIENTE
+--------------------------------------------------------
+
+  ALTER TABLE "HT_CLIENTE" MODIFY ("ID_CLIENTE" NOT NULL ENABLE);
+  ALTER TABLE "HT_CLIENTE" MODIFY ("NOME" NOT NULL ENABLE);
+  ALTER TABLE "HT_CLIENTE" MODIFY ("DDD" NOT NULL ENABLE);
+  ALTER TABLE "HT_CLIENTE" MODIFY ("NUMERO" NOT NULL ENABLE);
+  ALTER TABLE "HT_CLIENTE" ADD PRIMARY KEY ("ID_CLIENTE")
+  USING INDEX  ENABLE;
+  ALTER TABLE "HT_CLIENTE" ADD CONSTRAINT "UK_EMAIL_CLIENTE" UNIQUE ("EMAIL")
+  USING INDEX  ENABLE;
+--------------------------------------------------------
+--  Constraints for Table HT_DOCUMENTO
+--------------------------------------------------------
+
+  ALTER TABLE "HT_DOCUMENTO" MODIFY ("ID_DOCUMENTO" NOT NULL ENABLE);
+  ALTER TABLE "HT_DOCUMENTO" ADD PRIMARY KEY ("ID_DOCUMENTO")
+  USING INDEX  ENABLE;
+--------------------------------------------------------
+--  Constraints for Table HT_ENDERECO
+--------------------------------------------------------
+
+  ALTER TABLE "HT_ENDERECO" MODIFY ("ID_ENDERECO" NOT NULL ENABLE);
+  ALTER TABLE "HT_ENDERECO" ADD PRIMARY KEY ("ID_ENDERECO")
+  USING INDEX  ENABLE;
+--------------------------------------------------------
+--  Constraints for Table HT_EQUIPAMENTO
+--------------------------------------------------------
+
+  ALTER TABLE "HT_EQUIPAMENTO" MODIFY ("ID_EQUIPAMENTO" NOT NULL ENABLE);
+  ALTER TABLE "HT_EQUIPAMENTO" ADD PRIMARY KEY ("ID_EQUIPAMENTO")
+  USING INDEX  ENABLE;
+--------------------------------------------------------
+--  Constraints for Table HT_ESTADO
+--------------------------------------------------------
+
+  ALTER TABLE "HT_ESTADO" MODIFY ("ID_ESTADO" NOT NULL ENABLE);
+  ALTER TABLE "HT_ESTADO" MODIFY ("SIGLA" NOT NULL ENABLE);
+  ALTER TABLE "HT_ESTADO" ADD PRIMARY KEY ("ID_ESTADO")
+  USING INDEX  ENABLE;
+--------------------------------------------------------
+--  Constraints for Table HT_PAIS
+--------------------------------------------------------
+
+  ALTER TABLE "HT_PAIS" MODIFY ("ID_PAIS" NOT NULL ENABLE);
+  ALTER TABLE "HT_PAIS" MODIFY ("NOME" NOT NULL ENABLE);
+  ALTER TABLE "HT_PAIS" ADD PRIMARY KEY ("ID_PAIS")
+  USING INDEX  ENABLE;
+--------------------------------------------------------
+--  Constraints for Table HT_SERVICO
+--------------------------------------------------------
+
+  ALTER TABLE "HT_SERVICO" MODIFY ("ID_SERVICO" NOT NULL ENABLE);
+  ALTER TABLE "HT_SERVICO" MODIFY ("VALOR" NOT NULL ENABLE);
+  ALTER TABLE "HT_SERVICO" ADD PRIMARY KEY ("ID_SERVICO")
+  USING INDEX  ENABLE;
+--------------------------------------------------------
+--  Constraints for Table HT_TIPO_CLIENTE
+--------------------------------------------------------
+
+  ALTER TABLE "HT_TIPO_CLIENTE" MODIFY ("ID_TIPO_CLIENTE" NOT NULL ENABLE);
+  ALTER TABLE "HT_TIPO_CLIENTE" MODIFY ("NOME" NOT NULL ENABLE);
+  ALTER TABLE "HT_TIPO_CLIENTE" ADD PRIMARY KEY ("ID_TIPO_CLIENTE")
+  USING INDEX  ENABLE;
+  ALTER TABLE "HT_TIPO_CLIENTE" ADD CONSTRAINT "UK_NOME_TIPO_CLIENTE" UNIQUE ("NOME")
+  USING INDEX "IDX_NOME_TIPO_CLIENTE"  ENABLE;
+--------------------------------------------------------
+--  Constraints for Table HT_TIPO_DOCUMENTO
+--------------------------------------------------------
+
+  ALTER TABLE "HT_TIPO_DOCUMENTO" MODIFY ("ID_TIPO_DOCUMENTO" NOT NULL ENABLE);
+  ALTER TABLE "HT_TIPO_DOCUMENTO" MODIFY ("NOME" NOT NULL ENABLE);
+  ALTER TABLE "HT_TIPO_DOCUMENTO" ADD PRIMARY KEY ("ID_TIPO_DOCUMENTO")
+  USING INDEX  ENABLE;
+  ALTER TABLE "HT_TIPO_DOCUMENTO" ADD CONSTRAINT "UK_NOME_TIPO_DOCUMENTO" UNIQUE ("NOME")
+  USING INDEX  ENABLE;
+--------------------------------------------------------
+--  Constraints for Table HT_TIPO_EQUIPAMENTO
+--------------------------------------------------------
+
+  ALTER TABLE "HT_TIPO_EQUIPAMENTO" MODIFY ("ID_TIPO_EQUIPAMENTO" NOT NULL ENABLE);
+  ALTER TABLE "HT_TIPO_EQUIPAMENTO" MODIFY ("NOME" NOT NULL ENABLE);
+  ALTER TABLE "HT_TIPO_EQUIPAMENTO" ADD PRIMARY KEY ("ID_TIPO_EQUIPAMENTO")
+  USING INDEX  ENABLE;
+  ALTER TABLE "HT_TIPO_EQUIPAMENTO" ADD CONSTRAINT "UK_NOME_TIPO_EQUIPAMENTO" UNIQUE ("NOME")
+  USING INDEX  ENABLE;
+--------------------------------------------------------
+--  Constraints for Table HT_TIPO_SERVICO
+--------------------------------------------------------
+
+  ALTER TABLE "HT_TIPO_SERVICO" MODIFY ("ID_TIPO_SERVICO" NOT NULL ENABLE);
+  ALTER TABLE "HT_TIPO_SERVICO" MODIFY ("NOME" NOT NULL ENABLE);
+  ALTER TABLE "HT_TIPO_SERVICO" ADD PRIMARY KEY ("ID_TIPO_SERVICO")
+  USING INDEX  ENABLE;
+  ALTER TABLE "HT_TIPO_SERVICO" ADD CONSTRAINT "UK_NOME_TIPO_SERVICO" UNIQUE ("NOME")
+  USING INDEX  ENABLE;
+--------------------------------------------------------
+--  Constraints for Table HT_USUARIO
+--------------------------------------------------------
+
+  ALTER TABLE "HT_USUARIO" MODIFY ("ID_USUARIO" NOT NULL ENABLE);
+  ALTER TABLE "HT_USUARIO" MODIFY ("PASSWORD" NOT NULL ENABLE);
+  ALTER TABLE "HT_USUARIO" MODIFY ("USERNAME" NOT NULL ENABLE);
+  ALTER TABLE "HT_USUARIO" ADD PRIMARY KEY ("ID_USUARIO")
+  USING INDEX  ENABLE;
+  ALTER TABLE "HT_USUARIO" ADD CONSTRAINT "UK_USERNAME_USER" UNIQUE ("USERNAME")
+  USING INDEX  ENABLE;
+--------------------------------------------------------
+--  Ref Constraints for Table HT_CIDADE
+--------------------------------------------------------
+
+  ALTER TABLE "HT_CIDADE" ADD CONSTRAINT "FK_ESTADO_CIDADE" FOREIGN KEY ("ID_ESTADO")
+	  REFERENCES "HT_ESTADO" ("ID_ESTADO") ENABLE;
+--------------------------------------------------------
+--  Ref Constraints for Table HT_CLIENTE
+--------------------------------------------------------
+
+  ALTER TABLE "HT_CLIENTE" ADD CONSTRAINT "FK_TIPO_CLIENTE" FOREIGN KEY ("ID_TIPO_CLIENTE")
+	  REFERENCES "HT_TIPO_CLIENTE" ("ID_TIPO_CLIENTE") ENABLE;
+--------------------------------------------------------
+--  Ref Constraints for Table HT_DOCUMENTO
+--------------------------------------------------------
+
+  ALTER TABLE "HT_DOCUMENTO" ADD CONSTRAINT "FK_CLIENTE_DOCUMENTO" FOREIGN KEY ("ID_CLIENTE")
+	  REFERENCES "HT_CLIENTE" ("ID_CLIENTE") ENABLE;
+  ALTER TABLE "HT_DOCUMENTO" ADD CONSTRAINT "FK_TIPO_DOCUMENTO_CLIENTE" FOREIGN KEY ("ID_TIPO_DOCUMENTO")
+	  REFERENCES "HT_TIPO_DOCUMENTO" ("ID_TIPO_DOCUMENTO") ENABLE;
+--------------------------------------------------------
+--  Ref Constraints for Table HT_ENDERECO
+--------------------------------------------------------
+
+  ALTER TABLE "HT_ENDERECO" ADD CONSTRAINT "FK_CIDADE_ENDERECO" FOREIGN KEY ("ID_CIDADE")
+	  REFERENCES "HT_CIDADE" ("ID_CIDADE") ENABLE;
+  ALTER TABLE "HT_ENDERECO" ADD CONSTRAINT "FK_CLIENTE_ENDERECO" FOREIGN KEY ("ID_CLIENTE")
+	  REFERENCES "HT_CLIENTE" ("ID_CLIENTE") ENABLE;
+--------------------------------------------------------
+--  Ref Constraints for Table HT_EQUIPAMENTO
+--------------------------------------------------------
+
+  ALTER TABLE "HT_EQUIPAMENTO" ADD CONSTRAINT "FK_CLIENTE_EQUIPAMENTO" FOREIGN KEY ("ID_CLIENTE")
+	  REFERENCES "HT_CLIENTE" ("ID_CLIENTE") ENABLE;
+  ALTER TABLE "HT_EQUIPAMENTO" ADD CONSTRAINT "FK_TIPO_EQUIPAMENTO" FOREIGN KEY ("ID_TIPO_EQUIPAMENTO")
+	  REFERENCES "HT_TIPO_EQUIPAMENTO" ("ID_TIPO_EQUIPAMENTO") ENABLE;
+--------------------------------------------------------
+--  Ref Constraints for Table HT_ESTADO
+--------------------------------------------------------
+
+  ALTER TABLE "HT_ESTADO" ADD CONSTRAINT "FK_PAIS_ESTADO" FOREIGN KEY ("ID_PAIS")
+	  REFERENCES "HT_PAIS" ("ID_PAIS") ENABLE;
+--------------------------------------------------------
+--  Ref Constraints for Table HT_SERVICO
+--------------------------------------------------------
+
+  ALTER TABLE "HT_SERVICO" ADD CONSTRAINT "FK_EQUIPAMENTO_SERVICO" FOREIGN KEY ("ID_EQUIPAMENTO")
+	  REFERENCES "HT_EQUIPAMENTO" ("ID_EQUIPAMENTO") ENABLE;
+  ALTER TABLE "HT_SERVICO" ADD CONSTRAINT "FK_TIPO_SERVICO" FOREIGN KEY ("ID_TIPO_SERVICO")
+	  REFERENCES "HT_TIPO_SERVICO" ("ID_TIPO_SERVICO") ENABLE;
