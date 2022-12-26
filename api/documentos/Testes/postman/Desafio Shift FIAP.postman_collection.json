@@ -82,6 +82,26 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "GET TIPO CLIENTE",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/cliente/tipo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cliente",
+								"tipo"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -190,6 +210,26 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "GET TIPO DOCUMENTO",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/documento/tipo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"documento",
+								"tipo"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -211,6 +251,121 @@
 								"cliente",
 								"1",
 								"equipamento"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET TIPO EQUIPAMENTO",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/equipamento/tipo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"equipamento",
+								"tipo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST TIPO EQUIPAMENTO",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\" : \"Roteador\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/equipamento/tipo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"equipamento",
+								"tipo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET TIPO EQUIPAMENTO",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/equipamento/tipo/250",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"equipamento",
+								"tipo",
+								"250"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "SERVICO",
+			"item": [
+				{
+					"name": "GET SERVICOS",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/servico",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"servico"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET TIPO SERVICO",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/servico/tipo/6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"servico",
+								"tipo",
+								"6"
 							]
 						}
 					},
