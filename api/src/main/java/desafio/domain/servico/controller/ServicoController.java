@@ -1,12 +1,12 @@
 package desafio.domain.servico.controller;
 
-import desafio.domain.cliente.Cliente;
-import desafio.domain.cliente.dto.ListCliente;
-import desafio.domain.cliente.dto.PutCliente;
 import desafio.domain.servico.Servico;
+import desafio.domain.servico.TipoServico;
 import desafio.domain.servico.dto.ListServico;
 import desafio.domain.servico.dto.PutServico;
+import desafio.domain.servico.dto.PutTipoServico;
 import desafio.domain.servico.repository.ServicoRepository;
+import desafio.domain.servico.repository.TipoServicoRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -25,6 +25,9 @@ public class ServicoController {
 
     @Autowired
     private ServicoRepository repository;
+
+    @Autowired
+    private TipoServicoRepository tipoServicoRepository;
 
 
     @GetMapping
@@ -53,5 +56,32 @@ public class ServicoController {
     public void update(@RequestBody @Valid PutServico dados) {
         var servico = repository.getReferenceById(dados.id());
         servico.atualizarInformacoes(dados);
+    }
+
+
+    @PostMapping("/tipo")
+    public ResponseEntity<PutTipoServico> save(@Valid @RequestBody PutTipoServico tipo, UriComponentsBuilder builder) {
+
+        if (tipo.nome() != null) {
+            if (tipoServicoRepository.existsByNomeIgnoreCase(tipo.nome())) {
+                throw new RuntimeException("Já existe Tipo de Serviço com o nome: " + tipo.nome());
+            } else {
+                var save = tipoServicoRepository.save(new TipoServico(tipo));
+                URI uri = builder.path("/servico/tipo/{id}").buildAndExpand(save.getId()).toUri();
+                return ResponseEntity.created(uri).body(new PutTipoServico(save));
+            }
+        }
+        throw new RuntimeException("O nome do Tipo de Serviço é obrigatório");
+    }
+
+    @GetMapping("/tipo/{id}")
+    public ResponseEntity<PutTipoServico> save(@PathVariable(name = "id") Long id) {
+
+        var tipo = tipoServicoRepository.findById(id).orElse(null);
+
+        if (tipo == null) return ResponseEntity.notFound().build();
+
+        return ResponseEntity.ok(new PutTipoServico(tipo));
+
     }
 }

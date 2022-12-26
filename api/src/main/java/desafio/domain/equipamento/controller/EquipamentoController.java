@@ -1,84 +1,61 @@
 package desafio.domain.equipamento.controller;
 
-import desafio.domain.cliente.Cliente;
-import desafio.domain.cliente.repository.ClienteRepository;
-import desafio.domain.documento.dto.ListDocumento;
-import desafio.domain.equipamento.Equipamento;
-import desafio.domain.equipamento.dto.ListEquipamento;
-import desafio.domain.equipamento.dto.PutEquipamento;
-import desafio.domain.equipamento.service.EquipamentoService;
+import desafio.domain.documento.repository.TipoDocumentoRepository;
+import desafio.domain.equipamento.TipoEquipamento;
+import desafio.domain.equipamento.dto.PutTipoEquipamento;
+import desafio.domain.equipamento.repository.TipoEquipamentoRepository;
+import desafio.domain.servico.dto.PutTipoServico;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
-import java.util.List;
 
 @RestController
-@RequestMapping({"/cliente"})
+@RequestMapping({"/equipamento"})
 public class EquipamentoController {
 
-
     @Autowired
-    private ClienteRepository clienteRepository;
-
+    private TipoEquipamentoRepository tipoEquipamentoRepository;
     @Autowired
-    private EquipamentoService service;
+    private TipoDocumentoRepository tipoDocumentoRepository;
 
 
-    @GetMapping("/{id}/equipamento")
-    public ResponseEntity<Page<ListEquipamento>> findByClienteId(@PathVariable("id") Long id, @PageableDefault(size = 10, sort = {"cliente.nome"}) Pageable paginacao) {
-        var cliente = IsValidCliente(id);
-        if (cliente == null) return ResponseEntity.notFound().build();
-        return ResponseEntity.ok(service.findByClienteId(id, paginacao).map(ListEquipamento::new));
+    @GetMapping("/tipo")
+    public Page<PutTipoEquipamento> findAllTipo(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
+        return tipoEquipamentoRepository.findAll(paginacao).map(PutTipoEquipamento::new);
     }
 
-    @PostMapping("/{id}/equipamento")
-    @Transactional
-    public ResponseEntity<PutEquipamento> save(@PathVariable("id") Long id, @RequestBody @Valid PutEquipamento eq, UriComponentsBuilder builder) {
+    @PostMapping("/tipo")
+    public ResponseEntity<PutTipoEquipamento> save(@Valid @RequestBody PutTipoEquipamento tipo, UriComponentsBuilder builder) {
 
-        Cliente cliente = clienteRepository.findById(id).orElse(null);
-        if (cliente != null && eq.cliente().id().equals(cliente.getId())) {
-            var equipamento = new Equipamento(eq);
-            equipamento.setCliente(cliente);
-            equipamento = service.save(equipamento).orElse(null);
-            var ret = new PutEquipamento(equipamento);
-            URI uri = builder.path("/equipamento/{id}").buildAndExpand(ret.id()).toUri();
-            return ResponseEntity.created(uri).body(ret);
-        } else {
-            var err = new RuntimeException("O ID do cliente no Json do Equipamento deve ser o mesmo da URI");
-            err.printStackTrace();
-            return ResponseEntity.badRequest().build();
+        if (tipo.nome() != null) {
+            if (tipoEquipamentoRepository.existsByNomeIgnoreCase(tipo.nome())) {
+                throw new RuntimeException("Já existe Tipo de Equipamento com o nome: " + tipo.nome());
+            } else {
+                var save = tipoEquipamentoRepository.save(new TipoEquipamento(tipo));
+                URI uri = builder.path("/equipamento/tipo/{id}").buildAndExpand(save.getId()).toUri();
+                return ResponseEntity.created(uri).body(new PutTipoEquipamento(save));
+            }
         }
+        throw new RuntimeException("O nome do Tipo de Equipamento é obrigatório");
     }
 
-    @PutMapping("/{id}/equipamento/{idEquipamento}")
-    @Transactional
-    public ResponseEntity<PutEquipamento> save(@PathVariable("id") Long id, @PathVariable("idEquipamento") Long idEquipamento, @RequestBody @Valid PutEquipamento eq, UriComponentsBuilder builder) {
 
-        Cliente cliente = clienteRepository.findById(id).orElseThrow(RuntimeException::new);
+    @GetMapping("/tipo/{id}")
+    public ResponseEntity<PutTipoEquipamento> save(@PathVariable(name = "id") Long id) {
 
-        if (eq.cliente().id().equals(cliente.getId())) {
-            Equipamento equip = service.findById(idEquipamento).orElseThrow();
-            equip.atualizarInforamcoes(eq);
-            URI uri = builder.path("/equipamento/{id}").buildAndExpand(equip.getId()).toUri();
-            return ResponseEntity.created(uri).body(new PutEquipamento(equip));
-        } else {
-            var err = new RuntimeException("Você não está atualizando o Equipamento para o cliente correto -> O ID do cliente no Json deve ser o mesmo da URI");
-            err.printStackTrace();
-            return ResponseEntity.badRequest().build();
-        }
+        var tipo = tipoEquipamentoRepository.findById(id).orElse(null);
+
+        if (tipo == null) return ResponseEntity.notFound().build();
+
+        return ResponseEntity.ok(new PutTipoEquipamento(tipo));
+
     }
 
-    private Cliente IsValidCliente(Long id) {
-
-        var cliente = clienteRepository.findById(id).orElse(null);
-        return cliente;
-    }
 }
