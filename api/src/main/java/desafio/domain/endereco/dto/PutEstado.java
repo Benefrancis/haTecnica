@@ -18,7 +18,10 @@ public record PutEstado(
 
         @NotNull
         @Valid
-        PutPais pais
+        PutPais pais,
+
+
+        Long ibge
 
 
 ) {
@@ -28,7 +31,8 @@ public record PutEstado(
                 e.getId(),
                 e.getNome(),
                 e.getSigla(),
-                new PutPais(e.getPais())
+                new PutPais(e.getPais()),
+                e.getIbge()
         );
     }
 }

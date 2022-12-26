@@ -2,6 +2,10 @@ package desafio.domain.equipamento;
 
 import desafio.domain.equipamento.dto.PutTipoEquipamento;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(
@@ -10,7 +14,10 @@ import jakarta.persistence.*;
                 columnNames = {"nome"},
                 name = "UK_NOME_TIPO_EQUIPAMENTO")
 )
-
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class TipoEquipamento {
 
     @Id
@@ -22,21 +29,10 @@ public class TipoEquipamento {
     @Column(name = "nome", nullable = false)
     private String nome;
 
-    public TipoEquipamento(Long id, String nome) {
-        this.id = id;
-        this.nome = nome;
-    }
-
-    public TipoEquipamento() {
-    }
 
     public TipoEquipamento(PutTipoEquipamento te) {
         this.id = te.id();
         this.nome = te.nome();
-    }
-
-    public Long getId() {
-        return id;
     }
 
     public TipoEquipamento setId(Long id) {
@@ -44,14 +40,17 @@ public class TipoEquipamento {
         return this;
     }
 
-    public String getNome() {
-        return nome;
-    }
-
     public TipoEquipamento setNome(String nome) {
         this.nome = nome;
         return this;
     }
+
+    public void atualizarInforamcoes(PutTipoEquipamento te) {
+        if (te.nome() != null) {
+            this.nome = te.nome();
+        }
+    }
+
 
     @Override
     public String toString() {
@@ -61,4 +60,40 @@ public class TipoEquipamento {
         sb.append('}');
         return sb.toString();
     }
+
+    public static TipoEquipamento COMPUTADOR() {
+        return TipoEquipamento.builder()
+                .id(1l)
+                .nome("Computador")
+                .build();
+    }
+
+    public static TipoEquipamento NOTEBOOK() {
+        return TipoEquipamento.builder()
+                .id(2l)
+                .nome("Notebook")
+                .build();
+    }
+
+    public static TipoEquipamento CELULAR() {
+        return TipoEquipamento.builder()
+                .id(3l)
+                .nome("Celular")
+                .build();
+    }
+
+    public static TipoEquipamento TABLET() {
+        return TipoEquipamento.builder()
+                .id(4l)
+                .nome("Tablet")
+                .build();
+    }
+
+    public static TipoEquipamento VIDEO_GAME() {
+        return TipoEquipamento.builder()
+                .id(5l)
+                .nome("Vídeo Game")
+                .build();
+    }
+
 }

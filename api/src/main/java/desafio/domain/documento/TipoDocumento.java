@@ -2,6 +2,10 @@ package desafio.domain.documento;
 
 import desafio.domain.documento.dto.PutTipoDocumento;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(
@@ -11,6 +15,11 @@ import jakarta.persistence.*;
                 name = "UK_NOME_TIPO_DOCUMENTO"
         )
 )
+
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class TipoDocumento {
 
     @Id
@@ -22,25 +31,9 @@ public class TipoDocumento {
     @Column(name = "nome", nullable = false)
     private String nome;
 
-
-    public TipoDocumento() {
-    }
-
-    public TipoDocumento(Long id, String nome) {
-        this.id = id;
-        this.nome = nome;
-
-    }
-
-
     public TipoDocumento(PutTipoDocumento td) {
         this.id = td.id();
         this.nome = td.nome();
-    }
-
-
-    public Long getId() {
-        return id;
     }
 
     public TipoDocumento setId(Long id) {
@@ -48,15 +41,31 @@ public class TipoDocumento {
         return this;
     }
 
-    public String getNome() {
-        return nome;
-    }
-
     public TipoDocumento setNome(String nome) {
         this.nome = nome;
         return this;
     }
 
+    public static TipoDocumento RG() {
+        return TipoDocumento.builder()
+                .id(1l)
+                .nome("RG")
+                .build();
+    }
+
+    public static TipoDocumento CPF() {
+        return TipoDocumento.builder()
+                .id(2l)
+                .nome("CPF")
+                .build();
+    }
+
+    public static TipoDocumento CNPJ() {
+        return TipoDocumento.builder()
+                .id(3l)
+                .nome("CNPJ")
+                .build();
+    }
 
     @Override
     public String toString() {

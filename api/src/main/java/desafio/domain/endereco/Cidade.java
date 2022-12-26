@@ -70,7 +70,6 @@ public class Cidade {
 
     public void atualizarInformacoes(PutCidade dados) {
 
-
         if (!dados.nome().equals(null)) {
             this.nome = dados.nome();
         }

@@ -2,12 +2,27 @@ package desafio.domain.endereco;
 
 import desafio.domain.endereco.dto.PutPais;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.StringJoiner;
 
 @Entity
-@Table(name="HT_PAIS" // , uniqueConstraints= @UniqueConstraint(columnNames={"nome"}, name = "UK_NOME_PAIS")
+@Table(name = "HT_PAIS",
+        uniqueConstraints = @UniqueConstraint(
+                columnNames = {"ID_PAIS"},
+                name = "FK_PAIS"),
+        indexes = @Index(
+                columnList = "nome",
+                name = "IDX_NOME_PAIS"
+        )
 )
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Pais {
 
     @Id
@@ -19,25 +34,9 @@ public class Pais {
     @Column(name = "nome", nullable = false)
     private String nome;
 
-    public Pais(String nome) {
-        this.nome = nome;
-    }
-
     public Pais(PutPais dados) {
         this.id = dados.id();
         this.nome = dados.nome();
-    }
-
-    public Pais(Long id, String nome) {
-        this.id = id;
-        this.nome = nome;
-    }
-
-    public Pais() {
-    }
-
-    public Long getId() {
-        return id;
     }
 
     public Pais setId(Long id) {
@@ -45,23 +44,23 @@ public class Pais {
         return this;
     }
 
-    public String getNome() {
-        return nome;
-    }
-
     public Pais setNome(String nome) {
         this.nome = nome;
         return this;
     }
 
-
     public void atualizarInformacoes(PutPais dados) {
-
         if (!dados.nome().equals(null)) {
             this.nome = dados.nome();
         }
     }
 
+    public static Pais BRASIL() {
+        return Pais.builder()
+                .id(1l)
+                .nome("Brasil")
+                .build();
+    }
 
     @Override
     public String toString() {
