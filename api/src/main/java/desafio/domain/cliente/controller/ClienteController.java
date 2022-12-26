@@ -16,7 +16,8 @@ import desafio.domain.equipamento.Equipamento;
 import desafio.domain.equipamento.dto.ListEquipamento;
 import desafio.domain.equipamento.dto.PutEquipamento;
 import desafio.domain.equipamento.service.EquipamentoService;
-import desafio.infra.exceptions.EntityNotFoundException;
+
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -123,7 +124,7 @@ public class ClienteController {
 
         if (cliente == null) return ResponseEntity.badRequest().build();
 
-        Documento documento = documentoService.findById(idDocumento).orElseThrow(new EntityNotFoundException("Documento não encontrado!"));
+        Documento documento = documentoService.findById(idDocumento).orElseThrow();
 
         log.info("Recebido o pedido de listagem do documento {} do cliente com id {}", documento, id);
 
@@ -175,7 +176,7 @@ public class ClienteController {
 
         if (cliente == null) return ResponseEntity.badRequest().build();
 
-        var documento = documentoService.findById(doc.id()).orElseThrow(new EntityNotFoundException("Documento não encontrado!"));
+        var documento = documentoService.findById(doc.id()).orElseThrow();
 
         log.info("Recebido o pedido para atualização do documento {} do cliente com id {} para os seguintes dados {}", documento, id, doc);
 

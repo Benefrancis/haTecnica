@@ -1,20 +1,40 @@
 package desafio.domain.cliente;
 
 import desafio.domain.cliente.dto.PutCliente;
-import desafio.domain.endereco.Endereco;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "HT_CLIENTE",
-        uniqueConstraints = @UniqueConstraint(
-                columnNames = {"email"},
-                name = "UK_EMAIL_CLIENTE"),
-        indexes = @Index(
-                columnList = "nome",
-                name = "IDX_NOME_CLIENTE"
-        ))
+        uniqueConstraints = {
+                @UniqueConstraint(
+                        columnNames = "ID_CLIENTE",
+                        name = "PK_CLIENTE"),
+                @UniqueConstraint(
+                        columnNames = "EMAIL",
+                        name = "UK_EMAIL_CLIENTE"
+                )
+        },
+        indexes = {
+                @Index(
+                        columnList = "NOME",
+                        name = "IDX_NOME_CLIENTE"
+                ),
+                @Index(
+                        columnList = "EMAIL",
+                        name = "IDX_EMAIL_CLIENTE"
+                )
+        }
+)
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Cliente {
 
     @Id
@@ -25,7 +45,7 @@ public class Cliente {
 
     @Column(name = "nome", nullable = false)
     private String nome;
-    @Column(name = "email")
+    @Column(name = "email", nullable = false)
     private String email;
 
     @Temporal(TemporalType.DATE)
@@ -33,11 +53,6 @@ public class Cliente {
 
     @Embedded
     private Telefone telefone;
-
-
-//    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-//    @JoinColumn(name = "ID_ENDERECO", referencedColumnName = "ID_ENDERECO", foreignKey = @ForeignKey(name = "FK_ENDERECO_CLIENTE", value = ConstraintMode.CONSTRAINT))
-//    private Endereco endereco;
 
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
@@ -55,30 +70,11 @@ public class Cliente {
     }
 
 
-    public Cliente() {
-    }
-
-    public Cliente(Long id, String nome, String email, LocalDate nascimento, Telefone telefone,  TipoCliente tipo) {
-        this.id = id;
-        this.nome = nome;
-        this.email = email;
-        this.nascimento = nascimento;
-        this.telefone = telefone;
-        this.tipo = tipo;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
     public Cliente setId(Long id) {
         this.id = id;
         return this;
     }
 
-    public String getNome() {
-        return nome;
-    }
 
     public Cliente setNome(String nome) {
         this.nome = nome;
@@ -86,38 +82,23 @@ public class Cliente {
     }
 
 
-    public String getEmail() {
-        return email;
-    }
-
     public Cliente setEmail(String email) {
         this.email = email;
         return this;
     }
 
-    public LocalDate getNascimento() {
-        return nascimento;
-    }
 
     public Cliente setNascimento(LocalDate nascimento) {
         this.nascimento = nascimento;
         return this;
     }
 
-    public Telefone getTelefone() {
-        return telefone;
-    }
 
     public Cliente setTelefone(Telefone telefone) {
         this.telefone = telefone;
         return this;
     }
 
-
-
-    public TipoCliente getTipo() {
-        return tipo;
-    }
 
     public Cliente setTipo(TipoCliente tipo) {
         this.tipo = tipo;
@@ -140,21 +121,5 @@ public class Cliente {
         if (dados.telefone() != null) {
             getTelefone().atualizarInformacoes(dados.telefone());
         }
-
-
-    }
-
-
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder("Cliente{");
-        sb.append("id=").append(id);
-        sb.append(", nome='").append(nome).append('\'');
-        sb.append(", email='").append(email).append('\'');
-        sb.append(", nascimento=").append(nascimento);
-        sb.append(", telefone=").append(telefone);
-        sb.append(", tipo=").append(tipo);
-        sb.append('}');
-        return sb.toString();
     }
 }

@@ -3,15 +3,29 @@ package desafio.domain.equipamento;
 import desafio.domain.cliente.Cliente;
 import desafio.domain.equipamento.dto.PutEquipamento;
 import jakarta.persistence.*;
+import lombok.*;
 
 
 @Entity
-@Table(name = "HT_EQUIPAMENTO", indexes = {
-        @Index(
-                name = "idx_equipamento_nr_serie",
-                columnList = "NR_SERIE"
-        )
-})
+@Table(name = "HT_EQUIPAMENTO",
+        uniqueConstraints = {
+                @UniqueConstraint(
+                        columnNames = {"ID_EQUIPAMENTO"},
+                        name = "PK_EQUIPAMENTO"
+                )
+        },
+        indexes = {
+                @Index(
+                        name = "idx_equipamento_nr_serie",
+                        columnList = "NR_SERIE"
+                )
+        }
+)
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@EqualsAndHashCode(of = "id")
 public class Equipamento {
 
     @Id
@@ -31,15 +45,6 @@ public class Equipamento {
     @JoinColumn(name = "ID_TIPO_EQUIPAMENTO", referencedColumnName = "ID_TIPO_EQUIPAMENTO", foreignKey = @ForeignKey(name = "FK_TIPO_EQUIPAMENTO", value = ConstraintMode.CONSTRAINT))
     private TipoEquipamento tipo;
 
-    public Equipamento() {
-    }
-
-    public Equipamento(Long id, Cliente cliente, String numeroDeSerie, TipoEquipamento tipo) {
-        this.id = id;
-        this.cliente = cliente;
-        this.numeroDeSerie = numeroDeSerie;
-        this.tipo = tipo;
-    }
 
     public Equipamento(PutEquipamento e) {
         this.id = e.id();
@@ -48,52 +53,30 @@ public class Equipamento {
         this.tipo = new TipoEquipamento(e.tipo());
     }
 
-    public Long getId() {
-        return id;
-    }
 
     public Equipamento setId(Long id) {
         this.id = id;
         return this;
     }
 
-    public Cliente getCliente() {
-        return cliente;
-    }
 
     public Equipamento setCliente(Cliente cliente) {
         this.cliente = cliente;
         return this;
     }
 
-    public String getNumeroDeSerie() {
-        return numeroDeSerie;
-    }
 
     public Equipamento setNumeroDeSerie(String numeroDeSerie) {
         this.numeroDeSerie = numeroDeSerie;
         return this;
     }
 
-    public TipoEquipamento getTipo() {
-        return tipo;
-    }
 
     public Equipamento setTipo(TipoEquipamento tipo) {
         this.tipo = tipo;
         return this;
     }
 
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder("Equipamento{");
-        sb.append("id=").append(id);
-        sb.append(", cliente=").append(cliente);
-        sb.append(", numeroDeSerie='").append(numeroDeSerie).append('\'');
-        sb.append(", tipo=").append(tipo);
-        sb.append('}');
-        return sb.toString();
-    }
 
     public void atualizarInforamcoes(PutEquipamento e) {
 
@@ -112,5 +95,17 @@ public class Equipamento {
                 this.setCliente(new Cliente(e.cliente()));
             }
         }
+    }
+
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Equipamento{");
+        sb.append("id=").append(id);
+        sb.append(", cliente=").append(cliente);
+        sb.append(", numeroDeSerie='").append(numeroDeSerie).append('\'');
+        sb.append(", tipo=").append(tipo);
+        sb.append('}');
+        return sb.toString();
     }
 }

@@ -10,12 +10,21 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(
         name = "HT_TIPO_DOCUMENTO",
-        uniqueConstraints = @UniqueConstraint(
-                columnNames = {"nome"},
-                name = "UK_NOME_TIPO_DOCUMENTO"
+        uniqueConstraints = {
+                @UniqueConstraint(
+                        columnNames = "ID_TIPO_DOCUMENTO",
+                        name = "PK_TIPO_DOCUMENTO"
+                ),
+                @UniqueConstraint(
+                        columnNames = "NOME",
+                        name = "UK_NOME_TIPO_DOCUMENTO"
+                )
+        },
+        indexes = @Index(
+                columnList = "nome",
+                name = "IDX_NOME_TIPO_DOCUMENTO"
         )
 )
-
 @Data
 @Builder
 @NoArgsConstructor

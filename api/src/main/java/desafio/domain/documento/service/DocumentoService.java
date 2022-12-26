@@ -4,11 +4,9 @@ import desafio.domain.documento.Documento;
 import desafio.domain.documento.repository.DocumentoRepository;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.format.annotation.NumberFormat;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;

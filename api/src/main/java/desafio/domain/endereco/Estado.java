@@ -2,20 +2,40 @@ package desafio.domain.endereco;
 
 import desafio.domain.endereco.dto.PutEstado;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @Table(
-        name = "HT_ESTADO"
-        // , uniqueConstraints =  @UniqueConstraint(columnNames = {"sigla"}, name = "UK_SIGLA_ESTADO")
+        name = "HT_ESTADO",
+        uniqueConstraints = {
+                @UniqueConstraint(
+                        columnNames = {"ID_ESTADO"},
+                        name = "PK_ESTADO"),
+                @UniqueConstraint(
+                        columnNames = "NOME",
+                        name = "UK_NOME_ESTADO"
+                ),
+                @UniqueConstraint(
+                        columnNames = "SIGLA",
+                        name = "UK_SIGLA_ESTADO"
+                )
+        },
+        indexes = {
+                @Index(
+                        columnList = "NOME",
+                        name = "IDX_NOME_ESTADO"
+                ),
+                @Index(
+                        columnList = "SIGLA",
+                        name = "IDX_SIGLA_ESTADO"
+                )
+        }
 )
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode(of = "id")
 public class Estado {
 
 
@@ -25,9 +45,10 @@ public class Estado {
     @Column(name = "ID_ESTADO")
     private Long id;
 
+    @Column(name = "NOME", nullable = false)
     private String nome;
 
-    @Column(name = "sigla", nullable = false)
+    @Column(name = "SIGLA", nullable = false)
     private String sigla;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.DETACH)

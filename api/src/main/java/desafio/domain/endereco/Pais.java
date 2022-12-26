@@ -11,9 +11,17 @@ import java.util.StringJoiner;
 
 @Entity
 @Table(name = "HT_PAIS",
-        uniqueConstraints = @UniqueConstraint(
-                columnNames = {"ID_PAIS"},
-                name = "FK_PAIS"),
+        uniqueConstraints = {
+                @UniqueConstraint(
+                        columnNames = {"ID_PAIS"},
+                        name = "FK_PAIS"
+                ),
+                @UniqueConstraint(
+                        columnNames = "NOME",
+                        name = "UK_NOME_PAIS"
+                )
+
+        },
         indexes = @Index(
                 columnList = "nome",
                 name = "IDX_NOME_PAIS"

@@ -1,6 +1,14 @@
 package desafio.domain.usuario;
 
 import jakarta.persistence.*;
+import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Arrays;
+import java.util.Collection;
+
 
 @Entity
 @Table(
@@ -14,7 +22,12 @@ import jakarta.persistence.*;
         )
 
 )
-public class Usuario {
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@EqualsAndHashCode(of = "id")
+public class Usuario implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_HT_USUARIO")
@@ -29,27 +42,9 @@ public class Usuario {
     private String password;
 
 
-    public Usuario(Long id, String username, String password) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-    }
-
-    public Usuario() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
     public Usuario setId(Long id) {
         this.id = id;
         return this;
-    }
-
-
-    public String getUsername() {
-        return username;
     }
 
 
@@ -59,24 +54,34 @@ public class Usuario {
     }
 
 
-    public String getPassword() {
-        return password;
-    }
-
-
     public Usuario setPassword(String password) {
         this.password = password;
         return this;
     }
 
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
 
     @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder("Usuario{");
-        sb.append("id=").append(id);
-        sb.append(", username='").append(username).append('\'');
-        sb.append(", password='").append(password).append('\'');
-        sb.append('}');
-        return sb.toString();
+    public boolean isAccountNonLocked() {
+        return true;
     }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"));
+    }
+
 }

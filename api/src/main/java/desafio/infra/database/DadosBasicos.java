@@ -155,6 +155,5 @@ public class DadosBasicos implements ApplicationRunner {
             if (!estadoRepository.existsBySiglaIgnoreCase(e.getSigla())) estadoRepository.save(e);
         });
 
-
     }
 }

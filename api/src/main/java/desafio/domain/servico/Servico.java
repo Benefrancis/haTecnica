@@ -3,16 +3,38 @@ package desafio.domain.servico;
 import desafio.domain.equipamento.Equipamento;
 import desafio.domain.servico.dto.PutServico;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "HT_SERVICO",
-        indexes = @Index(
-                columnList = "DT_AUTORIZACAO , DT_INICIO, DT_CONCLUSAO ",
-                name = "IDX_DATAS_SERVICO"
-        )
+        uniqueConstraints = @UniqueConstraint(
+                columnNames = {"ID_SERVICO"},
+                name = "PK_SERVICO"),
+        indexes = {
+                @Index(
+                        columnList = "DT_AUTORIZACAO",
+                        name = "IDX_DT_AUTORIZACAO"
+                ),
+
+                @Index(
+                        columnList = "DT_INICIO, DT_CONCLUSAO ",
+                        name = "IDX_DT_INICIO"
+                ),
+                @Index(
+                        columnList = "DT_CONCLUSAO ",
+                        name = "IDX_DT_CONCLUSAO"
+                )
+        }
 )
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Servico {
 
     @Id
@@ -25,7 +47,7 @@ public class Servico {
 
     private double valor;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.DETACH)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
     @JoinColumn(name = "ID_TIPO_SERVICO", referencedColumnName = "ID_TIPO_SERVICO", foreignKey = @ForeignKey(name = "FK_TIPO_SERVICO", value = ConstraintMode.CONSTRAINT))
     private TipoServico tipo;
 
@@ -41,24 +63,9 @@ public class Servico {
     @Column(name = "DT_CONCLUSAO")
     private LocalDateTime dataConclusao;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.DETACH)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
     @JoinColumn(name = "ID_EQUIPAMENTO", referencedColumnName = "ID_EQUIPAMENTO", foreignKey = @ForeignKey(name = "FK_EQUIPAMENTO_SERVICO", value = ConstraintMode.CONSTRAINT))
     private Equipamento equipamento;
-
-    public Servico() {
-
-    }
-
-    public Servico(Long id, String descricao, double valor, TipoServico tipo, LocalDateTime dataAutorizacao, LocalDateTime dataInicio, LocalDateTime dataConclusao, Equipamento equipamento) {
-        this.id = id;
-        this.descricao = descricao;
-        this.valor = valor;
-        this.tipo = tipo;
-        this.dataAutorizacao = dataAutorizacao;
-        this.dataInicio = dataInicio;
-        this.dataConclusao = dataConclusao;
-        this.equipamento = equipamento;
-    }
 
     public Servico(PutServico s) {
         this.id = id;
@@ -71,93 +78,54 @@ public class Servico {
         this.equipamento = equipamento;
     }
 
-    public Long getId() {
-        return id;
-    }
 
     public Servico setId(Long id) {
         this.id = id;
         return this;
     }
 
-    public String getDescricao() {
-        return descricao;
-    }
 
     public Servico setDescricao(String descricao) {
         this.descricao = descricao;
         return this;
     }
 
-    public double getValor() {
-        return valor;
-    }
 
     public Servico setValor(double valor) {
         this.valor = valor;
         return this;
     }
 
-    public TipoServico getTipo() {
-        return tipo;
-    }
 
     public Servico setTipo(TipoServico tipo) {
         this.tipo = tipo;
         return this;
     }
 
-    public LocalDateTime getDataAutorizacao() {
-        return dataAutorizacao;
-    }
 
     public Servico setDataAutorizacao(LocalDateTime dataAutorizacao) {
         this.dataAutorizacao = dataAutorizacao;
         return this;
     }
 
-    public LocalDateTime getDataInicio() {
-        return dataInicio;
-    }
 
     public Servico setDataInicio(LocalDateTime dataInicio) {
         this.dataInicio = dataInicio;
         return this;
     }
 
-    public LocalDateTime getDataConclusao() {
-        return dataConclusao;
-    }
 
     public Servico setDataConclusao(LocalDateTime dataConclusao) {
         this.dataConclusao = dataConclusao;
         return this;
     }
 
-    public Equipamento getEquipamento() {
-        return equipamento;
-    }
 
     public Servico setEquipamento(Equipamento equipamento) {
         this.equipamento = equipamento;
         return this;
     }
 
-
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder("Servico{");
-        sb.append("id=").append(id);
-        sb.append(", descricao='").append(descricao).append('\'');
-        sb.append(", valor=").append(valor);
-        sb.append(", tipo=").append(tipo);
-        sb.append(", dataAutorizacao=").append(dataAutorizacao);
-        sb.append(", dataInicio=").append(dataInicio);
-        sb.append(", dataConclusao=").append(dataConclusao);
-        sb.append(", equipamento=").append(equipamento);
-        sb.append('}');
-        return sb.toString();
-    }
 
     public void atualizarInformacoes(PutServico d) {
 

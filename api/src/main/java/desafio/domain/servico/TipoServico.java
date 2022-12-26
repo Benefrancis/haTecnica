@@ -10,11 +10,22 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(
         name = "HT_TIPO_SERVICO",
-        uniqueConstraints = @UniqueConstraint(
-                columnNames = {"nome"},
-                name = "UK_NOME_TIPO_SERVICO")
+        uniqueConstraints = {
+                @UniqueConstraint(
+                        columnNames = "ID_TIPO_SERVICO",
+                        name = "PK_TIPO_SERVICO"
+                ),
+                @UniqueConstraint(
+                        columnNames = "NOME",
+                        name = "UK_NOME_TIPO_SERVICO"
+                )
+        },
+        indexes = {@Index(
+                columnList = "NOME ",
+                name = "IDX_NOME_TIPO_SERVICO"
+        )
+        }
 )
-
 @Data
 @Builder
 @AllArgsConstructor
@@ -92,6 +103,7 @@ public class TipoServico {
                 .nome("Instalação de Software")
                 .build();
     }
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("TipoServico{");
