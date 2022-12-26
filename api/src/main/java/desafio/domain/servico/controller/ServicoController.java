@@ -1,5 +1,6 @@
 package desafio.domain.servico.controller;
 
+import desafio.domain.documento.dto.PutTipoDocumento;
 import desafio.domain.servico.Servico;
 import desafio.domain.servico.TipoServico;
 import desafio.domain.servico.dto.ListServico;
@@ -31,10 +32,10 @@ public class ServicoController {
 
 
     @GetMapping
-    public Page<ListServico> findAll(@PageableDefault(size = 10, sort = {"id"}) Pageable paginacao) {
-        return repository.findAll(paginacao).map(ListServico::new);
+    public ResponseEntity<Page<ListServico>> findAll(@PageableDefault(size = 10, sort = {"id"}) Pageable paginacao) {
+        var page =  repository.findAll(paginacao).map(ListServico::new);
+        return ResponseEntity.ok(page);
     }
-
 
     @GetMapping("/{id}")
     public ResponseEntity<PutServico> findById(@PathVariable("id") Long id) {
@@ -73,6 +74,14 @@ public class ServicoController {
         }
         throw new RuntimeException("O nome do Tipo de Serviço é obrigatório");
     }
+
+
+    @GetMapping("/tipo")
+    public ResponseEntity<Page<PutTipoServico>> findAllTipoServico(@PageableDefault(size = 50, sort = {"nome"}) Pageable paginacao) {
+        var page =  tipoServicoRepository.findAll(paginacao).map(PutTipoServico::new);
+        return ResponseEntity.ok(page);
+    }
+
 
     @GetMapping("/tipo/{id}")
     public ResponseEntity<PutTipoServico> save(@PathVariable(name = "id") Long id) {

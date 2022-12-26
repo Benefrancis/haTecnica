@@ -4,6 +4,7 @@ import desafio.domain.documento.TipoDocumento;
 import desafio.domain.documento.dto.PutTipoDocumento;
 import desafio.domain.documento.repository.TipoDocumentoRepository;
 import desafio.domain.equipamento.dto.PutTipoEquipamento;
+import desafio.domain.servico.dto.PutTipoServico;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -23,8 +24,9 @@ public class DocumentoController {
     private TipoDocumentoRepository tipoDocumentoRepository;
 
     @GetMapping("/tipo")
-    public Page<PutTipoDocumento> findAllTipo(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
-        return tipoDocumentoRepository.findAll(paginacao).map(PutTipoDocumento::new);
+    public ResponseEntity<Page<PutTipoDocumento>> findAllTipo(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
+        var page =  tipoDocumentoRepository.findAll(paginacao).map(PutTipoDocumento::new);
+        return ResponseEntity.ok(page);
     }
 
 
@@ -45,7 +47,7 @@ public class DocumentoController {
 
 
 
-    @PostMapping("/tipo/{id}")
+    @GetMapping("/tipo/{id}")
     public ResponseEntity<PutTipoDocumento> save(@PathVariable(name = "id") Long id) {
 
         var tipo = tipoDocumentoRepository.findById(id).orElse(null);

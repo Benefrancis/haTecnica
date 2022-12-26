@@ -27,8 +27,9 @@ public class EquipamentoController {
 
 
     @GetMapping("/tipo")
-    public Page<PutTipoEquipamento> findAllTipo(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
-        return tipoEquipamentoRepository.findAll(paginacao).map(PutTipoEquipamento::new);
+    public ResponseEntity<Page<PutTipoEquipamento>> findAllTipo(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
+        var page =  tipoEquipamentoRepository.findAll(paginacao).map(PutTipoEquipamento::new);
+        return ResponseEntity.ok(page);
     }
 
     @PostMapping("/tipo")

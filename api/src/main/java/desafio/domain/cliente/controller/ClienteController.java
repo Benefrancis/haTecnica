@@ -56,14 +56,25 @@ public class ClienteController {
     private TipoClienteRepository tipoClienteRepository;
 
     @GetMapping("/tipo")
-    public Page<PutTipoCliente> findAllTipo(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
-        return tipoClienteRepository.findAll(paginacao).map(PutTipoCliente::new);
+    public ResponseEntity<Page<PutTipoCliente>> findAllTipo(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
+        log.info("Recebido o pedido para consulta dos tipos de cliente disponíveis");
+        var page = tipoClienteRepository.findAll(paginacao).map(PutTipoCliente::new);
+        return ResponseEntity.ok(page);
     }
 
+
+    @GetMapping("/tipo/{id}")
+    public ResponseEntity<PutTipoCliente> save(@PathVariable(name = "id") Long id) {
+        var tipo = tipoClienteRepository.findById(id).orElse(null);
+        if (tipo == null) return ResponseEntity.notFound().build();
+        log.info("Recebido o pedido para consulta do tipo de cliente {}", tipo);
+        return ResponseEntity.ok(new PutTipoCliente(tipo));
+    }
 
     @PostMapping
     @Transactional
     public ResponseEntity<PutCliente> save(@RequestBody @Valid PutCliente dados, UriComponentsBuilder builder) {
+        log.info("Recebido o pedido para cadastramento do cliente {}", dados);
         var cliente = service.save(new Cliente(dados));
         URI uri = builder.path("/cliente/{id}").buildAndExpand(cliente.getId()).toUri();
         return ResponseEntity.created(uri).body(new PutCliente(cliente));
@@ -73,12 +84,15 @@ public class ClienteController {
     @Transactional
     public void atualizarPessoaFisica(@RequestBody @Valid PutCliente dados) {
         var cliente = repository.getReferenceById(dados.id());
+        log.info("Recebido o pedido de atualização do cliente {} para {}", cliente, dados);
         cliente.atualizarInformacoes(dados);
     }
 
     @GetMapping
-    public Page<ListCliente> listar(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
-        return repository.findAll(paginacao).map(ListCliente::new);
+    public ResponseEntity<Page<ListCliente>> listar(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
+        log.info("Recebido o pedido de consulta dos clientes cadastrados | Paginação {}", paginacao);
+        var page = repository.findAll(paginacao).map(ListCliente::new);
+        return ResponseEntity.ok(page);
     }
 
     @GetMapping(value = "/{id}")
@@ -95,12 +109,11 @@ public class ClienteController {
 
     @GetMapping("/{id}/documento")
     public ResponseEntity<Page<ListDocumento>> findDocumentoByClienteId(@PathVariable("id") Long id, @PageableDefault(size = 10, sort = {"cliente.nome"}) Pageable paginacao) {
-
         var cliente = IsValidCliente(id);
-
         if (cliente == null) return ResponseEntity.notFound().build();
-
-        return ResponseEntity.ok(documentoService.findByClienteId(id, paginacao).map(ListDocumento::new));
+        log.info("Recebido o pedido de listagem dos documentos do cliente {}", cliente);
+        var page = documentoService.findByClienteId(id, paginacao).map(ListDocumento::new);
+        return ResponseEntity.ok(page);
     }
 
     @GetMapping("/{id}/documento/{idDocumento}")
@@ -111,6 +124,8 @@ public class ClienteController {
         if (cliente == null) return ResponseEntity.badRequest().build();
 
         Documento documento = documentoService.findById(idDocumento).orElseThrow(new EntityNotFoundException("Documento não encontrado!"));
+
+        log.info("Recebido o pedido de listagem do documento {} do cliente com id {}", documento, id);
 
         return ResponseEntity.ok(new PutDocumento(documento));
     }
@@ -128,6 +143,9 @@ public class ClienteController {
         documento = documentoService.save(documento).orElseThrow();
 
         var ret = new PutDocumento(documento);
+
+        log.info("Recebido o pedido para cadastramento do documento {} do cliente com id {}", documento, id);
+
         URI uri = builder.path("/cliente/" + id + "/documento/{idDocumento}").buildAndExpand(ret.id()).toUri();
         return ResponseEntity.created(uri).body(ret);
 
@@ -159,12 +177,13 @@ public class ClienteController {
 
         var documento = documentoService.findById(doc.id()).orElseThrow(new EntityNotFoundException("Documento não encontrado!"));
 
+        log.info("Recebido o pedido para atualização do documento {} do cliente com id {} para os seguintes dados {}", documento, id, doc);
 
         documento.setCliente(cliente);
         documento.atualizarInforamcoes(doc);
+
         URI uri = builder.path("/cliente/" + id + "/documento/{idDocumento}").buildAndExpand(documento.getId()).toUri();
         return ResponseEntity.ok(new PutDocumento(documento));
-
 
     }
 
@@ -173,7 +192,12 @@ public class ClienteController {
     public ResponseEntity<Page<ListEquipamento>> findEquioamentoByClienteId(@PathVariable("id") Long id, @PageableDefault(size = 10, sort = {"cliente.nome"}) Pageable paginacao) {
         var cliente = IsValidCliente(id);
         if (cliente == null) return ResponseEntity.notFound().build();
-        return ResponseEntity.ok(equipamentoService.findByClienteId(id, paginacao).map(ListEquipamento::new));
+
+        log.info("Recebido o pedido para listagem dos equipamentos do cliente {} | Paginação {}", cliente, paginacao);
+
+        var page = equipamentoService.findByClienteId(id, paginacao).map(ListEquipamento::new);
+
+        return ResponseEntity.ok(page);
     }
 
     @PostMapping("/{id}/equipamento")
@@ -181,13 +205,19 @@ public class ClienteController {
     public ResponseEntity<PutEquipamento> save(@PathVariable("id") Long id, @RequestBody @Valid PutEquipamento eq, UriComponentsBuilder builder) {
 
         Cliente cliente = repository.findById(id).orElse(null);
+
         if (cliente != null && eq.cliente().id().equals(cliente.getId())) {
+
             var equipamento = new Equipamento(eq);
             equipamento.setCliente(cliente);
             equipamento = equipamentoService.save(equipamento).orElse(null);
             var ret = new PutEquipamento(equipamento);
+
+            log.info("Recebido o pedido para cadastramento do equipamento {} do cliente com id {}", equipamento, id);
+
             URI uri = builder.path("/equipamento/{id}").buildAndExpand(ret.id()).toUri();
             return ResponseEntity.created(uri).body(ret);
+
         } else {
             var err = new RuntimeException("O ID do cliente no Json do Equipamento deve ser o mesmo da URI");
             err.printStackTrace();
@@ -197,15 +227,21 @@ public class ClienteController {
 
     @PutMapping("/{id}/equipamento/{idEquipamento}")
     @Transactional
-    public ResponseEntity<PutEquipamento> save(@PathVariable("id") Long id, @PathVariable("idEquipamento") Long idEquipamento, @RequestBody @Valid PutEquipamento eq, UriComponentsBuilder builder) {
+    public ResponseEntity<PutEquipamento> save(@PathVariable("id") Long id, @PathVariable("idEquipamento") Long idEquipamento, @RequestBody @Valid PutEquipamento dados, UriComponentsBuilder builder) {
 
         Cliente cliente = repository.findById(id).orElseThrow(RuntimeException::new);
 
-        if (eq.cliente().id().equals(cliente.getId())) {
-            Equipamento equip = equipamentoService.findById(idEquipamento).orElseThrow();
-            equip.atualizarInforamcoes(eq);
-            URI uri = builder.path("/equipamento/{id}").buildAndExpand(equip.getId()).toUri();
-            return ResponseEntity.created(uri).body(new PutEquipamento(equip));
+        if (dados.cliente().id().equals(cliente.getId())) {
+            Equipamento equipamento = equipamentoService.findById(idEquipamento).orElseThrow();
+
+            log.info("Recebido o pedido para atualização do equipamento {} do cliente com id {} para os dados {}", equipamento, id, dados);
+
+            equipamento.atualizarInforamcoes(dados);
+
+            URI uri = builder.path("/equipamento/{id}").buildAndExpand(equipamento.getId()).toUri();
+
+            return ResponseEntity.created(uri).body(new PutEquipamento(equipamento));
+
         } else {
             var err = new RuntimeException("Você não está atualizando o Equipamento para o cliente correto -> O ID do cliente no Json deve ser o mesmo da URI");
             err.printStackTrace();
