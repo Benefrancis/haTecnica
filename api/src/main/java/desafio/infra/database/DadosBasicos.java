@@ -13,10 +13,13 @@ import desafio.domain.equipamento.TipoEquipamento;
 import desafio.domain.equipamento.repository.TipoEquipamentoRepository;
 import desafio.domain.servico.TipoServico;
 import desafio.domain.servico.repository.TipoServicoRepository;
+import desafio.domain.usuario.Usuario;
+import desafio.domain.usuario.repository.UsuarioRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
@@ -25,6 +28,11 @@ import java.util.List;
 @Slf4j
 @Component
 public class DadosBasicos implements ApplicationRunner {
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     @Autowired
     private PaisRepository paisRepository;
@@ -155,5 +163,40 @@ public class DadosBasicos implements ApplicationRunner {
             if (!estadoRepository.existsBySiglaIgnoreCase(e.getSigla())) estadoRepository.save(e);
         });
 
+
+        //Persistindo Usuários para teste de Autenticação
+        log.info("Populando database com os Usuários para teste ...");
+        List<Usuario> usuários = Arrays.asList(
+
+                Usuario.builder()
+                        .id(1L)
+                        .username("benefrancis@gmail.com")
+                        .password(passwordEncoder.encode("123456"))
+                        .build(),
+                Usuario.builder()
+                        .id(2L)
+                        .username("benefrancis@hatecnica.com.br")
+                        .password(passwordEncoder.encode("123456"))
+                        .build(),
+                Usuario.builder()
+                        .id(3L)
+                        .username("teste@hatecnica.com.br")
+                        .password(passwordEncoder.encode("123456"))
+                        .build(),
+                Usuario.builder()
+                        .id(4L)
+                        .username("admin@hatecnica.com.br")
+                        .password(passwordEncoder.encode("admin"))
+                        .build(),
+                Usuario.builder()
+                        .id(5L)
+                        .username("root@hatecnica.com.br")
+                        .password(passwordEncoder.encode("root"))
+                        .build()
+        );
+
+        usuários.forEach(u -> {
+            if (!usuarioRepository.existsByUsernameIgnoreCase(u.getUsername())) usuarioRepository.save(u);
+        });
     }
 }
