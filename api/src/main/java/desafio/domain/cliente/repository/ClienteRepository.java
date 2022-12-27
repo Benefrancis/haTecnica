@@ -9,4 +9,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ClienteRepository extends JpaRepository<Cliente, Long> {
     Page<Cliente> findAll(Pageable paginacao);
+
+    boolean existsByEmailIgnoreCase(String email);
 }

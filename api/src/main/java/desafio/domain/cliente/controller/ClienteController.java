@@ -16,8 +16,6 @@ import desafio.domain.equipamento.Equipamento;
 import desafio.domain.equipamento.dto.ListEquipamento;
 import desafio.domain.equipamento.dto.PutEquipamento;
 import desafio.domain.equipamento.service.EquipamentoService;
-
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -75,8 +73,11 @@ public class ClienteController {
     @PostMapping
     @Transactional
     public ResponseEntity<PutCliente> save(@RequestBody @Valid PutCliente dados, UriComponentsBuilder builder) {
+
         log.info("Recebido o pedido para cadastramento do cliente {}", dados);
+
         var cliente = service.save(new Cliente(dados));
+
         URI uri = builder.path("/cliente/{id}").buildAndExpand(cliente.getId()).toUri();
         return ResponseEntity.created(uri).body(new PutCliente(cliente));
     }
@@ -252,8 +253,7 @@ public class ClienteController {
 
 
     private Cliente IsValidCliente(Long id) {
-        var cliente = repository.findById(id).orElse(null);
-        return cliente;
+        return repository.findById(id).orElse(null);
     }
 
 

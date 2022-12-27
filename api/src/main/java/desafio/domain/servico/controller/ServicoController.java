@@ -8,7 +8,9 @@ import desafio.domain.servico.dto.PutServico;
 import desafio.domain.servico.dto.PutTipoServico;
 import desafio.domain.servico.repository.ServicoRepository;
 import desafio.domain.servico.repository.TipoServicoRepository;
+import jakarta.persistence.EntityExistsException;
 import jakarta.validation.Valid;
+import jakarta.validation.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -65,14 +67,14 @@ public class ServicoController {
 
         if (tipo.nome() != null) {
             if (tipoServicoRepository.existsByNomeIgnoreCase(tipo.nome())) {
-                throw new RuntimeException("Já existe Tipo de Serviço com o nome: " + tipo.nome());
+                throw new EntityExistsException("Já existe Tipo de Serviço com o nome: " + tipo.nome());
             } else {
                 var save = tipoServicoRepository.save(new TipoServico(tipo));
                 URI uri = builder.path("/servico/tipo/{id}").buildAndExpand(save.getId()).toUri();
                 return ResponseEntity.created(uri).body(new PutTipoServico(save));
             }
         }
-        throw new RuntimeException("O nome do Tipo de Serviço é obrigatório");
+        throw new ValidationException("O nome do Tipo de Serviço é obrigatório");
     }
 
 

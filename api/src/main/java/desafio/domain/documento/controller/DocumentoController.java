@@ -5,7 +5,9 @@ import desafio.domain.documento.dto.PutTipoDocumento;
 import desafio.domain.documento.repository.TipoDocumentoRepository;
 import desafio.domain.equipamento.dto.PutTipoEquipamento;
 import desafio.domain.servico.dto.PutTipoServico;
+import jakarta.persistence.EntityExistsException;
 import jakarta.validation.Valid;
+import jakarta.validation.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -35,14 +37,14 @@ public class DocumentoController {
 
         if (tipo.nome() != null) {
             if (tipoDocumentoRepository.existsByNomeIgnoreCase(tipo.nome())) {
-                throw new RuntimeException("Já existe Tipo de Documento com o nome: " + tipo.nome());
+                throw new EntityExistsException("Já existe Tipo de Documento com o nome: " + tipo.nome());
             } else {
                 var save = tipoDocumentoRepository.save(new TipoDocumento(tipo));
                 URI uri = builder.path("/documento/tipo/{id}").buildAndExpand(save.getId()).toUri();
                 return ResponseEntity.created(uri).body(new PutTipoDocumento(save));
             }
         }
-        throw new RuntimeException("O nome do Tipo de Documento é obrigatório");
+        throw new ValidationException("O nome do Tipo de Documento é obrigatório");
     }
 
 

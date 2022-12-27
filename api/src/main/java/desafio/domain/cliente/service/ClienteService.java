@@ -7,6 +7,7 @@ import desafio.domain.endereco.repository.CidadeRepository;
 import desafio.domain.endereco.repository.EnderecoRepository;
 import desafio.domain.endereco.repository.EstadoRepository;
 import desafio.domain.endereco.repository.PaisRepository;
+import jakarta.persistence.EntityExistsException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -44,8 +45,12 @@ public class ClienteService {
     }
 
     public Cliente save(@Valid Cliente c) {
-        var ret = repository.saveAndFlush(c);
-        return ret; //repository.findById(c.getId()).orElse(null);
+
+        if (repository.existsByEmailIgnoreCase(c.getEmail())) {
+            throw new EntityExistsException("Já existe cliente cadastrado com o email informado!");
+        }
+
+        return repository.save(c); //repository.findById(c.getId()).orElse(null);
     }
 
 }

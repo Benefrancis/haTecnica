@@ -1,9 +1,8 @@
 package desafio.domain.cliente.dto;
 
 import desafio.domain.cliente.Cliente;
-import desafio.domain.endereco.dto.PutEndereco;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.*;
 
 import java.time.LocalDate;
 
@@ -11,24 +10,24 @@ public record PutCliente(
 
         Long id,
 
-
+        @NotEmpty(message = "{nome.obrigatorio}")
         String nome,
 
 
-
-        @Email(message = "{email.invalido}")
+        @NotEmpty(message = "{email.obrigatorio}")
+        @Email(message = "{email.invalido}", regexp = "^[_A-Za-z0-9-\\+]+(\\\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$")
         String email,
 
-
+        @Past(message = "A data de nascimento deve ser anterior à data atual")
         LocalDate nascimento,
 
-
+        @NotNull(message = "{tipoCliente.obrigatorio}")
+        @Valid
         PutTipoCliente tipo,
 
-
+        @NotNull(message = "{telefone.obrigatorio}")
+        @Valid
         PutTelefone telefone
-
-
 
 
 ) {

@@ -2,12 +2,11 @@ package desafio.domain.cliente;
 
 import desafio.domain.cliente.dto.PutCliente;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.Hibernate;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Entity
 @Table(name = "HT_CLIENTE",
@@ -31,10 +30,12 @@ import java.time.LocalDate;
                 )
         }
 )
-@Data
+
 @Builder
+@Getter
+@ToString
+@RequiredArgsConstructor
 @AllArgsConstructor
-@NoArgsConstructor
 public class Cliente {
 
     @Id
@@ -121,5 +122,18 @@ public class Cliente {
         if (dados.telefone() != null) {
             getTelefone().atualizarInformacoes(dados.telefone());
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Cliente cliente = (Cliente) o;
+        return id != null && Objects.equals(id, cliente.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
     }
 }

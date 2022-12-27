@@ -5,6 +5,7 @@ import desafio.domain.equipamento.TipoEquipamento;
 import desafio.domain.equipamento.dto.PutTipoEquipamento;
 import desafio.domain.equipamento.repository.TipoEquipamentoRepository;
 import desafio.domain.servico.dto.PutTipoServico;
+import jakarta.persistence.EntityExistsException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -37,7 +38,7 @@ public class EquipamentoController {
 
         if (tipo.nome() != null) {
             if (tipoEquipamentoRepository.existsByNomeIgnoreCase(tipo.nome())) {
-                throw new RuntimeException("Já existe Tipo de Equipamento com o nome: " + tipo.nome());
+                throw new EntityExistsException("Já existe Tipo de Equipamento com o nome: " + tipo.nome());
             } else {
                 var save = tipoEquipamentoRepository.save(new TipoEquipamento(tipo));
                 URI uri = builder.path("/equipamento/tipo/{id}").buildAndExpand(save.getId()).toUri();

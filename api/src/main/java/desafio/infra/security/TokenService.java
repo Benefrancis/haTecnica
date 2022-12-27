@@ -21,7 +21,6 @@ public class TokenService {
 
     public String gerarToken(Usuario usuario) {
 
-
         try {
 
             var algoritmo = Algorithm.HMAC256(secret);
@@ -33,7 +32,7 @@ public class TokenService {
                     .sign(algoritmo);
 
         } catch (JWTCreationException exception) {
-            throw new RuntimeException("erro ao gerar token jwt", exception);
+            throw new JWTCreationException("Erro ao gerar token jwt", exception);
         }
     }
 
@@ -49,12 +48,13 @@ public class TokenService {
                     .getSubject();
 
         } catch (JWTVerificationException exception) {
-            throw new RuntimeException("Token JWT inválido ou expirado!");
+            throw new JWTVerificationException("Token JWT inválido ou expirado!");
         }
     }
 
     private Instant dataExpiracao() {
         return LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.of("-03:00"));
     }
+
 
 }

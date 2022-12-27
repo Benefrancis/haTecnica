@@ -12,6 +12,16 @@
 				{
 					"name": "POST PF",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJyb290QGhhdGVjbmljYS5jb20uYnIiLCJpc3MiOiJIw6EgVMOpY25pY2EiLCJleHAiOjE2NzIxMDM2MjZ9.QNysvpu3cKC5s5ZGvemFX-32Bn_l3R2r5iPIirKypBs",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -40,11 +50,21 @@
 				{
 					"name": "POST PJ",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJyb290QGhhdGVjbmljYS5jb20uYnIiLCJpc3MiOiJIw6EgVMOpY25pY2EiLCJleHAiOjE2NzIwOTkyMDV9.IsG4OmwxTel8UHGm_fO76Zk91WKL8Gs0iNnvg5Glhow",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nome\": \"FIAP Alura\",\r\n    \"nascimento\": null,\r\n    \"tipo\": {\r\n        \"id\": 2,\r\n        \"nome\": \"Pessoa Jurídica\",\r\n        \"sigla\": \"PJ\"\r\n    },\r\n    \"telefone\": {\r\n        \"ddi\": \"55\",\r\n        \"ddd\": \"11\",\r\n        \"numero\": \"33858010\"\r\n    }\r\n}",
+							"raw": "{\r\n    \"nome\": \"FIAP Alura\",\r\n    \"nascimento\": null,\r\n    \"email\": \"fiap@fiap.com.br\",\r\n    \"tipo\": {\r\n        \"id\": 2,\r\n        \"nome\": \"Pessoa Jurídica\",\r\n        \"sigla\": \"PJ\"\r\n    },\r\n    \"telefone\": {\r\n        \"ddi\": \"55\",\r\n        \"ddd\": \"11\",\r\n        \"numero\": \"33858010\"\r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -67,6 +87,16 @@
 				{
 					"name": "GET CLIENTES",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJyb290QGhhdGVjbmljYS5jb20uYnIiLCJpc3MiOiJIw6EgVMOpY25pY2EiLCJleHAiOjE2NzIwOTkwMzZ9.MbZjmzICO1cR13i3BHJoFYm-Ay942yWW2yh_kDPb8kw",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -102,6 +132,27 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "GET TIPO CLIENTE ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/cliente/tipo/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cliente",
+								"tipo",
+								"1"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -111,6 +162,16 @@
 				{
 					"name": "GET DOCUMENTOS",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJyb290QGhhdGVjbmljYS5jb20uYnIiLCJpc3MiOiJIw6EgVMOpY25pY2EiLCJleHAiOjE2NzIwOTkyMDV9.IsG4OmwxTel8UHGm_fO76Zk91WKL8Gs0iNnvg5Glhow",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -230,6 +291,27 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "GET TIPO DOCUMENTO ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/documento/tipo/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"documento",
+								"tipo",
+								"1"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -239,6 +321,16 @@
 				{
 					"name": "GET EQUIPAMENTOS",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJyb290QGhhdGVjbmljYS5jb20uYnIiLCJpc3MiOiJIw6EgVMOpY25pY2EiLCJleHAiOjE2NzIwOTkyMDV9.IsG4OmwxTel8UHGm_fO76Zk91WKL8Gs0iNnvg5Glhow",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -311,7 +403,27 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/equipamento/tipo/250",
+							"raw": "http://localhost:8080/equipamento/tipo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"equipamento",
+								"tipo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET TIPO EQUIPAMENTO ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/equipamento/tipo/8",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -320,7 +432,7 @@
 							"path": [
 								"equipamento",
 								"tipo",
-								"250"
+								"8"
 							]
 						}
 					},
@@ -353,6 +465,36 @@
 				{
 					"name": "GET TIPO SERVICO",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJyb290QGhhdGVjbmljYS5jb20uYnIiLCJpc3MiOiJIw6EgVMOpY25pY2EiLCJleHAiOjE2NzIxMjY0NDF9._4kuNMUMI9_nnLJi3ZlW6EZIVs9nr2DoX47vKerFG8U",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/servico/tipo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"servico",
+								"tipo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET TIPO SERVICO ID",
+					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -372,6 +514,102 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "LOGIN",
+			"item": [
+				{
+					"name": "LOGIN",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"root@hatecnica.com.br\",\r\n    \"password\": \"root\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJyb290QGhhdGVjbmljYS5jb20uYnIiLCJpc3MiOiJIw6EgVMOpY25pY2EiLCJleHAiOjE2NzIxMDM2MjZ9.QNysvpu3cKC5s5ZGvemFX-32Bn_l3R2r5iPIirKypBs",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJyb290QGhhdGVjbmljYS5jb20uYnIiLCJpc3MiOiJIw6EgVMOpY25pY2EiLCJleHAiOjE2NzIxMjY0NDF9._4kuNMUMI9_nnLJi3ZlW6EZIVs9nr2DoX47vKerFG8U",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
 		}
 	]
 }
