@@ -38,7 +38,7 @@ public class TokenService {
     }
 
     public String getSubject(String tokenJWT) throws JWTVerificationException, SignatureVerificationException, RuntimeException {
-        //The Token's Signature resulted invalid when verified using the Algorithm: HmacSHA256
+
         try {
 
             var algoritmo = Algorithm.HMAC256(secret);
@@ -57,6 +57,5 @@ public class TokenService {
     private Instant dataExpiracao() {
         return LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.of("-03:00"));
     }
-
 
 }

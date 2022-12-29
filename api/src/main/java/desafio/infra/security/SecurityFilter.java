@@ -22,7 +22,6 @@ public class SecurityFilter extends OncePerRequestFilter {
     @Autowired
     private UsuarioRepository repository;
 
-
     private String recuperarToken(HttpServletRequest request) {
 
         var authorizationHeader = request.getHeader("Authorization");
@@ -30,31 +29,15 @@ public class SecurityFilter extends OncePerRequestFilter {
         if (authorizationHeader != null) {
             return authorizationHeader.replace("Bearer ", "");
         }
-
         return null;
-
     }
 
-    /**
-     * Same contract as for {@code doFilter}, but guaranteed to be
-     * just invoked once per request within a single request thread.
-     * See {@link #shouldNotFilterAsyncDispatch()} for details.
-     * <p>Provides HttpServletRequest and HttpServletResponse arguments instead of the
-     * default ServletRequest and ServletResponse ones.
-     *
-     * @param request
-     * @param response
-     * @param filterChain
-     */
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
-        //throws ServletException, IOException
         var tokenJWT = recuperarToken(request);
 
-
         if (tokenJWT != null) {
-
 
             var subject = tokenService.getSubject(tokenJWT);
 

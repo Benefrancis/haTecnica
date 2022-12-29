@@ -12,7 +12,7 @@ const autenticacao = await fetch("http://localhost:8080/login", {
         });
 
 const auth = await autenticacao.json();
-
+console.log(auth);
 
 
 const servico =         {
