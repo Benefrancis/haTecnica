@@ -967,7 +967,7 @@
 		"bearer": [
 			{
 				"key": "token",
-				"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJyb290QGhhdGVjbmljYS5jb20uYnIiLCJpc3MiOiJIw6EgVMOpY25pY2EiLCJleHAiOjE2NzIyOTU2ODR9.ukYjHIUoVHgJl70X3kuO-W96IiGVEjuLz_XXboT37ak",
+				"value": "",
 				"type": "string"
 			}
 		]

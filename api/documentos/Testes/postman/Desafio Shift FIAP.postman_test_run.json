@@ -1,0 +1,760 @@
+{
+	"id": "f9d56b73-1bc8-4282-8d19-8590b3b3a24a",
+	"name": "Desafio Shift FIAP",
+	"timestamp": "2022-12-29T05:02:55.194Z",
+	"collection_id": "1524675-5868dd3e-1693-4319-921d-b08873eaeaa9",
+	"folder_id": 0,
+	"environment_id": "0",
+	"totalPass": 35,
+	"totalFail": 0,
+	"results": [
+		{
+			"id": "dfc6f459-dbf0-43e5-8584-aedf40773992",
+			"name": "POST PF",
+			"url": "http://localhost:8080/cliente",
+			"time": 12,
+			"responseCode": {
+				"code": 403,
+				"name": "Forbidden"
+			},
+			"tests": {
+				"X-Frame-Options": true
+			},
+			"testPassFailCounts": {
+				"X-Frame-Options": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				12
+			],
+			"allTests": [
+				{
+					"X-Frame-Options": true
+				}
+			]
+		},
+		{
+			"id": "b9b2e772-d2cf-463a-bfe8-07c0436d6d26",
+			"name": "POST PJ",
+			"url": "http://localhost:8080/cliente",
+			"time": 12,
+			"responseCode": {
+				"code": 403,
+				"name": "Forbidden"
+			},
+			"tests": {
+				"X-Frame-Options": true
+			},
+			"testPassFailCounts": {
+				"X-Frame-Options": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				12
+			],
+			"allTests": [
+				{
+					"X-Frame-Options": true
+				}
+			]
+		},
+		{
+			"id": "9912e6ca-ccc0-47b1-805f-5256e0b2514d",
+			"name": "GET CLIENTES",
+			"url": "http://localhost:8080/cliente",
+			"time": 13,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Body válido": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Body válido": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				13
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Body válido": true
+				}
+			]
+		},
+		{
+			"id": "953550c5-5b68-4302-a2f8-baafc0191b31",
+			"name": "GET TIPO CLIENTE",
+			"url": "http://localhost:8080/cliente/tipo",
+			"time": 10,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Body válido e com paginação": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Body válido e com paginação": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				10
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Body válido e com paginação": true
+				}
+			]
+		},
+		{
+			"id": "6fdce483-8239-4b54-b4af-7c49661f09da",
+			"name": "GET TIPO CLIENTE ID",
+			"url": "http://localhost:8080/cliente/tipo/1",
+			"time": 10,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Body válido": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Body válido": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				10
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Body válido": true
+				}
+			]
+		},
+		{
+			"id": "4a4ce149-033a-4e86-84a4-11aed7bf895a",
+			"name": "GET DOCUMENTOS",
+			"url": "http://localhost:8080/cliente/1/documento",
+			"time": 16,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Body válido para Documentos": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Body válido para Documentos": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				16
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Body válido para Documentos": true
+				}
+			]
+		},
+		{
+			"id": "55ca3063-04ee-49ca-b5e2-df8ced4e9ed6",
+			"name": "POST DOCUMENTO",
+			"url": "http://localhost:8080/cliente/1/documento",
+			"time": 17,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Content-Type header is application/json": true,
+				"Status code is 200": true
+			},
+			"testPassFailCounts": {
+				"Content-Type header is application/json": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				17
+			],
+			"allTests": [
+				{
+					"Content-Type header is application/json": true,
+					"Status code is 200": true
+				}
+			]
+		},
+		{
+			"id": "bc7a5cf9-8d1e-4e5d-9a1d-d05330c92564",
+			"name": "GET DOCUMENTO POR ID",
+			"url": "http://localhost:8080/cliente/1/documento/1",
+			"time": 11,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Body válido para Documentos": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Body válido para Documentos": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				11
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Body válido para Documentos": true
+				}
+			]
+		},
+		{
+			"id": "ad082976-32c6-4c88-8880-bb6240b723b9",
+			"name": "PUT DOCUMENTO",
+			"url": "http://localhost:8080/cliente/1/documento/1",
+			"time": 11,
+			"responseCode": {
+				"code": 403,
+				"name": "Forbidden"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				11
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "028f00bb-a3d9-4789-898c-3cba408bf5f6",
+			"name": "GET TIPO DOCUMENTO",
+			"url": "http://localhost:8080/documento/tipo",
+			"time": 10,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Body válido para Tipo de Documento": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Body válido para Tipo de Documento": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				10
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Body válido para Tipo de Documento": true
+				}
+			]
+		},
+		{
+			"id": "a4d34cc7-3467-45bd-8c66-0d06360fff28",
+			"name": "GET TIPO DOCUMENTO ID",
+			"url": "http://localhost:8080/documento/tipo/1",
+			"time": 8,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Body válido para Tipo de Documento": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Body válido para Tipo de Documento": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				8
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Body válido para Tipo de Documento": true
+				}
+			]
+		},
+		{
+			"id": "371c4e4b-7661-470c-b4c9-d1c09e6eac71",
+			"name": "GET EQUIPAMENTOS",
+			"url": "http://localhost:8080/cliente/1/equipamento",
+			"time": 17,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Body válido para Tipos de Equipamentos de Um cliente": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Body válido para Tipos de Equipamentos de Um cliente": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				17
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Body válido para Tipos de Equipamentos de Um cliente": true
+				}
+			]
+		},
+		{
+			"id": "f16d41e6-7fde-45a4-b196-0d89b5f44c3d",
+			"name": "GET TIPO EQUIPAMENTO",
+			"url": "http://localhost:8080/equipamento/tipo",
+			"time": 13,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Body válido para Tipos de Equipamentos de Um cliente": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Body válido para Tipos de Equipamentos de Um cliente": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				13
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Body válido para Tipos de Equipamentos de Um cliente": true
+				}
+			]
+		},
+		{
+			"id": "a07a311a-efde-44db-8036-0b012185a716",
+			"name": "POST TIPO EQUIPAMENTO",
+			"url": "http://localhost:8080/equipamento/tipo",
+			"time": 8,
+			"responseCode": {
+				"code": 403,
+				"name": "Forbidden"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				8
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "e3402fcc-d12d-4147-af8a-3954d026f989",
+			"name": "GET TIPO EQUIPAMENTO",
+			"url": "http://localhost:8080/equipamento/tipo",
+			"time": 9,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"API response contians the expected header": true,
+				"Body válido para Listagem de Tipos de Equipamentos": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"API response contians the expected header": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Body válido para Listagem de Tipos de Equipamentos": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				9
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"API response contians the expected header": true,
+					"Body válido para Listagem de Tipos de Equipamentos": true
+				}
+			]
+		},
+		{
+			"id": "e01301c2-cc67-4511-b22a-a6ccdf4cceb9",
+			"name": "GET TIPO EQUIPAMENTO ID",
+			"url": "http://localhost:8080/equipamento/tipo/3",
+			"time": 8,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Body válido  Tipo de Equipamento com um determonado ID": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Body válido  Tipo de Equipamento com um determonado ID": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				8
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Body válido  Tipo de Equipamento com um determonado ID": true
+				}
+			]
+		},
+		{
+			"id": "2ca5fb52-ca28-4f18-aa30-5ff9bd180bd4",
+			"name": "POST EQUIPAMENTO",
+			"url": "http://localhost:8080/cliente/1/equipamento",
+			"time": 21,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				21
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "d50cc500-4c74-4dac-a252-66a96bee21d7",
+			"name": "GET SERVICOS",
+			"url": "http://localhost:8080/servico",
+			"time": 14,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				14
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "4d030656-9fcd-43c8-a6d8-8c448aa982b3",
+			"name": "GET TIPO SERVICO",
+			"url": "http://localhost:8080/servico/tipo",
+			"time": 8,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				8
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "be315065-164e-4bb8-97c3-4b7f51d4d411",
+			"name": "GET TIPO SERVICO ID",
+			"url": "http://localhost:8080/servico/tipo/6",
+			"time": 9,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				9
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "6ff27d02-5d14-4d7d-8660-c48d6ab4703a",
+			"name": "POST SERVICO",
+			"url": "http://localhost:8080/servico",
+			"time": 11,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"X-Frame-Options": true,
+				"Existe Location do Cliente Cadastrado": true
+			},
+			"testPassFailCounts": {
+				"X-Frame-Options": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Existe Location do Cliente Cadastrado": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				11
+			],
+			"allTests": [
+				{
+					"X-Frame-Options": true,
+					"Existe Location do Cliente Cadastrado": true
+				}
+			]
+		},
+		{
+			"id": "39367300-d2aa-402e-9236-d755b955f07f",
+			"name": "LOGIN",
+			"url": "http://localhost:8080/login",
+			"time": 92,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Enviamos com sucesso um POST request": true,
+				"Retornou um token": true,
+				"Content-Type é application/json": true,
+				"Content-Type header is application/json": true,
+				"A requisição contém username": true,
+				"A requisição contém password": true
+			},
+			"testPassFailCounts": {
+				"Enviamos com sucesso um POST request": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Retornou um token": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Content-Type é application/json": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Content-Type header is application/json": {
+					"pass": 1,
+					"fail": 0
+				},
+				"A requisição contém username": {
+					"pass": 1,
+					"fail": 0
+				},
+				"A requisição contém password": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				92
+			],
+			"allTests": [
+				{
+					"Enviamos com sucesso um POST request": true,
+					"Retornou um token": true,
+					"Content-Type é application/json": true,
+					"Content-Type header is application/json": true,
+					"A requisição contém username": true,
+					"A requisição contém password": true
+				}
+			]
+		}
+	],
+	"count": 1,
+	"totalTime": 340,
+	"collection": {
+		"requests": [
+			{
+				"id": "dfc6f459-dbf0-43e5-8584-aedf40773992",
+				"method": "POST"
+			},
+			{
+				"id": "b9b2e772-d2cf-463a-bfe8-07c0436d6d26",
+				"method": "POST"
+			},
+			{
+				"id": "9912e6ca-ccc0-47b1-805f-5256e0b2514d",
+				"method": "GET"
+			},
+			{
+				"id": "953550c5-5b68-4302-a2f8-baafc0191b31",
+				"method": "GET"
+			},
+			{
+				"id": "6fdce483-8239-4b54-b4af-7c49661f09da",
+				"method": "GET"
+			},
+			{
+				"id": "4a4ce149-033a-4e86-84a4-11aed7bf895a",
+				"method": "GET"
+			},
+			{
+				"id": "55ca3063-04ee-49ca-b5e2-df8ced4e9ed6",
+				"method": "POST"
+			},
+			{
+				"id": "bc7a5cf9-8d1e-4e5d-9a1d-d05330c92564",
+				"method": "GET"
+			},
+			{
+				"id": "ad082976-32c6-4c88-8880-bb6240b723b9",
+				"method": "PUT"
+			},
+			{
+				"id": "028f00bb-a3d9-4789-898c-3cba408bf5f6",
+				"method": "GET"
+			},
+			{
+				"id": "a4d34cc7-3467-45bd-8c66-0d06360fff28",
+				"method": "GET"
+			},
+			{
+				"id": "371c4e4b-7661-470c-b4c9-d1c09e6eac71",
+				"method": "GET"
+			},
+			{
+				"id": "f16d41e6-7fde-45a4-b196-0d89b5f44c3d",
+				"method": "GET"
+			},
+			{
+				"id": "a07a311a-efde-44db-8036-0b012185a716",
+				"method": "POST"
+			},
+			{
+				"id": "e3402fcc-d12d-4147-af8a-3954d026f989",
+				"method": "GET"
+			},
+			{
+				"id": "e01301c2-cc67-4511-b22a-a6ccdf4cceb9",
+				"method": "GET"
+			},
+			{
+				"id": "2ca5fb52-ca28-4f18-aa30-5ff9bd180bd4",
+				"method": "POST"
+			},
+			{
+				"id": "d50cc500-4c74-4dac-a252-66a96bee21d7",
+				"method": "GET"
+			},
+			{
+				"id": "4d030656-9fcd-43c8-a6d8-8c448aa982b3",
+				"method": "GET"
+			},
+			{
+				"id": "be315065-164e-4bb8-97c3-4b7f51d4d411",
+				"method": "GET"
+			},
+			{
+				"id": "6ff27d02-5d14-4d7d-8660-c48d6ab4703a",
+				"method": "POST"
+			},
+			{
+				"id": "39367300-d2aa-402e-9236-d755b955f07f",
+				"method": "POST"
+			}
+		]
+	}
+}

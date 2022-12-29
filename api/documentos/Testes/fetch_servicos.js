@@ -39,8 +39,3 @@ const servicoSalvo = await res.json();
 
 console.log(auth);
 console.log(servicoSalvo);
-
-
-
-
-
