@@ -1,5 +1,7 @@
 package desafio.domain.endereco;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import desafio.domain.endereco.dto.PutEstado;
 import jakarta.persistence.*;
 import lombok.*;
@@ -228,13 +230,12 @@ public class Estado {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("Estado{");
-        sb.append("id=").append(id);
-        sb.append(", nome='").append(nome).append('\'');
-        sb.append(", sigla='").append(sigla).append('\'');
-        sb.append(", pais=").append(pais);
-        sb.append(", ibge=").append(ibge);
-        sb.append('}');
-        return sb.toString();
+        String sb = "Estado{" + "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", sigla='" + sigla + '\'' +
+                ", pais=" + pais +
+                ", ibge=" + ibge +
+                '}';
+        return sb;
     }
 }

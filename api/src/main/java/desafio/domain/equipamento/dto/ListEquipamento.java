@@ -1,8 +1,10 @@
 package desafio.domain.equipamento.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import desafio.domain.cliente.dto.PutCliente;
 import desafio.domain.equipamento.Equipamento;
-
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public record ListEquipamento(
 
         Long id,

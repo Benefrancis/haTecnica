@@ -1,12 +1,12 @@
 package desafio.domain.servico;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import desafio.domain.equipamento.Equipamento;
 import desafio.domain.servico.dto.PutServico;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
@@ -32,9 +32,11 @@ import java.time.LocalDateTime;
         }
 )
 @Data
+@Getter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode(of = {"id"})
 public class Servico {
 
     @Id
@@ -47,9 +49,6 @@ public class Servico {
 
     private double valor;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
-    @JoinColumn(name = "ID_TIPO_SERVICO", referencedColumnName = "ID_TIPO_SERVICO", foreignKey = @ForeignKey(name = "FK_TIPO_SERVICO", value = ConstraintMode.CONSTRAINT))
-    private TipoServico tipo;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "DT_AUTORIZACAO")
@@ -63,19 +62,24 @@ public class Servico {
     @Column(name = "DT_CONCLUSAO")
     private LocalDateTime dataConclusao;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.REFRESH})
+    @JoinColumn(name = "ID_TIPO_SERVICO", referencedColumnName = "ID_TIPO_SERVICO", foreignKey = @ForeignKey(name = "FK_TIPO_SERVICO", value = ConstraintMode.CONSTRAINT))
+    private TipoServico tipo;
+
+
+    @ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.REFRESH})
     @JoinColumn(name = "ID_EQUIPAMENTO", referencedColumnName = "ID_EQUIPAMENTO", foreignKey = @ForeignKey(name = "FK_EQUIPAMENTO_SERVICO", value = ConstraintMode.CONSTRAINT))
     private Equipamento equipamento;
 
     public Servico(PutServico s) {
-        this.id = id;
-        this.descricao = descricao;
-        this.valor = valor;
-        this.tipo = tipo;
-        this.dataAutorizacao = dataAutorizacao;
-        this.dataInicio = dataInicio;
-        this.dataConclusao = dataConclusao;
-        this.equipamento = equipamento;
+        this.id = s.id();
+        this.descricao = s.descricao();
+        this.valor = s.valor();
+        if (s.tipo() != null) this.tipo = new TipoServico(s.tipo());
+        this.dataAutorizacao = s.dataAutorizacao();
+        this.dataInicio = s.dataInicio();
+        this.dataConclusao = s.dataConclusao();
+        if (s.equipamento() != null) this.equipamento = new Equipamento(s.equipamento());
     }
 
 

@@ -1,11 +1,13 @@
 package desafio.domain.equipamento.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import desafio.domain.cliente.dto.PutCliente;
 import desafio.domain.equipamento.Equipamento;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public record PutEquipamento(
 
         Long id,
@@ -14,11 +16,8 @@ public record PutEquipamento(
         String numeroDeSerie,
 
         @NotNull
-        @Valid
         PutTipoEquipamento tipo,
-
         @NotNull
-        @Valid
         PutCliente cliente
 
 ) {

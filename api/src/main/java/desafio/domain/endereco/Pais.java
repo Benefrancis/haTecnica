@@ -1,5 +1,7 @@
 package desafio.domain.endereco;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import desafio.domain.endereco.dto.PutPais;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -65,7 +67,7 @@ public class Pais {
 
     public static Pais BRASIL() {
         return Pais.builder()
-                .id(1l)
+                .id(1L)
                 .nome("Brasil")
                 .build();
     }

@@ -1,5 +1,7 @@
 package desafio.domain.equipamento;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import desafio.domain.cliente.Cliente;
 import desafio.domain.equipamento.dto.PutEquipamento;
 import jakarta.persistence.*;
@@ -48,9 +50,9 @@ public class Equipamento {
 
     public Equipamento(PutEquipamento e) {
         this.id = e.id();
-        this.cliente = new Cliente(e.cliente());
+        if (e.cliente() != null) this.cliente = new Cliente(e.cliente());
         this.numeroDeSerie = e.numeroDeSerie();
-        this.tipo = new TipoEquipamento(e.tipo());
+        if (e.tipo() != null) this.tipo = new TipoEquipamento(e.tipo());
     }
 
 
@@ -100,12 +102,11 @@ public class Equipamento {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("Equipamento{");
-        sb.append("id=").append(id);
-        sb.append(", cliente=").append(cliente);
-        sb.append(", numeroDeSerie='").append(numeroDeSerie).append('\'');
-        sb.append(", tipo=").append(tipo);
-        sb.append('}');
-        return sb.toString();
+        String sb = "Equipamento{" + "id=" + id +
+                ", cliente=" + cliente +
+                ", numeroDeSerie='" + numeroDeSerie + '\'' +
+                ", tipo=" + tipo +
+                '}';
+        return sb;
     }
 }

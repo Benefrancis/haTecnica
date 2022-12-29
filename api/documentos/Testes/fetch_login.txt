@@ -1,0 +1,23 @@
+const user = {
+     "username" : "root@hatecnica.com.br",
+     "password" : "root"
+};
+
+const res = await fetch("http://localhost:8080/login", {
+            method: "POST",
+             headers: {
+                "Content-Type": "application/json"
+            },
+			body: JSON.stringify(user)
+        });
+
+const resposta = await res.json();
+
+console.log(resposta);
+
+
+
+
+
+
+

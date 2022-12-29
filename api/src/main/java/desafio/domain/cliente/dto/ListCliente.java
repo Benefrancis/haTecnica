@@ -1,10 +1,12 @@
 package desafio.domain.cliente.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import desafio.domain.cliente.Cliente;
-import desafio.domain.endereco.dto.PutEndereco;
 
 import java.time.LocalDate;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public record ListCliente(
         Long id,
         String nome,

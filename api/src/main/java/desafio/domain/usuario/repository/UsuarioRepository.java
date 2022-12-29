@@ -8,10 +8,10 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
-    public Usuario findByUsernameIgnoreCase(String username) throws UsernameNotFoundException;
+    Usuario findByUsernameIgnoreCase(String username) throws UsernameNotFoundException;
 
 
-    public boolean existsByUsernameIgnoreCase(String username);
+    boolean existsByUsernameIgnoreCase(String username);
 
 
 }

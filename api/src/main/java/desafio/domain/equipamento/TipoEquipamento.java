@@ -1,5 +1,7 @@
 package desafio.domain.equipamento;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import desafio.domain.equipamento.dto.PutTipoEquipamento;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -68,44 +70,43 @@ public class TipoEquipamento {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("TipoEquipamento{");
-        sb.append("id=").append(id);
-        sb.append(", nome='").append(nome).append('\'');
-        sb.append('}');
-        return sb.toString();
+        String sb = "TipoEquipamento{" + "id=" + id +
+                ", nome='" + nome + '\'' +
+                '}';
+        return sb;
     }
 
     public static TipoEquipamento COMPUTADOR() {
         return TipoEquipamento.builder()
-                .id(1l)
+                .id(1L)
                 .nome("Computador")
                 .build();
     }
 
     public static TipoEquipamento NOTEBOOK() {
         return TipoEquipamento.builder()
-                .id(2l)
+                .id(2L)
                 .nome("Notebook")
                 .build();
     }
 
     public static TipoEquipamento CELULAR() {
         return TipoEquipamento.builder()
-                .id(3l)
+                .id(3L)
                 .nome("Celular")
                 .build();
     }
 
     public static TipoEquipamento TABLET() {
         return TipoEquipamento.builder()
-                .id(4l)
+                .id(4L)
                 .nome("Tablet")
                 .build();
     }
 
     public static TipoEquipamento VIDEO_GAME() {
         return TipoEquipamento.builder()
-                .id(5l)
+                .id(5L)
                 .nome("Vídeo Game")
                 .build();
     }

@@ -1,5 +1,7 @@
 package desafio.domain.endereco;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import desafio.domain.endereco.dto.PutCidade;
 import jakarta.persistence.*;
 import lombok.*;
@@ -76,12 +78,11 @@ public class Cidade {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("Cidade{");
-        sb.append("id=").append(id);
-        sb.append(", nome='").append(nome).append('\'');
-        sb.append(", estado=").append(estado);
-        sb.append('}');
-        return sb.toString();
+        String sb = "Cidade{" + "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", estado=" + estado +
+                '}';
+        return sb;
     }
 }
 

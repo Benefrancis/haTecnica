@@ -1,5 +1,6 @@
 package desafio.domain.servico;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import desafio.domain.servico.dto.PutTipoServico;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -64,53 +65,52 @@ public class TipoServico {
 
     public static TipoServico ORCAMENTO() {
         return TipoServico.builder()
-                .id(1l)
+                .id(1L)
                 .nome("Orçamento")
                 .build();
     }
 
     public static TipoServico VISITA_TECNICA() {
         return TipoServico.builder()
-                .id(2l)
+                .id(2L)
                 .nome("Visita Técnica")
                 .build();
     }
 
     public static TipoServico LIMPEZA() {
         return TipoServico.builder()
-                .id(3l)
+                .id(3L)
                 .nome("Limpeza")
                 .build();
     }
 
     public static TipoServico SUBSTITUICAO_DE_PECA() {
         return TipoServico.builder()
-                .id(4l)
+                .id(4L)
                 .nome("Substituição de Peça")
                 .build();
     }
 
     public static TipoServico UPGRADE_DE_SISTEMA_OPERACIONAL() {
         return TipoServico.builder()
-                .id(5l)
+                .id(5L)
                 .nome("Upgrade de Sistema Operacional")
                 .build();
     }
 
     public static TipoServico INSTALACAO_DE_SOFTWARE() {
         return TipoServico.builder()
-                .id(6l)
+                .id(6L)
                 .nome("Instalação de Software")
                 .build();
     }
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("TipoServico{");
-        sb.append("id=").append(id);
-        sb.append(", nome='").append(nome).append('\'');
-        sb.append('}');
-        return sb.toString();
+        String sb = "TipoServico{" + "id=" + id +
+                ", nome='" + nome + '\'' +
+                '}';
+        return sb;
     }
 
 }

@@ -23,6 +23,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 @Slf4j
@@ -118,7 +119,7 @@ public class DadosBasicos implements ApplicationRunner {
 
         //Persistindo Tipos Básicos de País
         log.info("Populando database com os dados do Brasil...");
-        List<Pais> paises = Arrays.asList(
+        List<Pais> paises = Collections.singletonList(
                 Pais.BRASIL()
         );
 

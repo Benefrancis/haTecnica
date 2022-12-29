@@ -23,7 +23,6 @@ public class SecurityFilter extends OncePerRequestFilter {
     private UsuarioRepository repository;
 
 
-
     private String recuperarToken(HttpServletRequest request) {
 
         var authorizationHeader = request.getHeader("Authorization");
@@ -50,10 +49,12 @@ public class SecurityFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
+        //throws ServletException, IOException
         var tokenJWT = recuperarToken(request);
 
 
         if (tokenJWT != null) {
+
 
             var subject = tokenService.getSubject(tokenJWT);
 

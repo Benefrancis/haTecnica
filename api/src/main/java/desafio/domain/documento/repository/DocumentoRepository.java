@@ -13,7 +13,7 @@ import java.util.List;
 public interface DocumentoRepository extends JpaRepository<Documento, Long> {
 
     @Query("FROM Documento d where d.cliente.id=:id")
-    public Page<Documento> findByClienteId(Long id, Pageable paginacao);
+    Page<Documento> findByClienteId(Long id, Pageable paginacao);
 
 
 }

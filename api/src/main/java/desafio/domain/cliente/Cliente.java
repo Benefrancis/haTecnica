@@ -1,5 +1,7 @@
 package desafio.domain.cliente;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import desafio.domain.cliente.dto.PutCliente;
 import jakarta.persistence.*;
 import lombok.*;
@@ -36,6 +38,7 @@ import java.util.Objects;
 @ToString
 @RequiredArgsConstructor
 @AllArgsConstructor
+
 public class Cliente {
 
     @Id

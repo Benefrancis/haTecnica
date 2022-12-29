@@ -1,11 +1,16 @@
 package desafio.domain.cliente.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import desafio.domain.cliente.Cliente;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Past;
 
 import java.time.LocalDate;
-
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public record PutCliente(
 
         Long id,
@@ -35,13 +40,12 @@ public record PutCliente(
 
     public PutCliente(Cliente c) {
         this(
-                c.getId(),
-                c.getNome(),
-                c.getEmail(),
-                c.getNascimento(),
-                new PutTipoCliente(c.getTipo()),
-                new PutTelefone(c.getTelefone())
-
+                c != null && c.getId() != null ? c.getId() : null,
+                c != null && c.getNome() != null ? c.getNome() : null,
+                c != null && c.getEmail() != null ? c.getEmail() : null,
+                c != null && c.getNascimento() != null ? c.getNascimento() : null,
+                c != null && c.getTipo() != null ? new PutTipoCliente(c.getTipo()) : null,
+                c != null && c.getTelefone() != null ? new PutTelefone(c.getTelefone()) : null
         );
     }
 }

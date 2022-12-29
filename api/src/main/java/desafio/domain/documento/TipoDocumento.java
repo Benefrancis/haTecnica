@@ -1,5 +1,7 @@
 package desafio.domain.documento;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import desafio.domain.documento.dto.PutTipoDocumento;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -57,31 +59,30 @@ public class TipoDocumento {
 
     public static TipoDocumento RG() {
         return TipoDocumento.builder()
-                .id(1l)
+                .id(1L)
                 .nome("RG")
                 .build();
     }
 
     public static TipoDocumento CPF() {
         return TipoDocumento.builder()
-                .id(2l)
+                .id(2L)
                 .nome("CPF")
                 .build();
     }
 
     public static TipoDocumento CNPJ() {
         return TipoDocumento.builder()
-                .id(3l)
+                .id(3L)
                 .nome("CNPJ")
                 .build();
     }
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("TipoDocumento{");
-        sb.append("id=").append(id);
-        sb.append(", nome='").append(nome).append('\'');
-        sb.append('}');
-        return sb.toString();
+        String sb = "TipoDocumento{" + "id=" + id +
+                ", nome='" + nome + '\'' +
+                '}';
+        return sb;
     }
 }

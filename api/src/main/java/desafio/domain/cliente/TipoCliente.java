@@ -1,6 +1,8 @@
 package desafio.domain.cliente;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import desafio.domain.cliente.dto.PutTipoCliente;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -30,6 +32,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+
 public class TipoCliente {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_HT_TIPO_CLIENTE")
@@ -82,7 +85,7 @@ public class TipoCliente {
 
     public static TipoCliente PF() {
         return TipoCliente.builder()
-                .id(1l)
+                .id(1L)
                 .nome("Pessoa Física")
                 .sigla("PF")
                 .build();
@@ -90,7 +93,7 @@ public class TipoCliente {
 
     public static TipoCliente PJ() {
         return TipoCliente.builder()
-                .id(2l)
+                .id(2L)
                 .nome("Pessoa Jurídica")
                 .sigla("PJ")
                 .build();
@@ -98,11 +101,10 @@ public class TipoCliente {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("TipoCliente{");
-        sb.append("id=").append(id);
-        sb.append(", nome='").append(nome).append('\'');
-        sb.append(", sigla='").append(sigla).append('\'');
-        sb.append('}');
-        return sb.toString();
+        String sb = "TipoCliente{" + "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", sigla='" + sigla + '\'' +
+                '}';
+        return sb;
     }
 }

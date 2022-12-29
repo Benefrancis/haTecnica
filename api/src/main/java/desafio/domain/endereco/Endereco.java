@@ -1,5 +1,7 @@
 package desafio.domain.endereco;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import desafio.domain.cliente.Cliente;
 import desafio.domain.endereco.dto.PutEndereco;
 import jakarta.persistence.*;
@@ -147,17 +149,16 @@ public class Endereco {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("Endereco{");
-        sb.append("id=").append(id);
-        sb.append(", logradouro='").append(logradouro).append('\'');
-        sb.append(", numero='").append(numero).append('\'');
-        sb.append(", complemento='").append(complemento).append('\'');
-        sb.append(", bairro='").append(bairro).append('\'');
-        sb.append(", cep='").append(cep).append('\'');
-        sb.append(", cidade=").append(cidade);
-        sb.append(", cliente=").append(cliente);
-        sb.append('}');
-        return sb.toString();
+        String sb = "Endereco{" + "id=" + id +
+                ", logradouro='" + logradouro + '\'' +
+                ", numero='" + numero + '\'' +
+                ", complemento='" + complemento + '\'' +
+                ", bairro='" + bairro + '\'' +
+                ", cep='" + cep + '\'' +
+                ", cidade=" + cidade +
+                ", cliente=" + cliente +
+                '}';
+        return sb;
     }
 }
 

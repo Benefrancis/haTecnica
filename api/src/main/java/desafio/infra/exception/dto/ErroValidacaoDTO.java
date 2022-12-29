@@ -6,7 +6,7 @@ import org.springframework.validation.FieldError;
 import java.time.LocalDateTime;
 
 public record ErroValidacaoDTO(
-        Integer status,
+        HttpStatus status,
         String campo,
         String localizedMessage,
         String message,
@@ -14,6 +14,6 @@ public record ErroValidacaoDTO(
         LocalDateTime timestamp
 ) {
     public ErroValidacaoDTO(FieldError erro) {
-        this(HttpStatus.BAD_REQUEST.value(), erro.getField(), erro.getDefaultMessage(), erro.getDefaultMessage(), LocalDateTime.now());
+        this(HttpStatus.BAD_REQUEST, erro.getField(), erro.getDefaultMessage(), erro.getDefaultMessage(), LocalDateTime.now());
     }
 }

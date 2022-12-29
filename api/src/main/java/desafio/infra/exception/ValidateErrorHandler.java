@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.List;
 
+
 @RestControllerAdvice
 public class ValidateErrorHandler {
 
@@ -25,32 +26,46 @@ public class ValidateErrorHandler {
         return ResponseEntity.notFound().build();
     }
 
+    @ExceptionHandler(TipoServicoNotFoundException.class)
+    public ResponseEntity<ErrorMessageDTO> tratarErroJaExiste(TipoServicoNotFoundException ex) {
+        return ResponseEntity.status(404).body(new ErrorMessageDTO(ex));
+    }
+
+
+    @ExceptionHandler(EntidadeNaoEncontradaException.class)
+    public ResponseEntity<ErrorMessageDTO> tratarErroJaExiste(EntidadeNaoEncontradaException ex) {
+        return ResponseEntity.status(404).body(new ErrorMessageDTO(ex));
+    }
+
+
     @ExceptionHandler(EntityExistsException.class)
     public ResponseEntity<ErrorMessageDTO> tratarErroJaExiste(EntityExistsException ex) {
-        return ResponseEntity.badRequest().body(new ErrorMessageDTO(ex));
+        return ResponseEntity.status(403).body(new ErrorMessageDTO(ex));
     }
 
     @ExceptionHandler(ServletException.class)
     public ResponseEntity<ErrorMessageDTO> tratarErroJaExiste(ServletException ex) {
-        return ResponseEntity.badRequest().body(new ErrorMessageDTO(ex));
+        return ResponseEntity.status(403).body(new ErrorMessageDTO(ex));
     }
 
     @ExceptionHandler(TokenExpiredException.class)
     public ResponseEntity<ErrorMessageDTO> tratarErroJaExiste(TokenExpiredException ex) {
-        return ResponseEntity.badRequest().body(new ErrorMessageDTO(ex));
+        return ResponseEntity.status(403).body(new ErrorMessageDTO(ex));
     }
+
     @ExceptionHandler(SignatureVerificationException.class)
     public ResponseEntity<ErrorMessageDTO> tratarErroJaExiste(SignatureVerificationException ex) {
-        return ResponseEntity.badRequest().body(new ErrorMessageDTO(ex));
+        return ResponseEntity.status(403).body(new ErrorMessageDTO(ex));
     }
+
     @ExceptionHandler(JWTCreationException.class)
     public ResponseEntity<ErrorMessageDTO> tratarErroJaExiste(JWTCreationException ex) {
-        return ResponseEntity.badRequest().body(new ErrorMessageDTO(ex));
+        return ResponseEntity.status(403).body(new ErrorMessageDTO(ex));
     }
 
     @ExceptionHandler(JWTVerificationException.class)
     public ResponseEntity<ErrorMessageDTO> tratarErroJaExiste(JWTVerificationException ex) {
-        return ResponseEntity.badRequest().body(new ErrorMessageDTO(ex));
+        return ResponseEntity.status(403).body(new ErrorMessageDTO(ex));
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

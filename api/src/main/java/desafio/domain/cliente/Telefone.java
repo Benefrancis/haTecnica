@@ -71,11 +71,10 @@ public class Telefone {
 
     @Override
     public String toString() {
-        final StringBuffer sb = new StringBuffer("Telefone{");
-        sb.append(", ddi='").append(ddi).append('\'');
-        sb.append(", ddd='").append(ddd).append('\'');
-        sb.append(", numero='").append(numero).append('\'');
-        sb.append('}');
-        return sb.toString();
+        String sb = "Telefone{" + ", ddi='" + ddi + '\'' +
+                ", ddd='" + ddd + '\'' +
+                ", numero='" + numero + '\'' +
+                '}';
+        return sb;
     }
 }

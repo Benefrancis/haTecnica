@@ -1,13 +1,13 @@
 package desafio.domain.servico.controller;
 
-import desafio.domain.documento.dto.PutTipoDocumento;
-import desafio.domain.servico.Servico;
+import desafio.domain.equipamento.repository.EquipamentoRepository;
 import desafio.domain.servico.TipoServico;
 import desafio.domain.servico.dto.ListServico;
 import desafio.domain.servico.dto.PutServico;
 import desafio.domain.servico.dto.PutTipoServico;
 import desafio.domain.servico.repository.ServicoRepository;
 import desafio.domain.servico.repository.TipoServicoRepository;
+import desafio.domain.servico.service.ServicoService;
 import jakarta.persistence.EntityExistsException;
 import jakarta.validation.Valid;
 import jakarta.validation.ValidationException;
@@ -26,16 +26,23 @@ import java.net.URI;
 @RequestMapping("/servico")
 public class ServicoController {
 
+
+    @Autowired
+    private ServicoService service;
+
     @Autowired
     private ServicoRepository repository;
 
     @Autowired
-    private TipoServicoRepository tipoServicoRepository;
+    private EquipamentoRepository equipamentoRepository;
 
+
+    @Autowired
+    private TipoServicoRepository tipoServicoRepository;
 
     @GetMapping
     public ResponseEntity<Page<ListServico>> findAll(@PageableDefault(size = 10, sort = {"id"}) Pageable paginacao) {
-        var page =  repository.findAll(paginacao).map(ListServico::new);
+        var page = repository.findAll(paginacao).map(ListServico::new);
         return ResponseEntity.ok(page);
     }
 
@@ -48,9 +55,17 @@ public class ServicoController {
     @PostMapping
     @Transactional
     public ResponseEntity<PutServico> save(@RequestBody @Valid PutServico dados, UriComponentsBuilder builder) {
-        var servico = repository.save(new Servico(dados));
-        URI uri = builder.path("/servico/{id}").buildAndExpand(servico.getId()).toUri();
-        return ResponseEntity.created(uri).body(new PutServico(servico));
+
+        var servico = service.save(dados);
+
+        if (servico != null) {
+            var ret = new PutServico(servico);
+            URI uri = builder.path("/servico/{id}").buildAndExpand(servico.getId()).toUri();
+            return ResponseEntity.created(uri).body(ret);
+        }
+
+        return ResponseEntity.internalServerError().body(null);
+
     }
 
 
@@ -80,7 +95,7 @@ public class ServicoController {
 
     @GetMapping("/tipo")
     public ResponseEntity<Page<PutTipoServico>> findAllTipoServico(@PageableDefault(size = 50, sort = {"nome"}) Pageable paginacao) {
-        var page =  tipoServicoRepository.findAll(paginacao).map(PutTipoServico::new);
+        var page = tipoServicoRepository.findAll(paginacao).map(PutTipoServico::new);
         return ResponseEntity.ok(page);
     }
 

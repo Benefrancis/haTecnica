@@ -4,6 +4,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.auth0.jwt.exceptions.SignatureVerificationException;
 import desafio.domain.usuario.Usuario;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -19,7 +20,7 @@ public class TokenService {
     @Value("${api.security.token.secret}")
     private String secret;
 
-    public String gerarToken(Usuario usuario) {
+    public String gerarToken(Usuario usuario) throws JWTCreationException, SignatureVerificationException, RuntimeException {
 
         try {
 
@@ -36,7 +37,8 @@ public class TokenService {
         }
     }
 
-    public String getSubject(String tokenJWT) {
+    public String getSubject(String tokenJWT) throws JWTVerificationException, SignatureVerificationException, RuntimeException {
+        //The Token's Signature resulted invalid when verified using the Algorithm: HmacSHA256
         try {
 
             var algoritmo = Algorithm.HMAC256(secret);
@@ -48,7 +50,7 @@ public class TokenService {
                     .getSubject();
 
         } catch (JWTVerificationException exception) {
-            throw new JWTVerificationException("Token JWT inválido ou expirado!");
+            throw new JWTVerificationException("Token JWT inválido ou expirado! " + exception.getMessage());
         }
     }
 

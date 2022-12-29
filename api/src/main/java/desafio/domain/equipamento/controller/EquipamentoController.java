@@ -7,10 +7,13 @@ import desafio.domain.equipamento.repository.TipoEquipamentoRepository;
 import desafio.domain.servico.dto.PutTipoServico;
 import jakarta.persistence.EntityExistsException;
 import jakarta.validation.Valid;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.MediaType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -25,9 +28,9 @@ public class EquipamentoController {
     private TipoEquipamentoRepository tipoEquipamentoRepository;
     @Autowired
     private TipoDocumentoRepository tipoDocumentoRepository;
-
-
     @GetMapping("/tipo")
+    @Produces(value = MediaType.APPLICATION_JSON +   ";charset=utf-8")
+
     public ResponseEntity<Page<PutTipoEquipamento>> findAllTipo(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
         var page =  tipoEquipamentoRepository.findAll(paginacao).map(PutTipoEquipamento::new);
         return ResponseEntity.ok(page);
@@ -47,7 +50,6 @@ public class EquipamentoController {
         }
         throw new RuntimeException("O nome do Tipo de Equipamento é obrigatório");
     }
-
 
     @GetMapping("/tipo/{id}")
     public ResponseEntity<PutTipoEquipamento> save(@PathVariable(name = "id") Long id) {

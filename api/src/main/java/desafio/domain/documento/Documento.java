@@ -1,5 +1,7 @@
 package desafio.domain.documento;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import desafio.domain.cliente.Cliente;
 import desafio.domain.documento.dto.PutDocumento;
 import jakarta.persistence.*;
@@ -117,14 +119,13 @@ public class Documento {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("Documento{");
-        sb.append("id=").append(id);
-        sb.append(", numero='").append(numero).append('\'');
-        sb.append(", cliente=").append(cliente);
-        sb.append(", tipo=").append(tipo);
-        sb.append(", emissao=").append(emissao);
-        sb.append(", validade=").append(validade);
-        sb.append('}');
-        return sb.toString();
+        String sb = "Documento{" + "id=" + id +
+                ", numero='" + numero + '\'' +
+                ", cliente=" + cliente +
+                ", tipo=" + tipo +
+                ", emissao=" + emissao +
+                ", validade=" + validade +
+                '}';
+        return sb;
     }
 }

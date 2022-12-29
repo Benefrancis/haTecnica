@@ -1,5 +1,7 @@
 package desafio.domain.documento.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import desafio.domain.cliente.Cliente;
 import desafio.domain.cliente.dto.PutCliente;
 import desafio.domain.documento.Documento;
@@ -9,7 +11,7 @@ import jakarta.validation.constraints.NotNull;
 import jdk.jshell.Snippet;
 
 import java.time.LocalDate;
-
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public record PutDocumento(
 
         Long id,

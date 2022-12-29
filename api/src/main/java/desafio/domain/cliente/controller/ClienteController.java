@@ -73,13 +73,10 @@ public class ClienteController {
     @PostMapping
     @Transactional
     public ResponseEntity<PutCliente> save(@RequestBody @Valid PutCliente dados, UriComponentsBuilder builder) {
-
         log.info("Recebido o pedido para cadastramento do cliente {}", dados);
-
         var cliente = service.save(new Cliente(dados));
-
         URI uri = builder.path("/cliente/{id}").buildAndExpand(cliente.getId()).toUri();
-        return ResponseEntity.created(uri).body(new PutCliente(cliente));
+        return ResponseEntity.created(uri).build();
     }
 
     @PutMapping
@@ -206,25 +203,13 @@ public class ClienteController {
     @Transactional
     public ResponseEntity<PutEquipamento> save(@PathVariable("id") Long id, @RequestBody @Valid PutEquipamento eq, UriComponentsBuilder builder) {
 
-        Cliente cliente = repository.findById(id).orElse(null);
+        log.info("Recebido o pedido para cadastramento do equipamento {} do cliente com id {}", eq, id);
+        Equipamento equipamento = equipamentoService.save(eq);
 
-        if (cliente != null && eq.cliente().id().equals(cliente.getId())) {
+        var ret = new PutEquipamento(equipamento);
 
-            var equipamento = new Equipamento(eq);
-            equipamento.setCliente(cliente);
-            equipamento = equipamentoService.save(equipamento).orElse(null);
-            var ret = new PutEquipamento(equipamento);
-
-            log.info("Recebido o pedido para cadastramento do equipamento {} do cliente com id {}", equipamento, id);
-
-            URI uri = builder.path("/equipamento/{id}").buildAndExpand(ret.id()).toUri();
-            return ResponseEntity.created(uri).body(ret);
-
-        } else {
-            var err = new RuntimeException("O ID do cliente no Json do Equipamento deve ser o mesmo da URI");
-            err.printStackTrace();
-            return ResponseEntity.badRequest().build();
-        }
+        URI uri = builder.path("/equipamento/{id}").buildAndExpand(ret.id()).toUri();
+        return ResponseEntity.created(uri).body(ret);
     }
 
     @PutMapping("/{id}/equipamento/{idEquipamento}")
